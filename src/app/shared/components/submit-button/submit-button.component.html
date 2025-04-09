@@ -1,0 +1,11 @@
+<button
+  type="submit"
+  class="w-full py-3 rounded-md transition-colors duration-300"
+  [disabled]="disabled"
+  [ngClass]="{
+    'bg-cyan-600 text-white hover:bg-cyan-700 cursor-pointer': !disabled,
+    'bg-[#EDEDED] text-gray-700 cursor-not-allowed': disabled
+  }"
+>
+  {{ label }}
+</button>

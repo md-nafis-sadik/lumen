@@ -1,0 +1,13 @@
+<div class="flex items-center space-x-6 text-lg">
+    <ng-container *ngFor="let icon of icons">
+      <a [href]="icon.link" target="_blank" rel="noopener noreferrer">
+        <ng-container [ngSwitch]="icon.type">
+          <i *ngSwitchCase="'fontawesome'" [class]="icon.className" style="font-size: 20px;"></i>
+          <svg *ngSwitchCase="'svg'" xmlns="http://www.w3.org/2000/svg" class="w-5" viewBox="0 0 512 512">
+            <path fill="#ffffff" [attr.d]="icon.svgPath"/>
+          </svg>
+        </ng-container>
+      </a>
+    </ng-container>
+  </div>
+  
