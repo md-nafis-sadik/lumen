@@ -1,0 +1,18 @@
+<div class="flex flex-col h-full w-14 border-r border-r-gray-200 py-4 items-center space-y-6">
+    <ng-container *ngFor="let item of menus">
+      <button 
+        (click)="selectMenu(item.key)"
+        [class.text-blue-600]="item.key === active" 
+        class="flex items-center justify-center w-full"
+      >
+        <!-- Dynamically render icons based on iconType (either Material or FontAwesome) -->
+        <ng-container *ngIf="item.iconType === 'material'; else faIcon">
+          <span class="material-icons">{{ item.icon }}</span>  <!-- Material icon -->
+        </ng-container>
+        <ng-template #faIcon>
+          <span [class]="getIconClass(item.icon, item.iconType)"></span>  <!-- FontAwesome icon -->
+        </ng-template>
+      </button>
+    </ng-container>
+  </div>
+  

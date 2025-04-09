@@ -1,0 +1,9 @@
+<div class="flex flex-col w-48 py-4 px-2 space-y-1">
+    <ng-container *ngFor="let item of getSubmenuItems()">
+      <button class="gap-2 px-2 py-2 rounded hover:bg-gray-100 w-full text-left">
+        <span class="material-icons text-sm">{{ item.icon }}</span>
+        <span class="text-sm">{{ item.label }}</span>
+      </button>
+    </ng-container>
+  </div>
+  

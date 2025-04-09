@@ -4,8 +4,8 @@ import { RouterModule } from '@angular/router';
 
 import { routes } from './app.routes';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './pages/login/login.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { LoginComponent } from './features/login/login.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [

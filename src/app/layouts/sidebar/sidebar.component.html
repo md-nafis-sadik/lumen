@@ -1,0 +1,8 @@
+<div class="flex h-full w-full bg-white border-r border-r-gray-200">
+    <!-- Left: Main Menu -->
+    <app-main-menu (menuSelect)="handleMenuChange($event)" [active]="selectedMenu" />
+  
+    <!-- Right: Submenu based on selected menu -->
+    <app-submenu [menu]="selectedMenu" />
+  </div>
+  
