@@ -64,4 +64,13 @@ export class SubmenuComponent implements OnInit {
   selectSubmenu(key: string) {
     this.activeSubmenu = key;
   }
+
+  channels = ['Pickleball Expert'];
+
+  addChannel() {
+    const name = prompt('Enter new channel name');
+    if (name) {
+      this.channels.push(name);
+    }
+  }
 }

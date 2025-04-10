@@ -4,15 +4,16 @@
   
     <div class="flex flex-1 overflow-hidden">
       <!-- Sidebar -->
-      <app-sidebar *ngIf="sidebarOpen" class="w-80 md:flex" [ngClass]="{
+      <app-sidebar *ngIf="sidebarOpen" [ngClass]="{
         'transform translate-x-0': sidebarOpen,
         'transform -translate-x-full': !sidebarOpen
       }" 
-      class="transition-transform duration-700 ease-in-out w-80 md:flex" />
+      class="transition-transform duration-700 w-[355px]" />
   
       <!-- Main content -->
-      <main class="flex-1 overflow-auto bg-gray-50 p-4">
-        <router-outlet />
+      <main class="flex-1 overflow-auto bg-[#F6F6F6] p-4">
+        <app-image-slider></app-image-slider>
+
       </main>
     </div>
   </div>
