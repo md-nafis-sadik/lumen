@@ -1,10 +1,14 @@
 <div class="flex flex-col h-screen overflow-hidden">
     <!-- Header -->
-    <app-header (menuClicked)="toggleSidebar()" />
+    <app-header (menuClicked)="toggleSidebar()" ngClass=""/>
   
     <div class="flex flex-1 overflow-hidden">
       <!-- Sidebar -->
-      <app-sidebar *ngIf="sidebarOpen" class="w-64 md:flex" />
+      <app-sidebar *ngIf="sidebarOpen" class="w-80 md:flex" [ngClass]="{
+        'transform translate-x-0': sidebarOpen,
+        'transform -translate-x-full': !sidebarOpen
+      }" 
+      class="transition-transform duration-700 ease-in-out w-80 md:flex" />
   
       <!-- Main content -->
       <main class="flex-1 overflow-auto bg-gray-50 p-4">

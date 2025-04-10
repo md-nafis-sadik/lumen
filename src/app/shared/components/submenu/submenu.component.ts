@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,32 +8,60 @@ import { CommonModule } from '@angular/common';
   templateUrl: './submenu.component.html',
   styleUrls: ['./submenu.component.css']
 })
-export class SubmenuComponent {
+export class SubmenuComponent implements OnInit {
   @Input() menu: string = 'booking';
+  activeSubmenu: string = '';  // To keep track of the active submenu
 
   getSubmenuItems() {
     const map: any = {
       booking: [
-        { icon: 'calendar_today', label: 'Book Court' },
-        { icon: 'history', label: 'Booking History' }
+        { key: 'bookCourt', icon: 'assets/icons/pickle-booking-icon.svg', label: 'Pickleball Booking' },
+        { key: 'events', icon: 'assets/icons/events-icon.svg', label: 'Events' },
+        { key: 'membership', icon: 'assets/icons/profile-circle-icon.svg', label: 'Membership' },
+        { key: 'shopping', icon: 'assets/icons/shopping-bag-icon.svg', label: 'Shopping' },
+        { key: 'bookingHistory', icon: 'assets/icons/headphone-icon.svg', label: 'Contact Support' }
       ],
       events: [
-        { icon: 'event_available', label: 'Upcoming Events' },
-        { icon: 'event_busy', label: 'Past Events' }
+        { key: 'upcomingEvents', icon: 'event_available', label: 'Upcoming Events' },
+        { key: 'pastEvents', icon: 'event_busy', label: 'Past Events' }
       ],
       memberships: [
-        { icon: 'person_add', label: 'Add Member' },
-        { icon: 'group', label: 'All Members' }
+        { key: 'addMember', icon: 'person_add', label: 'Add Member' },
+        { key: 'allMembers', icon: 'group', label: 'All Members' }
       ],
       shop: [
-        { icon: 'shopping_cart', label: 'My Orders' },
-        { icon: 'store', label: 'Browse Store' }
+        { key: 'myOrders', icon: 'shopping_cart', label: 'My Orders' },
+        { key: 'browseStore', icon: 'store', label: 'Browse Store' }
       ],
       support: [
-        { icon: 'help_outline', label: 'FAQs' },
-        { icon: 'contact_support', label: 'Contact Us' }
+        { key: 'faqs', icon: 'help_outline', label: 'FAQs' },
+        { key: 'contactUs', icon: 'contact_support', label: 'Contact Us' }
       ]
     };
     return map[this.menu] || [];
+  }
+
+  ngOnInit() {
+    // Set the first submenu item as active when the component is initialized
+    this.setActiveSubmenu();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['menu']) {
+      // When the menu changes, set the first submenu item of the new menu as active
+      this.setActiveSubmenu();
+    }
+  }
+
+  setActiveSubmenu() {
+    const firstItem = this.getSubmenuItems()[0];
+    if (firstItem) {
+      this.activeSubmenu = firstItem.key;
+    }
+  }
+
+  // Method to handle selection of submenu items
+  selectSubmenu(key: string) {
+    this.activeSubmenu = key;
   }
 }

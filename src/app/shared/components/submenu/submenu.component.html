@@ -1,9 +1,26 @@
-<div class="flex flex-col w-48 py-4 px-2 space-y-1">
-    <ng-container *ngFor="let item of getSubmenuItems()">
-      <button class="gap-2 px-2 py-2 rounded hover:bg-gray-100 w-full text-left">
-        <span class="material-icons text-sm">{{ item.icon }}</span>
-        <span class="text-sm">{{ item.label }}</span>
-      </button>
-    </ng-container>
+<div class="flex flex-col w-[250px] py-4 px-4" >
+  <input type="text" placeholder="Quick search" class="rounded-full border border-gray-200 bg-gray-50 pl-8 pr-4 py-[3px] mb-4 placeholder-custom bg-custom focus:outline-none focus:ring-2 focus:ring-[#9BDEEB]"/>
+  <div class="mb-3">Action Menu</div>
+  <div class="h-[300px] overflow-y-auto p-[1px]  space-y-1">
+  <ng-container *ngFor="let item of getSubmenuItems()">
+    <button 
+      (click)="selectSubmenu(item.key)" 
+      [class.ring-1]="item.key === activeSubmenu"
+      [class.ring-[#9BDEEB]]="item.key === activeSubmenu"
+      [class.border-b-2]="item.key === activeSubmenu"
+      [class.border-b-[#9BDEEB]]="item.key === activeSubmenu"
+      [class.bg-[#9BDEEB]]="item.key === activeSubmenu"
+      [style.background-color]="item.key === activeSubmenu ? 'rgba(155, 222, 235, 0.15)' : ''" 
+      class="gap-2 px-2 py-1.5 rounded-md hover:ring-1 hover:ring-[#9BDEEB] w-full text-left transition flex items-center"
+    >
+      <!-- Replace the icon with an image -->
+      <img 
+        [src]="item.icon"  
+        [alt]="item.label"
+        class="w-5 object-contain mr-1"  
+      />
+      <span class="text-[15px]">{{ item.label }}</span>
+    </button>
+  </ng-container>
   </div>
-  
+</div>

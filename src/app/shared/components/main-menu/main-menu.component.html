@@ -1,18 +1,21 @@
-<div class="flex flex-col h-full w-14 border-r border-r-gray-200 py-4 items-center space-y-6">
-    <ng-container *ngFor="let item of menus">
-      <button 
-        (click)="selectMenu(item.key)"
-        [class.text-blue-600]="item.key === active" 
-        class="flex items-center justify-center w-full"
-      >
-        <!-- Dynamically render icons based on iconType (either Material or FontAwesome) -->
-        <ng-container *ngIf="item.iconType === 'material'; else faIcon">
-          <span class="material-icons">{{ item.icon }}</span>  <!-- Material icon -->
-        </ng-container>
-        <ng-template #faIcon>
-          <span [class]="getIconClass(item.icon, item.iconType)"></span>  <!-- FontAwesome icon -->
-        </ng-template>
-      </button>
-    </ng-container>
-  </div>
-  
+<div class="flex flex-col h-full w-[68px] border-r-2 border-r-gray-100 py-4 items-center space-y-4">
+  <div class="text-gray-500 text-sm">Menu</div>
+  <ng-container *ngFor="let item of menus">
+    
+    <button 
+      (click)="selectMenu(item.key)"
+      [class.ring-1]="item.key === active"
+      [class.ring-[#9BDEEB]]="item.key === active"
+      [class.border-b-2]="item.key === active"
+      [class.border-b-[#9BDEEB]]="item.key === active"
+      
+      class="flex items-center justify-center w-[40px] h-10 rounded-lg hover:ring-1 hover:ring-[#9BDEEB] transition"
+    >
+      <img 
+        [src]="item.image" 
+        [alt]="item.key" 
+        class="w-[22px] h-[22px] object-contain" 
+      />
+    </button>
+  </ng-container>
+</div>

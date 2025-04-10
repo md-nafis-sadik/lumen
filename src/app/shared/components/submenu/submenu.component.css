@@ -1,0 +1,11 @@
+.placeholder-custom::placeholder {
+    color: #A1A1A1; 
+    font-size: 15px;
+  }
+  .bg-custom {
+    background-color: #fafafa;
+  }
+
+  .focus\:bg-custom:focus {
+    background-color: #fafafa;
+  }
