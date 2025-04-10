@@ -8,16 +8,15 @@ import { LoginComponent } from './features/login/login.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 
 @NgModule({
-  declarations: [
+  declarations: [],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes),
     AppComponent,
     LoginComponent,
     DashboardComponent,
   ],
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(routes),
-  ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [],
 })
 export class AppModule {}

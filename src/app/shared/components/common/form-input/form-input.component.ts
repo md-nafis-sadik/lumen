@@ -7,12 +7,13 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './form-input.component.html',
-  styleUrls: ['./form-input.component.css']
+  styleUrls: ['./form-input.component.css'],
 })
 export class FormInputComponent {
   @Input() type: string = 'text';
   @Input() placeholder: string = '';
   @Input() name: string = '';
+  @Input() autocomplete: string = '';
 
   @Input() value: any;
   @Output() valueChange = new EventEmitter<any>();

@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './password-toggle-input.component.html',
-  styleUrls: ['./password-toggle-input.component.css']
+  styleUrls: ['./password-toggle-input.component.css'],
 })
 export class PasswordToggleInputComponent {
   @Input() value: string = '';
@@ -15,6 +15,7 @@ export class PasswordToggleInputComponent {
 
   @Input() placeholder: string = 'Enter your password';
   @Input() name: string = 'password';
+  @Input() autocomplete: string = '';
 
   showPassword: boolean = false;
 
