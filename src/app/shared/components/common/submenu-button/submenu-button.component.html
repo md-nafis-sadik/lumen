@@ -1,0 +1,13 @@
+<button 
+  (click)="handleClick()" 
+  [ngStyle]="{
+    'background-color': isActive ? activeBackgroundColor : '',
+    'color': textColor,
+    'border-bottom': isActive ? '2px solid ' + activeRingColor : '',
+    'box-shadow': isActive ? '0 0 0 1px ' + activeRingColor : '',
+  }"
+  class="gap-2 px-2 py-1.5 rounded-md w-[250px] text-left transition flex items-center cursor-pointer"
+>
+  <img [src]="icon" [alt]="label" class="w-5 object-contain mr-1" />
+  <span class="text-[15px]">{{ label }}</span>
+</button>

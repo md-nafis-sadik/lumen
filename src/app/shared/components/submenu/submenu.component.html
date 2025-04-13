@@ -1,29 +1,27 @@
 <div class="flex flex-col justify-between h-full p-4" >
   <div class="">
-  <input type="text" placeholder="Quick search" class="rounded-full border border-gray-200 w-[250px] bg-gray-50 pl-8 pr-4 py-[4px] mb-4 placeholder-custom bg-custom focus:outline-none focus:ring-2 focus:ring-[#9BDEEB]"/>
+    <app-search-input
+    [(model)]="searchQuery"
+    placeholder="Quick search"
+  />
+  
   <div class="mb-3">Action Menu</div>
-  <div class="h-[220px] overflow-y-auto p-[1px]  space-y-1">
-  <ng-container *ngFor="let item of getSubmenuItems()">
-    <button 
-      (click)="selectSubmenu(item.key)" 
-      [class.ring-1]="item.key === activeSubmenu"
-      [class.ring-[#9BDEEB]]="item.key === activeSubmenu"
-      [class.border-b-2]="item.key === activeSubmenu"
-      [class.border-b-[#9BDEEB]]="item.key === activeSubmenu"
-      [class.bg-[#9BDEEB]]="item.key === activeSubmenu"
-      [style.background-color]="item.key === activeSubmenu ? 'rgba(155, 222, 235, 0.15)' : ''" 
-      class="gap-2 px-2 py-1.5 rounded-md hover:ring-1 hover:ring-[#9BDEEB] w-[250px] text-left transition flex items-center cursor-pointer"
-    >
-      <!-- Replace the icon with an image -->
-      <img 
-        [src]="item.icon"  
-        [alt]="item.label"
-        class="w-5 object-contain mr-1"  
-      />
-      <span class="text-[15px]">{{ item.label }}</span>
-    </button>
-  </ng-container>
+  <div class="h-[220px] overflow-y-auto p-[1px] space-y-2">
+    <ng-container *ngFor="let item of getSubmenuItems()">
+      <app-submenu-button
+        [icon]="item.icon"
+        [label]="item.label"
+        [isActive]="item.key === activeSubmenu"
+        [activeRingColor]="'#9BDEEB'"
+        [textColor]="'#000000'"
+        [activeBackgroundColor]="'rgba(155, 222, 235, 0.15)'"
+        (buttonClick)="selectSubmenu(item.key)"
+        class="w-full" 
+      ></app-submenu-button>
+    </ng-container>
   </div>
+  
+  
   <div class="">
     <div class="flex items-center justify-between mb-4">
       <h2 class="">Chat Channels</h2>

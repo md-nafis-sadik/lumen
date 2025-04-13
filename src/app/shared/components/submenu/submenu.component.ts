@@ -1,17 +1,21 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrimaryButtonComponent } from '../common/primary-button/primary-button.component';
+import { SearchInputComponent } from '../common/search-input/search-input.component';
+import { SubmenuButtonComponent } from '../common/submenu-button/submenu-button.component';
 
 @Component({
   selector: 'app-submenu',
   standalone: true,
-  imports: [CommonModule, PrimaryButtonComponent],
+  imports: [CommonModule, PrimaryButtonComponent, SearchInputComponent, SubmenuButtonComponent],
   templateUrl: './submenu.component.html',
   styleUrls: ['./submenu.component.css']
 })
 export class SubmenuComponent implements OnInit {
   @Input() menu: string = 'booking';
   activeSubmenu: string = '';  // To keep track of the active submenu
+  searchQuery = '';
+
 
   getSubmenuItems() {
     const map: any = {
@@ -74,4 +78,5 @@ export class SubmenuComponent implements OnInit {
       this.channels.push(name);
     }
   }
+
 }

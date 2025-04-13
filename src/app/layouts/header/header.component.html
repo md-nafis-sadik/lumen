@@ -2,25 +2,20 @@
     <!-- Toggle button (left) -->
      <div class="flex">
 
-    <span class="w-10 flex items-center justify-center mr-10 cursor-pointer" (click)="menuClicked.emit()">
-        <img src="assets/icons/bars-icon.svg" class="w-5"/>
-          
-        </span>
+      <app-toggle-button
+        iconPath="assets/icons/bars-icon.svg"
+        (clicked)="menuClicked.emit()">
+      </app-toggle-button>
+    
     <app-logo customClass="" />
     </div>
   
     <!-- Right section -->
     <div class="flex items-center">
-      <button class="cursor-pointer">
-        <img src="assets/icons/sun-shine-icon.svg" class="w-8"/>
-      </button>
-      <button class="cursor-pointer">
-        <img src="assets/icons/gear-icon.svg" class="w-5 ml-3"/>
-      </button>
-      <button class="cursor-pointer">
-        <img src="assets/icons/bell-null-icon.svg" class="w-[17px] ml-5"/>
-      </button >
-      <img src="assets/icons/Avatar.png" class="w-8 h-8 rounded-full ml-5 cursor-pointer" />
+      <app-icon-button iconSrc="assets/icons/sun-shine-icon.svg" iconClass="w-8" (click)="onSunClick()"></app-icon-button>
+      <app-icon-button iconSrc="assets/icons/gear-icon.svg" iconClass="w-5 ml-3" (click)="onGearClick()"></app-icon-button>
+      <app-icon-button iconSrc="assets/icons/bell-null-icon.svg" iconClass="w-[17px] ml-5" (click)="onBellClick()"></app-icon-button>
+      <app-avatar src="assets/icons/Avatar.png" customClass="w-8 h-8 rounded-full ml-5"></app-avatar>
     </div>
   </header>
   

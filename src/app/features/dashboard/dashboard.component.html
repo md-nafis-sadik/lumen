@@ -12,7 +12,53 @@
   
       <!-- Main content -->
       <main class="flex-1 overflow-auto bg-[#F6F6F6] p-4">
-        <app-image-slider></app-image-slider>
+        
+        <app-image-slider
+        [slides]="sliderSlides"
+        [autoPlay]="true"  
+        [interval]="5000"   
+        ></app-image-slider>
+
+        <div class="p-6 bg-gray-50 min-h-screen flex flex-col items-center gap-4">
+          <h2 class="text-xl font-semibold text-center">How can I assist you today?</h2>
+        
+          <div class="flex flex-wrap justify-center gap-3">
+            <button class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
+              <img src="assets/icons/calender-icon.svg"/>
+              Upcoming Bookings
+            </button>
+            <button class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
+              <img src="assets/icons/pickle-racket-icon.svg"/>
+              Pickleball Court
+            </button>
+            <button class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
+              <img src="assets/icons/square-plus-icon.svg"/>
+              Doctor Appointment
+            </button>
+            <button class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
+              <img src="assets/icons/payment-history-icon.svg"/>
+              Payment History
+            </button>
+          </div>
+        
+          <div class="w-full max-w-[750px] mt-6 flex items-center border border-gray-200 rounded-xl bg-white px-4 py-2 shadow">
+            <input
+              type="text"
+              placeholder="Type here..."
+              class="flex-1 outline-none text-sm px-2"
+            />
+            <div class="flex items-center gap-3 text-gray-500">
+              <img src="assets/icons/plus-chat-icon.svg"/>
+              <img src="assets/icons/mike-icon.svg"/>
+              <img src="assets/icons/echo-icon.svg"/>
+            </div>
+            <button class="ml-2 text-white bg-gray-200 rounded-xl p-2 hover:bg-gray-400">
+              <img src="assets/icons/send-icon.svg"/>
+            </button>
+          </div>
+        </div>
+        
+
 
       </main>
     </div>

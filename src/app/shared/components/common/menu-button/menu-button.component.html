@@ -1,0 +1,10 @@
+<button 
+  [ngClass]="buttonClasses"
+  (click)="click.emit()"
+>
+  <img 
+    [src]="image" 
+    [alt]="alt" 
+    class="w-[22px] h-[22px] object-contain" 
+  />
+</button>

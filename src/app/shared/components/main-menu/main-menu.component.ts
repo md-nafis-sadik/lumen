@@ -1,10 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MenuButtonComponent } from '../common/menu-button/menu-button.component';
 
 @Component({
   selector: 'app-main-menu',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MenuButtonComponent],
   templateUrl: './main-menu.component.html',
   styleUrls: ['./main-menu.component.css']
 })

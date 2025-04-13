@@ -1,61 +1,49 @@
 <div class="w-full max-w-md space-y-6">
 
-    <app-logo customClass="mb-6" />
+  <app-logo customClass="mb-6" />
 
-    <div class="">
-      <h2 class="text-4xl lg:text-5xl font-bold mb-4 text-center lg:text-start">Sign in</h2>
-      <p class="text-md text-gray-500 text-center lg:text-start">Enter your personal details and start journey with us</p>
-    </div>
-
-    <form class="space-y-4" (ngSubmit)="onSubmit()">
-      <app-form-input
-        [(value)]="email"
-        name="email"
-        placeholder="Enter your email"
-        type="email"
-        autocomplete="email"
-        label="Email"
-      ></app-form-input>
-
-      <app-password-toggle-input
-        [(value)]="password"
-        name="password"
-        placeholder="Enter your password"
-        type="password"
-        autocomplete="current-password"
-        label="Password"
-      />
-
-      <app-submit-button
-        [label]="'Sign in'"
-        [disabled]="!isFormValid()"
-      />
-
-    </form>
-
-
-    <div class="flex items-center gap-2 text-sm text-gray-400">
-      <div class="flex-1 h-px bg-gray-300"></div>
-      Or
-      <div class="flex-1 h-px bg-gray-300"></div>
-    </div>
-
-    <div class="space-x-2 lg:flex justify-between">
-      <app-social-button
-        imageSrc="assets/icons/google-icon.svg"
-        imageAlt="Google logo"
-        label="Sign in with Google"
-      />
-
-      <app-social-button
-        iconClass="fa-brands fa-apple"
-        label="Sign in with Apple"
-      />
-
-    </div>
-
-    <p class="text-center text-sm">
-      New to Lumen?
-      <a href="/signup" class="text-cyan-600 hover:underline">Sign Up</a>
-    </p>
+  <div class="">
+    <h2 class="text-4xl lg:text-5xl font-bold mb-4 text-center lg:text-start">Sign in</h2>
+    <p class="text-md text-gray-500 text-center lg:text-start">Enter your personal details and start journey with us</p>
   </div>
+
+  <form class="space-y-4" (ngSubmit)="onSubmit()">
+    <app-form-input [(value)]="email" name="email" placeholder="Enter your email" type="email" autocomplete="email"
+      label="Email"></app-form-input>
+
+    <app-password-toggle-input [(value)]="password" name="password" placeholder="Enter your password" type="password"
+      autocomplete="current-password" label="Password" />
+
+    <div class="flex justify-between items-center text-sm">
+
+        <div class="flex items-center"><input type="checkbox" />
+          <span class="ml-2 text-gray-800">Keep me signed in</span>
+        </div>
+        <div><a href="#" class="text-[#09B3D1]">Forgot password</a></div>
+
+
+    </div>
+
+    <app-submit-button [label]="'Sign in'" [disabled]="!isFormValid()" />
+
+  </form>
+
+
+  <div class="flex items-center gap-2 text-sm text-gray-400">
+    <div class="flex-1 h-px bg-gray-300"></div>
+    Or
+    <div class="flex-1 h-px bg-gray-300"></div>
+  </div>
+
+  <div class="space-x-2 lg:flex justify-between">
+    <app-social-button imageSrc="assets/icons/google-icon.svg" imageAlt="Google logo" label="Sign in with Google" />
+
+    <app-social-button iconClass="fa-brands fa-apple" label="Sign in with Apple" />
+
+  </div>
+
+  <p class="text-center text-sm">
+    New to Lumen?
+    <a href="/signup" class="text-[#09B3D1] hover:underline">Sign Up</a>
+  </p>
+</div>

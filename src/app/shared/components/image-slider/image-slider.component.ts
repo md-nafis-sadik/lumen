@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrimaryButtonComponent } from '../common/primary-button/primary-button.component';
 
@@ -9,6 +9,13 @@ interface Slide {
   buttonText: string;
   patternUrl: string;
   imageUrl: string;
+  gradient?: string;
+  textColor?: string;
+  highlightColor?: string;
+  buttonColor?: string;
+  buttonHoverColor?: string;
+  duration?: number; // Optional duration for this slide
+  autoPlay?: boolean; // Optional autoplay setting for this slide
 }
 
 @Component({
@@ -17,34 +24,25 @@ interface Slide {
   imports: [CommonModule, PrimaryButtonComponent],
   templateUrl: './image-slider.component.html',
   styleUrls: ['./image-slider.component.css'],
-
 })
 export class ImageSliderComponent implements OnInit {
-  slides: Slide[] = [
-    {
-      title: 'Play More,',
-      highlight: 'Search Less!',
-      description: 'Reserve your favourite pickleball court effortlessly.',
-      buttonText: 'Learn more',
-      patternUrl: 'assets/patterns/Vector.svg',
-      imageUrl: 'assets/images/2025/girl-playing.png'
-    },
-    {
-      title: 'Join the Game,',
-      highlight: 'Win the Fun!',
-      description: 'Find and book top-rated pickleball courts near you.',
-      buttonText: 'Get Started',
-      patternUrl: 'assets/patterns/Vector.svg',
-      imageUrl: 'assets/images/2025/girl-playing.png'
-    }
-  ];
+  @Input() slides: Slide[] = [];
+  @Input() autoPlay: boolean = true;  // Global autoPlay control (optional)
+  @Input() interval: number = 5000;    // Default interval for autoplay (optional)
 
   activeSlide = 0;
 
   ngOnInit(): void {
+    // Check if autoplay is enabled globally
+    if (this.autoPlay) {
+      this.startAutoPlay();
+    }
+  }
+
+  startAutoPlay(): void {
     setInterval(() => {
       this.activeSlide = (this.activeSlide + 1) % this.slides.length;
-    }, 5000); // every 5s
+    }, this.interval);
   }
 
   goToSlide(index: number): void {
