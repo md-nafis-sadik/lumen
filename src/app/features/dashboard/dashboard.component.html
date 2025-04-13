@@ -1,6 +1,6 @@
 <div class="flex flex-col h-screen overflow-hidden">
     <!-- Header -->
-    <app-header (menuClicked)="toggleSidebar()" ngClass=""/>
+    <app-header (menuClicked)="toggleSidebar()" ngClass="max-h-[70px]"/>
   
     <div class="flex flex-1 overflow-hidden">
       <!-- Sidebar -->
@@ -8,7 +8,7 @@
         'transform translate-x-0': sidebarOpen,
         'transform -translate-x-full': !sidebarOpen
       }" 
-      class="transition-transform duration-700 w-[355px]" />
+      class="transition-transform duration-700 w-[355px] absolute lg:relative z-50 h-[calc(100vh-70px)] lg:h-auto" />
   
       <!-- Main content -->
       <main class="flex-1 overflow-auto bg-[#F6F6F6] p-4">

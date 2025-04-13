@@ -1,1 +1,14 @@
-<p>primary-button works!</p>
+<button
+  class="mt-4 w-[130px] text-white text-base py-2 rounded-lg transition-colors cursor-pointer"
+  [ngStyle]="{
+    'background-color': bgColor
+  }"
+  [ngClass]="{
+    'hovered': true
+  }"
+  (mouseenter)="hovering = true"
+  (mouseleave)="hovering = false"
+  [style.backgroundColor]="hovering ? hoverColor : bgColor"
+>
+  {{ text }}
+</button>

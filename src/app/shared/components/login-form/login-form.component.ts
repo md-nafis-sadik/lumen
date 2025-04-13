@@ -10,13 +10,13 @@ import { SubmitButtonComponent } from '../common/submit-button/submit-button.com
 
 
 @Component({
-  selector: 'app-auth-form',
+  selector: 'app-login-form',
   imports: [CommonModule, FormsModule, LogoComponent, FormInputComponent, PasswordToggleInputComponent, SocialSigninButtonComponent, SubmitButtonComponent],
   standalone: true,
-  templateUrl: './auth-form.component.html',
-  styleUrl: './auth-form.component.css'
+  templateUrl: './login-form.component.html',
+  styleUrl: './login-form.component.css'
 })
-export class AuthFormComponent {
+export class LoginFormComponent {
   email = '';
   password = '';
   showPassword = false;

@@ -11,8 +11,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class FormInputComponent {
   @Input() type: string = 'text';
-  @Input() placeholder: string = '';
+  @Input() placeholder?: string = '';
   @Input() name: string = '';
+  @Input() label?: string;
   @Input() autocomplete: string = '';
 
   @Input() value: any;

@@ -1,10 +1,11 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PrimaryButtonComponent } from '../common/primary-button/primary-button.component';
 
 @Component({
   selector: 'app-submenu',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PrimaryButtonComponent],
   templateUrl: './submenu.component.html',
   styleUrls: ['./submenu.component.css']
 })

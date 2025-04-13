@@ -3,17 +3,34 @@
     <app-logo customClass="mb-6" />
 
     <div class="">
-      <h2 class="text-4xl lg:text-5xl font-bold mb-4 text-center lg:text-start">Sign in</h2>
+      <h2 class="text-4xl lg:text-5xl font-bold mb-4 text-center lg:text-start">Sign up</h2>
       <p class="text-md text-gray-500 text-center lg:text-start">Enter your personal details and start journey with us</p>
     </div>
 
     <form class="space-y-4" (ngSubmit)="onSubmit()">
+      <div class="flex space-x-4 mb-0">
+        <app-form-input
+          [(value)]="first_name"
+          name="first_name"
+          type="text"
+          autocomplete="first_name"
+          label="First name"
+        ></app-form-input>
+        <app-form-input
+          [(value)]="last_name"
+          name="last_name"
+          type="text"
+          autocomplete="last_name"
+          label="Last name"
+        ></app-form-input>
+      </div>
+
       <app-form-input
-        [(value)]="email"
-        name="email"
-        placeholder="Enter your email"
-        type="email"
-        autocomplete="email"
+          [(value)]="phone"
+          name="phone"
+          type="telephone"
+          autocomplete="phone"
+          label="Phone Number"
       ></app-form-input>
 
       <app-password-toggle-input
@@ -22,6 +39,8 @@
         placeholder="Enter your password"
         type="password"
         autocomplete="current-password"
+        label="Password"
+        [showStrength]="true"
       />
 
       <app-submit-button
@@ -31,7 +50,7 @@
 
     </form>
 
-
+<div class="text center text-gray-500">By signing up, you acknowledge that you have read and understood, and agree to Unkrn  <a href="#" class="text-gray-900 underline">Terms</a> and <a href="#" class="text-gray-900 underline">Privacy Policy</a>.</div>
     <div class="flex items-center gap-2 text-sm text-gray-400">
       <div class="flex-1 h-px bg-gray-300"></div>
       Or
@@ -53,7 +72,7 @@
     </div>
 
     <p class="text-center text-sm">
-      New to Lumen?
-      <a href="#" class="text-cyan-600 hover:underline">Sign Up</a>
+      Already have an account?
+      <a href="/login" class="text-cyan-600 hover:underline">Login</a>
     </p>
   </div>

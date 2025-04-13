@@ -57,9 +57,12 @@
       Upgrade to <span class="bg-[#D7F2F7] text-[#0799B7] text-sm font-medium px-2 py-1 rounded-md ml-1 align-middle">Pro</span>
     </h2>
     <p class="text-gray-500 mt-2 text-sm">Dorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    <button class="mt-4 w-[130px] bg-[#06ACCE] hover:bg-[#0799B7] text-white text-base py-2 rounded-lg transition-colors cursor-pointer">
-      Learn more
-    </button>
+
+    <app-primary-button
+      [text]="'Learn more'"
+      [bgColor]="'#06ACCE'"
+      [hoverColor]="'#0799B7'">
+    </app-primary-button>
   </div>
   
 </div>
