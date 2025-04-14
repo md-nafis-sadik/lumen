@@ -1,6 +1,7 @@
-<button 
-  [ngClass]="buttonClasses"
-  (click)="click.emit()"
+<button
+  class="flex items-center justify-center w-[40px] h-10 rounded-lg transition cursor-pointer"
+  [ngStyle]="isActive ? activeStyle : {}"
+  (click)="onClick()"
 >
   <img 
     [src]="image" 

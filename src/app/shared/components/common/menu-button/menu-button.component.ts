@@ -13,14 +13,27 @@ export class MenuButtonComponent {
   @Input() alt: string = '';
   @Input() isActive: boolean = false;
   @Input() activeColor: string = '#9BDEEB'; // Default active color
-  @Input() inactiveColor: string = '#D1D5DB'; // Default inactive color
+  @Input() inactiveColor: string = '#9BDEEB'; // Default inactive color
 
   @Output() click = new EventEmitter<void>(); // Define the output click event
 
-  get buttonClasses(): string {
-    return this.isActive
-      ? `flex items-center justify-center w-[40px] h-10 rounded-lg ring-1 ring-[${this.activeColor}] border-b-2 border-b-[${this.activeColor}]`
-      : `flex items-center justify-center w-[40px] h-10 rounded-lg hover:ring-1 hover:ring-[${this.inactiveColor}] transition cursor-pointer`;
+  get baseButtonClass(): string {
+    return 'flex items-center justify-center w-[40px] h-10 rounded-lg transition cursor-pointer';
+  }
+  
+  get buttonStyle(): { [klass: string]: any } {
+    const color = this.isActive ? this.activeColor : this.inactiveColor;
+    return {
+      'borderBottom': `2px solid ${color}`,
+      'boxShadow': `0 0 0 1px ${color}`, // mimic ring
+    };
+  }
+  
+  get activeStyle(): { [key: string]: string } {
+    return {
+      borderBottom: `2px solid ${this.activeColor}`,
+      boxShadow: `0 0 0 1px ${this.activeColor}`, // mimics Tailwind ring
+    };
   }
 
   // Emit the click event when the button is clicked
