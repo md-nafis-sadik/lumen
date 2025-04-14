@@ -1,5 +1,5 @@
 <div
-  class="text-[13px] w-full flex items-center justify-between py-2.5 px-6 rounded-md  border border-[#EDEDED] hover:bg-gray-100 cursor-pointer"
+  class="text-[13px] w-full flex items-center justify-center py-2.5 px-6 rounded-md  border border-[#EDEDED] hover:bg-gray-100 cursor-pointer"
 >
   <ng-container *ngIf="imageSrc; else iconTemplate">
     <img [src]="imageSrc" [alt]="imageAlt" class="w-4" />
@@ -9,5 +9,5 @@
     <i *ngIf="iconClass" [class]="iconClass" style="font-size: 20px;"></i>
   </ng-template>
 
-  <span class="ml-2">{{ label }}</span>
+  <span class="ml-3">{{ label }}</span>
 </div>
