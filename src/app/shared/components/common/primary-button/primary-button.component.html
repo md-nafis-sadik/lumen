@@ -1,14 +1,8 @@
 <button
-  class="mt-4 w-[130px] text-white text-base py-2 rounded-lg transition-colors cursor-pointer"
-  [ngStyle]="{
-    'background-color': bgColor
-  }"
-  [ngClass]="{
-    'hovered': true
-  }"
+  [ngClass]="combinedClasses"
+  [style.backgroundColor]="hovering ? hoverColor : bgColor"
   (mouseenter)="hovering = true"
   (mouseleave)="hovering = false"
-  [style.backgroundColor]="hovering ? hoverColor : bgColor"
 >
   {{ text }}
 </button>

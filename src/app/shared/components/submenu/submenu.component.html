@@ -6,7 +6,7 @@
   />
   
   <div class="mb-3">Action Menu</div>
-  <div class="h-[220px] overflow-y-auto p-[1px] space-y-2">
+  <div class="h-[200px] overflow-y-auto p-[1px] space-y-2">
     <ng-container *ngFor="let item of getSubmenuItems()">
       <app-submenu-button
         [icon]="item.icon"
@@ -30,7 +30,7 @@
       </button>
     </div>
   
-    <ul class="space-y-2 h-[100px] overflow-y-auto">
+    <ul class="space-y-2 h-[50px] overflow-y-auto">
       <li *ngFor="let channel of channels" class="flex items-center space-x-3 px-1">
         <img
           src="assets/images/2025/avatar-image.svg"
@@ -43,23 +43,26 @@
   </div>
 </div>
 <div>
-  <div class="max-w-xs mx-auto rounded-2xl border border-[#EDEDED] bg-[#fafafa] p-4 text-center">
-    <div class="flex justify-center mb-4">
-      <div class="rounded-full bg-[#EBF9FB] p-3">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <div class="max-w-xs mx-auto rounded-2xl border border-[#EDEDED] bg-[#fafafa] p-3 text-center">
+    <div class="flex justify-center mb-2">
+      <div class="rounded-full bg-[#EBF9FB] p-1.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l2.09 6.26H21l-5.45 3.96 2.09 6.26L12 15.52l-5.64 3.96 2.09-6.26L3 9.26h6.91z" />
         </svg>
       </div>
     </div>
-    <h2 class="text-lg font-semibold text-gray-900">
-      Upgrade to <span class="bg-[#D7F2F7] text-[#0799B7] text-sm font-medium px-2 py-1 rounded-md ml-1 align-middle">Pro</span>
+    <h2 class=" font-semibold text-gray-900">
+      Upgrade to <span class="bg-[#D7F2F7] text-[#0799B7] text-sm font-medium px-2 py-0.5 rounded-md ml-1 align-middle">Pro</span>
     </h2>
-    <p class="text-gray-500 mt-2 text-sm">Dorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <p class="text-gray-500 mt-2 text-xs">Dorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 
     <app-primary-button
       [text]="'Learn more'"
       [bgColor]="'#06ACCE'"
-      [hoverColor]="'#0799B7'">
+      [hoverColor]="'#0799B7'"
+      fontSize="text-xs"
+      padding="py-2 px-3"
+      width="w-32">
     </app-primary-button>
   </div>
   
