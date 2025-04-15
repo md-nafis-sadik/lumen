@@ -1,6 +1,6 @@
-<button
-  class="flex items-center justify-center w-[40px] h-10 rounded-lg transition cursor-pointer"
-  [ngStyle]="isActive ? activeStyle : {}"
+<div
+  class="flex items-center justify-center w-[40px] h-10 rounded-lg transition-all duration-300 cursor-pointer"
+  [ngStyle]="isActive ? activeStyle : buttonStyle"
   (click)="onClick()"
 >
   <img 
@@ -8,4 +8,4 @@
     [alt]="alt" 
     class="w-[22px] h-[22px] object-contain" 
   />
-</button>
+</div>

@@ -6,37 +6,25 @@ import { RouterModule } from '@angular/router';
 import { ImageSliderComponent } from '../../shared/components/image-slider/image-slider.component';
 import { PickleballBookingCardComponent } from '../../shared/components/pickleball-booking-card/pickleball-booking-card.component';
 import { FormsModule } from '@angular/forms'
+import { SubmenuService } from '../../services/submenu.service';
+import { PrimaryButtonComponent } from '../../shared/components/common/primary-button/primary-button.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent, SidebarComponent, ImageSliderComponent, PickleballBookingCardComponent, FormsModule],
+  imports: [CommonModule, RouterModule, HeaderComponent, SidebarComponent, ImageSliderComponent, PickleballBookingCardComponent, FormsModule, PrimaryButtonComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
-  sidebarOpen = true;
-sidebarVisible = true;
+
 showSlider = true;
 
+sidebarOpen = true;
+
 toggleSidebar() {
-  if (this.sidebarOpen) {
-    this.sidebarOpen = false;
-
-    // Wait for animation to finish before hiding completely
-    setTimeout(() => {
-      this.sidebarVisible = false;
-    }, 700); // match Tailwind's duration-700
-  } else {
-    this.sidebarVisible = true;
-
-    // Allow DOM to render sidebar before applying open class
-    setTimeout(() => {
-      this.sidebarOpen = true;
-    }, 10);
-  }
+  this.sidebarOpen = !this.sidebarOpen;
 }
-
   
 
   sliderSlides = [
@@ -104,6 +92,34 @@ sendMessage() {
       this.messages.push({ sender: 'bot', content: "I'm here to help!", type: 'text' });
     }
   }, 300);
+}
+
+constructor(private submenuService: SubmenuService) {}
+
+ngOnInit() {
+  // Optional: Subscribe to the modal and name states if needed
+  this.submenuService.showAddChannelModal$.subscribe((show) => {
+    this.showAddChannelModal = show;
+  });
+  this.submenuService.newChannelName$.subscribe((name) => {
+    this.newChannelName = name;
+  });
+}
+channels = ['Pickleball Expert'];
+showAddChannelModal = false;
+newChannelName = '';
+
+addChannel() {
+  this.submenuService.openAddChannelModal();
+}
+
+closeModal() {
+  this.submenuService.closeAddChannelModal();
+}
+
+saveChannel() {
+  this.submenuService.addChannel(this.channels, this.newChannelName);
+  this.closeModal();
 }
 }
 

@@ -17,22 +17,27 @@ export class MenuButtonComponent {
 
   @Output() click = new EventEmitter<void>(); // Define the output click event
 
+  // Base button class with transition for smooth border and box-shadow changes
   get baseButtonClass(): string {
-    return 'flex items-center justify-center w-[40px] h-10 rounded-lg transition cursor-pointer';
+    return 'flex items-center justify-center w-[40px] h-10 rounded-lg transition-all duration-300 cursor-pointer';
   }
-  
+
+  // Get button styles based on the active state
   get buttonStyle(): { [klass: string]: any } {
     const color = this.isActive ? this.activeColor : this.inactiveColor;
     return {
-      'borderBottom': `2px solid ${color}`,
-      'boxShadow': `0 0 0 1px ${color}`, // mimic ring
+      'border': `1px solid ${color}`, // Apply border color dynamically
+      'border-bottom': `3px solid ${color}`,
+      'transition': 'border 0.3s ease',  // Apply smooth transition for the border
     };
   }
-  
+
+  // Active style for when the button is in the active state
   get activeStyle(): { [key: string]: string } {
     return {
-      borderBottom: `2px solid ${this.activeColor}`,
-      boxShadow: `0 0 0 1px ${this.activeColor}`, // mimics Tailwind ring
+      'border': `1px solid ${this.activeColor}`,
+      'border-bottom': `3px solid ${this.activeColor}`,
+      'transition': 'border 0.3s ease', // Apply transition for the active state as well
     };
   }
 

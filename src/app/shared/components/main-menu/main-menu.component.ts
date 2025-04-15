@@ -1,16 +1,15 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuButtonComponent } from '../common/menu-button/menu-button.component';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-main-menu',
   standalone: true,
-  imports: [CommonModule, MenuButtonComponent],
+  imports: [CommonModule],
   templateUrl: './main-menu.component.html',
   styleUrls: ['./main-menu.component.css']
 })
 export class MainMenuComponent {
-  @Input() active: string = '';
+  @Input() active: string = '';  // This will hold the active menu key.
   @Output() menuSelect = new EventEmitter<string>();
 
   menus = [
@@ -23,8 +22,13 @@ export class MainMenuComponent {
   ];
 
   selectMenu(key: string) {
-    this.active = key;
-    this.menuSelect.emit(key);
-    console.log(key);
+    this.active = key;  // Set active key to the selected menu
+    this.menuSelect.emit(key);  // Emit the active key to the parent component
+    console.log(key);  // Debugging to check selected key
+  }
+
+  // Check if the current menu button is active
+  isActiveMenu(key: string): boolean {
+    return key === this.active;  // Returns true if the key is the active one
   }
 }

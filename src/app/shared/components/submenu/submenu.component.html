@@ -1,73 +1,97 @@
-<div class="flex flex-col justify-between h-full p-4" >
-  <div class="">
- 
-      <app-search-input
-        [(model)]="searchQuery"
-        (ngModelChange)="onSearchChange()"  
-        placeholder="Quick search"
-      />
-    
-      <div class="mb-3">Action Menu</div>
-      <div class="h-[200px] overflow-y-auto p-[1px] space-y-2">
-        <ng-container *ngFor="let item of filteredItems"> <!-- Use filteredItems for displaying the submenu -->
-          <app-submenu-button
-            [icon]="item.icon"
-            [label]="item.label"
-            [isActive]="item.key === activeSubmenu"
-            [activeRingColor]="'#9BDEEB'"
-            [textColor]="'#000000'"
-            [activeBackgroundColor]="'rgba(155, 222, 235, 0.15)'"
-            (buttonClick)="selectSubmenu(item.key)"
-            class="w-full"
-          ></app-submenu-button>
-        </ng-container>
-      </div>
-  
-  
-  
-  <div class="">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="">Chat Channels</h2>
-      <button (click)="addChannel()" class="bg-[#F6F6F6] hover:bg-[#EDEDED] border border-[#EDEDED] p-1 rounded-full cursor-pointer">
-        <img src="assets/icons/add-icon.svg" class="w-[11px] object-contain" />
-      </button>
-    </div>
-  
-    <ul class="space-y-2 h-[50px] overflow-y-auto">
-      <li *ngFor="let channel of channels" class="flex items-center space-x-3 px-1">
-        <img
-          src="assets/images/2025/avatar-image.svg"
-          alt="Avatar"
-          class="w-7 h-7 rounded-full object-cover"
-        />
-        <span class="text-[15px]">{{ channel }}</span>
-      </li>
-    </ul>
-  </div>
-</div>
-<div>
-  <div class="max-w-xs mx-auto rounded-2xl border border-[#EDEDED] bg-[#fafafa] p-3 text-center">
-    <div class="flex justify-center mb-2">
-      <div class="rounded-full bg-[#EBF9FB] p-1.5">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l2.09 6.26H21l-5.45 3.96 2.09 6.26L12 15.52l-5.64 3.96 2.09-6.26L3 9.26h6.91z" />
-        </svg>
-      </div>
-    </div>
-    <h2 class=" font-semibold text-gray-900">
-      Upgrade to <span class="bg-[#D7F2F7] text-[#0799B7] text-sm font-medium px-2 py-0.5 rounded-md ml-1 align-middle">Pro</span>
-    </h2>
-    <p class="text-gray-500 mt-2 text-xs">Dorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+<div class="flex flex-col justify-between h-full p-4">
+  <div>
+    <app-search-input
+  [(model)]="searchQuery"
+  (modelChange)="onSearchChange()"  
+  placeholder="Quick search"
+/>
 
-    <app-primary-button
-      [text]="'Learn more'"
-      [bgColor]="'#06ACCE'"
-      [hoverColor]="'#0799B7'"
-      fontSize="text-xs"
-      padding="py-2 px-3"
-      width="w-32">
-    </app-primary-button>
+    <div class="mb-3 mt-2 font-semibold">Action Menu</div>
+    <div class="h-[200px] overflow-y-auto p-[3px] space-y-1">
+      <div
+        *ngFor="let item of filteredItems"
+        (click)="selectSubmenu(item.key)"
+        class="flex items-center gap-2 px-3 py-2  rounded-md w-full cursor-pointer transition-all duration-200 ease-in-out"
+        [ngClass]="{
+          'bg-[#EAF9FC] ring-1 ring-[#9BDEEB] border-[#9BDEEB] border-b-2': item.key === activeSubmenu,
+          'hover:bg-gray-100 border-b-transparent': item.key !== activeSubmenu
+        }"
+      >
+        <img [src]="item.icon" [alt]="item.label" class="w-5 h-5 object-contain" />
+        <span class="text-[15px] text-black">{{ item.label }}</span>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="font-medium">Chat Channels</h2>
+        <button
+  (click)="openChannelModal()"
+  class="bg-[#F6F6F6] hover:bg-[#EDEDED] border border-[#EDEDED] p-1 rounded-full cursor-pointer"
+>
+  <img src="assets/icons/add-icon.svg" class="w-[11px] object-contain" />
+</button>
+
+      </div>
+
+      <ul class="space-y-2 h-[50px] overflow-y-auto">
+        <li
+          *ngFor="let channel of channels"
+          class="flex items-center space-x-3 px-1"
+        >
+          <img
+            src="assets/images/2025/avatar-image.svg"
+            alt="Avatar"
+            class="w-7 h-7 rounded-full object-cover"
+          />
+          <span class="text-[15px]">{{ channel }}</span>
+        </li>
+      </ul>
+    </div>
   </div>
-  
+
+  <div>
+    <div
+      class="max-w-xs mx-auto rounded-2xl border border-[#EDEDED] bg-[#fafafa] p-3 text-center"
+    >
+      <div class="flex justify-center mb-2">
+        <div class="rounded-full bg-[#EBF9FB] p-1.5">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 text-cyan-500"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 3l2.09 6.26H21l-5.45 3.96 2.09 6.26L12 15.52l-5.64 3.96 2.09-6.26L3 9.26h6.91z"
+            />
+          </svg>
+        </div>
+      </div>
+      <h2 class="font-semibold text-gray-900">
+        Upgrade to
+        <span
+          class="bg-[#D7F2F7] text-[#0799B7] text-sm font-medium px-2 py-0.5 rounded-md ml-1 align-middle"
+          >Pro</span
+        >
+      </h2>
+      <p class="text-gray-500 mt-2 text-xs">
+        Dorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </p>
+
+      <app-primary-button
+        [text]="'Learn more'"
+        [bgColor]="'#06ACCE'"
+        [hoverColor]="'#0799B7'"
+        fontSize="text-xs"
+        padding="py-2 px-3"
+        width="w-32"
+      ></app-primary-button>
+    </div>
+  </div>
 </div>
-</div>
+

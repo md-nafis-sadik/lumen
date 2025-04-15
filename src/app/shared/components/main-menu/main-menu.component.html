@@ -2,17 +2,25 @@
   <div>
     <div class="text-gray-500 text-sm mb-3 text-center">Menu</div>
 
-    <!-- Apply space-y-3 to a flex-col container -->
+    <!-- Container for menu items -->
     <div class="flex flex-col items-center space-y-3">
       <ng-container *ngFor="let item of menus">
-        <app-menu-button
-          [image]="item.image"
-          [alt]="item.key"
-          [isActive]="item.key === active"
-          [activeColor]="'#9BDEEB'"
-          [inactiveColor]="'#9BDEEB'"
-          (click)="selectMenu(item.key)">
-        </app-menu-button>
+        <!-- Menu button with dynamic styles based on active state -->
+        <div
+          class="flex items-center justify-center w-[40px] h-10 rounded-lg cursor-pointer 
+                 transition-all duration-300 ease-in-out" 
+          [ngClass]="{
+            'ring-1 ring-[#9BDEEB] border-[#9BDEEB] border-b-3': isActiveMenu(item.key),  
+            'border-b-transparent': !isActiveMenu(item.key)  
+          }"
+          (click)="selectMenu(item.key)" 
+        >
+          <img 
+            [src]="item.image" 
+            [alt]="item.key" 
+            class="w-[22px] h-[22px] object-contain" 
+          />
+        </div>
       </ng-container>
     </div>
   </div>

@@ -5,19 +5,15 @@
     <div class="flex flex-1 overflow-hidden">
       <!-- Sidebar -->
       <app-sidebar
-       *ngIf="sidebarVisible"
-        [class.transform]="true"
-        [class.transition-transform]="true"
-        [class.duration-700]="true"
-        [class.translate-x-0]="sidebarOpen"
-        [class.-translate-x-full]="!sidebarOpen"
-        class="w-[355px] absolute lg:relative z-50 h-[calc(100vh-70px)] lg:h-auto bg-white shadow"
-      ></app-sidebar>
+      [class.max-w-0]="!sidebarOpen"
+      [class.max-w-[355px]]="sidebarOpen"
+      class="w-full max-w-[355px] absolute lg:relative z-40 h-[calc(100vh-60px)] lg:h-auto bg-white transition-all duration-700 overflow-hidden mt-[60px]"
+    ></app-sidebar>
 
   
   
       <!-- Main content -->
-      <main class="flex-1 overflow-auto bg-[#F6F6F6] p-4">
+      <main class="flex-1 overflow-auto bg-[#F6F6F6] px-4">
         
         <app-image-slider
         *ngIf="showSlider"
@@ -26,7 +22,7 @@
         [interval]="5000"   
         ></app-image-slider>
 
-        <div class="pb-[500px] space-y-4">
+        <div class="pb-[400px] mt-[80px] space-y-4">
           <div *ngFor="let msg of messages" class="flex" [ngClass]="{ 'justify-end': msg.sender === 'user' }">
             <div *ngIf="msg.type === 'text'" class="bg-white p-3 rounded-lg shadow">
               {{ msg.content }}
@@ -40,9 +36,10 @@
         </div>
         
 
-        <div class="py-6 flex flex-col items-center gap-4 absolute bottom-0 w-full bg-[#F6F6F6] message"
-        [ngClass]="{'xl:w-[calc(100vw-375px)]': sidebarOpen, 'xl:w-[97%]': !sidebarOpen}">
-          <h2 class="text-xl font-semibold text-center">How can I assist you today?</h2>
+        <div class="flex flex-col items-center gap-4 sticky bottom-4 w-full bg-[#F6F6F6] message transition-all duration-700">
+          <!-- Input content remains the same -->
+<div *ngIf="showSlider">
+          <h2 class="text-xl font-semibold text-center py-4">How can I assist you today?</h2>
         
           <div class="flex flex-wrap justify-center gap-3">
             <button class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
@@ -62,8 +59,8 @@
               Payment History
             </button>
           </div>
-        
-          <div class="w-full max-w-[750px] mt-6 flex items-center border border-gray-200 rounded-xl bg-white px-4 py-2 shadow">
+        </div>
+          <div class="w-full max-w-[750px] mt-4 flex items-center border border-gray-200 rounded-xl bg-white px-4 py-2 shadow">
             <input
               type="text"
               [(ngModel)]="userInput"
@@ -92,3 +89,34 @@
     </div>
   </div>
   
+
+  <!-- Add this just before the final closing </div> in your template -->
+<div
+*ngIf="showAddChannelModal"
+class="fixed inset-0 z-50 bg-black bg-opacity-10 flex items-center justify-center"
+>
+<div class="bg-white w-full h-full md:w-[500px] md:h-auto p-6 rounded-lg shadow-lg overflow-y-auto relative">
+  <button
+    class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl"
+    (click)="closeModal()"
+  >
+    &times;
+  </button>
+  <h2 class="text-lg font-semibold mb-4">Add Chat Channel</h2>
+  <input
+    type="text"
+    [(ngModel)]="newChannelName"
+    placeholder="Channel name"
+    class="w-full p-2 border border-gray-300 rounded-md mb-4"
+  />
+  <app-primary-button
+    [text]="'Add Channel'"
+    (click)="saveChannel()"
+    [bgColor]="'#06ACCE'"
+    [hoverColor]="'#0799B7'"
+    fontSize="text-sm"
+    padding="py-2 px-3"
+    width="w-full"
+  ></app-primary-button>
+</div>
+</div>

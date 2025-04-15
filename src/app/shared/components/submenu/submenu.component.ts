@@ -1,31 +1,28 @@
-// Define the SubmenuItem interface
+import { Component, Input, OnInit, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { PrimaryButtonComponent } from '../common/primary-button/primary-button.component';
+import { SearchInputComponent } from '../common/search-input/search-input.component';
+import { SubmenuService } from '../../../services/submenu.service';
 interface SubmenuItem {
   key: string;
   icon: string;
   label: string;
 }
 
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PrimaryButtonComponent } from '../common/primary-button/primary-button.component';
-import { SearchInputComponent } from '../common/search-input/search-input.component';
-import { SubmenuButtonComponent } from '../common/submenu-button/submenu-button.component';
- // Assuming you're using this interface
-
 @Component({
   selector: 'app-submenu',
   standalone: true,
-  imports: [CommonModule, PrimaryButtonComponent, SearchInputComponent, SubmenuButtonComponent],
+  imports: [CommonModule, PrimaryButtonComponent, SearchInputComponent, FormsModule],
   templateUrl: './submenu.component.html',
   styleUrls: ['./submenu.component.css']
 })
 export class SubmenuComponent implements OnInit {
   @Input() menu: string = 'booking';
-  activeSubmenu: string = '';  // To keep track of the active submenu
-  searchQuery = '';  // Holds the search query entered by the user
-  filteredItems: SubmenuItem[] = []; // Filtered items that will be displayed in the submenu
+  activeSubmenu: string = '';
+  searchQuery = '';
+  filteredItems: SubmenuItem[] = [];
 
-  // Define submenu items map
   private submenuItemsMap: { [key: string]: SubmenuItem[] } = {
     booking: [
       { key: 'bookCourt', icon: 'assets/icons/calender-icon.svg', label: 'Pickleball Booking' },
@@ -52,15 +49,17 @@ export class SubmenuComponent implements OnInit {
     ]
   };
 
+  channels = ['Pickleball Expert'];
+
   ngOnInit() {
     this.setActiveSubmenu();
-    this.filteredItems = this.getFilteredSubmenuItems(); // Initialize with all items
+    this.filteredItems = this.getFilteredSubmenuItems();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['menu']) {
       this.setActiveSubmenu();
-      this.filteredItems = this.getFilteredSubmenuItems(); // Update filtered items when the menu changes
+      this.filteredItems = this.getFilteredSubmenuItems();
     }
   }
 
@@ -75,35 +74,30 @@ export class SubmenuComponent implements OnInit {
     this.activeSubmenu = key;
   }
 
-  // Get submenu items based on the current menu
   getSubmenuItems(): SubmenuItem[] {
     return this.submenuItemsMap[this.menu] || [];
   }
 
-  // Filter submenu items based on the search query
   getFilteredSubmenuItems(): SubmenuItem[] {
     const items = this.getSubmenuItems();
-    if (this.searchQuery.trim() === '') {
-      return items;  // If no search query, return all items
-    }
-
-    // Filter items based on label (case-insensitive)
+    if (!this.searchQuery.trim()) return items;
     return items.filter(item =>
       item.label.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
   }
-
-  // Handle search query changes (this method will be triggered immediately when the user types)
+  constructor(
+    private submenuService: SubmenuService,
+    private changeDetector: ChangeDetectorRef
+  ) {}
   onSearchChange() {
-    this.filteredItems = this.getFilteredSubmenuItems();  // Update the filtered items
+    this.filteredItems = this.getFilteredSubmenuItems();
+    // Force change detection if needed
+    this.changeDetector.detectChanges();
   }
 
-  channels = ['Pickleball Expert'];
 
-  addChannel() {
-    const name = prompt('Enter new channel name');
-    if (name) {
-      this.channels.push(name);
-    }
+  openChannelModal() {
+    this.submenuService.openAddChannelModal();
   }
+
 }

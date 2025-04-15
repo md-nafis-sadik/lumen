@@ -1,4 +1,4 @@
-<header class="flex items-center justify-between px-4 py-3 bg-white shadow-md border-b border-b-gray-200 w-full">
+<header class="flex items-center justify-between px-4 py-3 bg-white border-b border-b-gray-200 w-full fixed top-0 z-50">
     <!-- Toggle button (left) -->
      <div class="flex">
 
@@ -11,11 +11,43 @@
     </div>
   
     <!-- Right section -->
-    <div class="flex items-center">
-      <app-icon-button iconSrc="assets/icons/sun-shine-icon.svg" iconClass="w-8" (click)="onSunClick()"></app-icon-button>
+    <div class="flex items-center inset-0">
+      <app-icon-button  iconSrc="assets/icons/sun-shine-icon.svg" iconClass="w-8" (click)="onSunClick()"></app-icon-button>
       <app-icon-button iconSrc="assets/icons/gear-icon.svg" iconClass="w-5 ml-3" (click)="onGearClick()"></app-icon-button>
       <app-icon-button iconSrc="assets/icons/bell-null-icon.svg" iconClass="w-[17px] ml-5" (click)="onBellClick()"></app-icon-button>
-      <app-avatar src="assets/icons/Avatar.png" customClass="w-8 h-8 rounded-full ml-5"></app-avatar>
+      <app-avatar (click)="toggleAvatarDropdown()" src="assets/icons/Avatar.png" customClass="w-8 h-8 rounded-full ml-5"></app-avatar>
     </div>
+
   </header>
   
+  <div 
+  *ngIf="showAvatarDropdown"
+  class="fixed z-50 top-10 right-2 mt-2 w-48 bg-white rounded-md shadow-lg py-1 border border-gray-200">
+  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+
+  <a href="/login" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+</div>
+  <!-- Settings Sidebar -->
+<div *ngIf="showSettingsSidebar" class="fixed inset-y-0 right-0 w-80 bg-white shadow-lg z-50">
+  <div class="p-4 flex justify-between items-center">
+    <h3 class="text-lg font-semibold">Settings</h3>
+    <button (click)="closeSettings()" class="text-gray-500 hover:text-gray-700">
+      &times;
+    </button>
+  </div>
+  <!-- Add settings content here -->
+</div>
+
+<!-- Notifications Sidebar -->
+<div *ngIf="showNotificationsSidebar" class="fixed inset-y-0 right-0 w-80 bg-white shadow-lg z-50">
+  <div class="p-4 flex justify-between items-center">
+    <h3 class="text-lg font-semibold">Notifications</h3>
+    <button (click)="closeNotifications()" class="text-gray-500 hover:text-gray-700">
+      &times;
+    </button>
+  </div>
+  <!-- Add notifications content here -->
+</div>
+
+<!-- Backdrop -->

@@ -23,11 +23,39 @@ export class HeaderComponent {
     console.log('Sun button clicked!');
   }
 
-  onGearClick() {
-    console.log('Gear button clicked!');
-  }
 
-  onBellClick() {
-    console.log('Bell button clicked!');
-  }
+
+    // ... existing code ...
+    showAvatarDropdown = false;
+    showSettingsSidebar = false;
+    showNotificationsSidebar = false;
+  
+    toggleAvatarDropdown() {
+      this.showAvatarDropdown = !this.showAvatarDropdown;
+    }
+  
+    onGearClick() {
+      this.showSettingsSidebar = true;
+      this.showAvatarDropdown = false;
+    }
+  
+    onBellClick() {
+      this.showNotificationsSidebar = true;
+      this.showAvatarDropdown = false;
+    }
+  
+    closeSettings() {
+      this.showSettingsSidebar = false;
+    }
+  
+    closeNotifications() {
+      this.showNotificationsSidebar = false;
+    }
+  
+    closeAll() {
+      this.showSettingsSidebar = false;
+      this.showNotificationsSidebar = false;
+      this.showAvatarDropdown = false;
+    }
+  
 }

@@ -14,8 +14,8 @@ export class SearchInputComponent {
   @Output() modelChange = new EventEmitter<string>();
 
   onInput(event: Event) {
-    const target = event.target as HTMLInputElement;
-    this.model = target.value;
-    this.modelChange.emit(this.model);
+    const value = (event.target as HTMLInputElement).value;
+    this.model = value;
+    this.modelChange.emit(value);
   }
 }
