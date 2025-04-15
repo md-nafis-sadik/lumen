@@ -7,26 +7,50 @@
     <p class="text-md text-gray-500 text-center lg:text-start">Enter your personal details and start journey with us</p>
   </div>
 
-  <form class="space-y-4" (ngSubmit)="onSubmit()">
-    <app-form-input [(value)]="email" name="email" placeholder="Enter your email" type="email" autocomplete="email"
-      label="Email"></app-form-input>
+  <form class="space-y-4" (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate>
 
-    <app-password-toggle-input [(value)]="password" name="password" placeholder="Enter your password" type="password"
-      autocomplete="current-password" label="Password" />
-
-    <div class="flex justify-between items-center text-sm">
-
-        <div class="flex items-center"><input type="checkbox" />
-          <span class="ml-2 text-gray-800">Keep me signed in</span>
-        </div>
-        <div><a href="#" class="text-[#09B3D1]">Forgot password</a></div>
-
-
+    <app-form-input 
+      [(value)]="email" 
+      name="email" 
+      placeholder="Enter your email" 
+      type="email" 
+      autocomplete="email"
+      label="Email" 
+      required 
+      #emailRef="ngModel"
+      [(ngModel)]="email">
+    </app-form-input>
+    <div *ngIf="emailRef.invalid && emailRef.touched" class="text-red-500 text-sm">
+      Email is required and must be valid.
     </div>
-
+  
+    <app-password-toggle-input 
+      [(value)]="password" 
+      name="password" 
+      placeholder="Enter your password" 
+      type="password"
+      autocomplete="current-password" 
+      label="Password" 
+      required 
+      #passwordRef="ngModel"
+      [(ngModel)]="password">
+    </app-password-toggle-input>
+    <div *ngIf="passwordRef.invalid && passwordRef.touched" class="text-red-500 text-sm">
+      Password is required.
+    </div>
+  
+    <div class="flex justify-between items-center text-sm">
+      <div class="flex items-center">
+        <input type="checkbox" />
+        <span class="ml-2 text-gray-800">Keep me signed in</span>
+      </div>
+      <div><a href="#" class="text-[#09B3D1]">Forgot password</a></div>
+    </div>
+  
     <app-submit-button [label]="'Sign in'" [disabled]="!isFormValid()" />
-
+  
   </form>
+  
 
 
   <div class="flex items-center gap-2 text-sm text-gray-400">

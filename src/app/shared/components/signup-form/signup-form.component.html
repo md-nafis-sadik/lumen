@@ -7,48 +7,87 @@
       <p class="text-md text-gray-500 text-center lg:text-start">Enter your personal details and start journey with us</p>
     </div>
 
-    <form class="space-y-4" (ngSubmit)="onSubmit()">
+    <form class="space-y-4" (ngSubmit)="onSubmit()" #signupForm="ngForm" novalidate>
+
       <div class="flex space-x-4 mb-0">
         <app-form-input
           [(value)]="first_name"
           name="first_name"
+          required
           type="text"
-          autocomplete="first_name"
+          autocomplete="given-name"
           label="First name"
-        ></app-form-input>
+          #firstNameRef="ngModel"
+          [(ngModel)]="first_name">
+        </app-form-input>
         <app-form-input
           [(value)]="last_name"
           name="last_name"
+          required
           type="text"
-          autocomplete="last_name"
+          autocomplete="family-name"
           label="Last name"
-        ></app-form-input>
+          #lastNameRef="ngModel"
+          [(ngModel)]="last_name">
+        </app-form-input>
       </div>
-
+      <div *ngIf="(firstNameRef.invalid && firstNameRef.touched) || (lastNameRef.invalid && lastNameRef.touched)" class="text-red-500 text-sm">
+        First and Last name are required.
+      </div>
+    
       <app-form-input
-          [(value)]="phone"
-          name="phone"
-          type="telephone"
-          autocomplete="phone"
-          label="Phone Number"
-      ></app-form-input>
-
+        [(value)]="email"
+        name="email"
+        required
+        email
+        type="email"
+        autocomplete="email"
+        label="Email"
+        placeholder="Enter your email"
+        #emailRef="ngModel"
+        [(ngModel)]="email">
+      </app-form-input>
+      <div *ngIf="emailRef.invalid && emailRef.touched" class="text-red-500 text-sm">
+        Please enter a valid email address.
+      </div>
+    
+      <app-form-input
+        [(value)]="phone"
+        name="phone"
+        required
+        type="tel"
+        autocomplete="tel"
+        label="Phone Number"
+        #phoneRef="ngModel"
+        [(ngModel)]="phone">
+      </app-form-input>
+      <div *ngIf="phoneRef.invalid && phoneRef.touched" class="text-red-500 text-sm">
+        Phone number is required.
+      </div>
+    
       <app-password-toggle-input
         [(value)]="password"
         name="password"
+        required
+        minlength="6"
         placeholder="Enter your password"
         type="password"
-        autocomplete="current-password"
+        autocomplete="new-password"
         label="Password"
         [showStrength]="true"
-      />
-
+        #passwordRef="ngModel"
+        [(ngModel)]="password">
+      </app-password-toggle-input>
+      <div *ngIf="passwordRef.invalid && passwordRef.touched" class="text-red-500 text-sm">
+        Password must be at least 6 characters.
+      </div>
+    
       <app-submit-button
-        [label]="'Sign in'"
-        [disabled]="!isFormValid()"
-      />
-
+        [label]="'Sign up'"
+        [disabled]="!isFormValid()">
+      </app-submit-button>
     </form>
+    
 
 <div class="text center text-gray-500">By signing up, you acknowledge that you have read and understood, and agree to Unkrn  <a href="#" class="text-gray-900 underline">Terms</a> and <a href="#" class="text-gray-900 underline">Privacy Policy</a>.</div>
     <div class="flex items-center gap-2 text-sm text-gray-400">

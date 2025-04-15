@@ -20,27 +20,27 @@ export class SubmenuComponent implements OnInit {
   getSubmenuItems() {
     const map: any = {
       booking: [
-        { key: 'bookCourt', icon: 'assets/icons/pickle-booking-icon.svg', label: 'Pickleball Booking' },
+        { key: 'bookCourt', icon: 'assets/icons/calender-icon.svg', label: 'Pickleball Booking' },
         { key: 'events', icon: 'assets/icons/events-icon.svg', label: 'Events' },
         { key: 'membership', icon: 'assets/icons/profile-circle-icon.svg', label: 'Membership' },
         { key: 'shopping', icon: 'assets/icons/shopping-bag-icon.svg', label: 'Shopping' },
         { key: 'bookingHistory', icon: 'assets/icons/headphone-icon.svg', label: 'Contact Support' }
       ],
       events: [
-        { key: 'upcomingEvents', icon: 'event_available', label: 'Upcoming Events' },
-        { key: 'pastEvents', icon: 'event_busy', label: 'Past Events' }
+        { key: 'upcomingEvents', icon: 'assets/icons/calender-icon.svg', label: 'Upcoming Events' },
+        { key: 'pastEvents', icon: 'assets/icons/events-icon.svg', label: 'Past Events' }
       ],
       memberships: [
-        { key: 'addMember', icon: 'person_add', label: 'Add Member' },
-        { key: 'allMembers', icon: 'group', label: 'All Members' }
+        { key: 'addMember', icon: 'assets/icons/events-icon.svg', label: 'Add Member' },
+        { key: 'allMembers', icon: 'assets/icons/headphone-icon.svg', label: 'All Members' }
       ],
       shop: [
-        { key: 'myOrders', icon: 'shopping_cart', label: 'My Orders' },
-        { key: 'browseStore', icon: 'store', label: 'Browse Store' }
+        { key: 'myOrders', icon: 'assets/icons/events-icon.svg', label: 'My Orders' },
+        { key: 'browseStore', icon: 'assets/icons/profile-circle-icon.svg', label: 'Browse Store' }
       ],
       support: [
-        { key: 'faqs', icon: 'help_outline', label: 'FAQs' },
-        { key: 'contactUs', icon: 'contact_support', label: 'Contact Us' }
+        { key: 'faqs', icon: 'assets/icons/events-icon.svg', label: 'FAQs' },
+        { key: 'contactUs', icon: 'assets/icons/events-icon.svg', label: 'Contact Us' }
       ]
     };
     return map[this.menu] || [];

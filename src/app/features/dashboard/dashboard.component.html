@@ -4,22 +4,42 @@
   
     <div class="flex flex-1 overflow-hidden">
       <!-- Sidebar -->
-      <app-sidebar *ngIf="sidebarOpen" [ngClass]="{
-        'transform translate-x-0': sidebarOpen,
-        'transform -translate-x-full': !sidebarOpen
-      }" 
-      class="transition-transform duration-700 w-[355px] absolute lg:relative z-50 h-[calc(100vh-70px)] lg:h-auto" />
+      <app-sidebar 
+        [class.transform]="true"
+        [class.transition-transform]="true"
+        [class.duration-700]="true"
+        [class.translate-x-0]="sidebarOpen"
+        [class.-translate-x-full]="!sidebarOpen"
+        class="w-[355px] absolute lg:relative z-50 h-[calc(100vh-70px)] lg:h-auto bg-white shadow"
+      ></app-sidebar>
+
+  
   
       <!-- Main content -->
       <main class="flex-1 overflow-auto bg-[#F6F6F6] p-4">
         
         <app-image-slider
+        *ngIf="showSlider"
         [slides]="sliderSlides"
         [autoPlay]="true"  
         [interval]="5000"   
         ></app-image-slider>
 
-        <div class="p-6 bg-gray-50 flex flex-col items-center gap-4">
+        <div class="pb-[500px] space-y-4">
+          <div *ngFor="let msg of messages" class="flex" [ngClass]="{ 'justify-end': msg.sender === 'user' }">
+            <div *ngIf="msg.type === 'text'" class="bg-white p-3 rounded-lg shadow">
+              {{ msg.content }}
+            </div>
+        
+            <ng-container *ngIf="msg.type === 'booking'">
+              <!-- Include your existing booking card layout here -->
+              <app-pickleball-booking-card></app-pickleball-booking-card>
+            </ng-container>
+          </div>
+        </div>
+        
+
+        <div class="py-6 flex flex-col items-center gap-4 absolute bottom-0 w-[calc(100vw-355px)] bg-[#F6F6F6]">
           <h2 class="text-xl font-semibold text-center">How can I assist you today?</h2>
         
           <div class="flex flex-wrap justify-center gap-3">
@@ -43,18 +63,24 @@
         
           <div class="w-full max-w-[750px] mt-6 flex items-center border border-gray-200 rounded-xl bg-white px-4 py-2 shadow">
             <input
-              type="text"
-              placeholder="Type here..."
-              class="flex-1 outline-none text-sm px-2"
-            />
-            <div class="flex items-center gap-3 text-gray-500">
+            type="text"
+            [(ngModel)]="userInput"
+            placeholder="Type here..."
+            class="flex-1 outline-none text-sm px-2"
+          />
+
+            <div class="flex items-center gap-3 text-gray-500 cursor-pointer">
               <img src="assets/icons/plus-chat-icon.svg"/>
               <img src="assets/icons/mike-icon.svg"/>
               <img src="assets/icons/echo-icon.svg"/>
             </div>
-            <button class="ml-2 text-white bg-gray-200 rounded-xl p-2 hover:bg-gray-400">
-              <img src="assets/icons/send-icon.svg"/>
+            <button
+              (click)="sendMessage()"
+              class="ml-2 text-white bg-gray-200 rounded-xl p-2 hover:bg-[#06ACCE] transition-colors duration-500 cursor-pointer"
+            >
+              <img src="assets/icons/send-icon.svg" />
             </button>
+
           </div>
         </div>
         

@@ -27,8 +27,16 @@ export class SignUpFormComponent {
   constructor(private router: Router) {}
 
   isFormValid(): boolean {
-    return this.email.trim() !== '' && this.password.trim() !== '';
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return (
+      this.first_name.trim() !== '' &&
+      this.last_name.trim() !== '' &&
+      emailPattern.test(this.email) &&
+      this.phone.trim() !== '' &&
+      this.password.trim().length >= 6
+    );
   }
+  
 
   onSubmit() {
     if (this.isFormValid()) {
