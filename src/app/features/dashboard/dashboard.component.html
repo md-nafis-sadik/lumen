@@ -4,7 +4,8 @@
   
     <div class="flex flex-1 overflow-hidden">
       <!-- Sidebar -->
-      <app-sidebar 
+      <app-sidebar
+       *ngIf="sidebarVisible"
         [class.transform]="true"
         [class.transition-transform]="true"
         [class.duration-700]="true"
@@ -39,7 +40,8 @@
         </div>
         
 
-        <div class="py-6 flex flex-col items-center gap-4 absolute bottom-0 w-[calc(100vw-355px)] bg-[#F6F6F6]">
+        <div class="py-6 flex flex-col items-center gap-4 absolute bottom-0 w-full bg-[#F6F6F6] message"
+        [ngClass]="{'xl:w-[calc(100vw-375px)]': sidebarOpen, 'xl:w-[97%]': !sidebarOpen}">
           <h2 class="text-xl font-semibold text-center">How can I assist you today?</h2>
         
           <div class="flex flex-wrap justify-center gap-3">
@@ -63,12 +65,12 @@
         
           <div class="w-full max-w-[750px] mt-6 flex items-center border border-gray-200 rounded-xl bg-white px-4 py-2 shadow">
             <input
-            type="text"
-            [(ngModel)]="userInput"
-            placeholder="Type here..."
-            class="flex-1 outline-none text-sm px-2"
-          />
-
+              type="text"
+              [(ngModel)]="userInput"
+              placeholder="Type here..."
+              class="flex-1 outline-none text-sm px-2 placeholder-custom"
+              (keydown.enter)="sendMessage()"  
+            />
             <div class="flex items-center gap-3 text-gray-500 cursor-pointer">
               <img src="assets/icons/plus-chat-icon.svg"/>
               <img src="assets/icons/mike-icon.svg"/>
@@ -80,8 +82,8 @@
             >
               <img src="assets/icons/send-icon.svg" />
             </button>
-
           </div>
+          
         </div>
         
 

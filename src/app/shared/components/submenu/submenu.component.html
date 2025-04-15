@@ -1,25 +1,28 @@
 <div class="flex flex-col justify-between h-full p-4" >
   <div class="">
-    <app-search-input
-    [(model)]="searchQuery"
-    placeholder="Quick search"
-  />
+ 
+      <app-search-input
+        [(model)]="searchQuery"
+        (ngModelChange)="onSearchChange()"  
+        placeholder="Quick search"
+      />
+    
+      <div class="mb-3">Action Menu</div>
+      <div class="h-[200px] overflow-y-auto p-[1px] space-y-2">
+        <ng-container *ngFor="let item of filteredItems"> <!-- Use filteredItems for displaying the submenu -->
+          <app-submenu-button
+            [icon]="item.icon"
+            [label]="item.label"
+            [isActive]="item.key === activeSubmenu"
+            [activeRingColor]="'#9BDEEB'"
+            [textColor]="'#000000'"
+            [activeBackgroundColor]="'rgba(155, 222, 235, 0.15)'"
+            (buttonClick)="selectSubmenu(item.key)"
+            class="w-full"
+          ></app-submenu-button>
+        </ng-container>
+      </div>
   
-  <div class="mb-3">Action Menu</div>
-  <div class="h-[200px] overflow-y-auto p-[1px] space-y-2">
-    <ng-container *ngFor="let item of getSubmenuItems()">
-      <app-submenu-button
-        [icon]="item.icon"
-        [label]="item.label"
-        [isActive]="item.key === activeSubmenu"
-        [activeRingColor]="'#9BDEEB'"
-        [textColor]="'#000000'"
-        [activeBackgroundColor]="'rgba(155, 222, 235, 0.15)'"
-        (buttonClick)="selectSubmenu(item.key)"
-        class="w-full" 
-      ></app-submenu-button>
-    </ng-container>
-  </div>
   
   
   <div class="">

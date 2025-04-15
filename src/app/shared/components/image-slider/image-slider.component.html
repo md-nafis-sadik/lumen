@@ -8,21 +8,21 @@
   >
     <div
       *ngFor="let slide of slides; let i = index"
-      class="w-full flex-shrink-0 lg:flex items-center"
+      class="w-full flex-shrink-0 xl:flex items-center"
       [ngClass]="slide.textColor || 'text-white'"
       [ngStyle]="{
         backgroundImage: slide.gradient ? 'radial-gradient(' + slide.gradient + ')' : 'radial-gradient(circle at top right, #118A9F, #07282E)'
       }"
     >
-      <div class="xl:w-1/2 px-10 pt-10 lg:px-20">
-        <h1 class="text-3xl lg:text-5xl text-center lg:text-start font-bold">
+      <div class="xl:w-1/2 px-10 pt-16 xl:px-20">
+        <h1 class="text-3xl lg:text-5xl text-center xl:text-start font-bold">
           {{ slide.title }}
         </h1>
-        <h1 class="text-3xl lg:text-5xl text-center lg:text-start font-bold mt-4">
+        <h1 class="text-3xl lg:text-5xl text-center xl:text-start font-bold mt-4">
           <span [ngClass]="slide.highlightColor || 'text-cyan-300'">{{ slide.highlight }}</span>
         </h1>
-        <p class="mt-4 lg:text-lg text-center lg:text-start">{{ slide.description }}</p>
-        <div class="flex justify-center lg:justify-start mt-4">
+        <p class="mt-4 lg:text-lg text-center xl:text-start">{{ slide.description }}</p>
+        <div class="flex justify-center xl:justify-start mt-4">
           <app-primary-button
             [text]="slide.buttonText"
             [bgColor]="slide.buttonColor || '#06ACCE'"
@@ -30,9 +30,9 @@
           ></app-primary-button>
         </div>
       </div>
-      <div class="xl:w-1/2 flex justify-end items-center lg:h-[468px]">
+      <div class="xl:w-1/2 flex justify-center xl:justify-end items-end xl:h-[468px]">
         <img [src]="slide.patternUrl" alt="Pattern" class="max-h-full object-contain relative" />
-        <img [src]="slide.imageUrl" alt="Slide" class="max-h-full lg:mr-16 xl:mr-20 absolute object-contain px-10" />
+        <img [src]="slide.imageUrl" alt="Slide" class="max-h-full h-[300px] lg:h-[468px] xl:w-auto xl:mr-16 absolute object-contain px-10" />
       </div>
     </div>
   </div>
@@ -43,7 +43,7 @@
       *ngFor="let slide of slides; let i = index"
       class="h-2.5 rounded-full cursor-pointer transition-all duration-300"
       [ngClass]="{
-        'w-2.5 bg-[#003f47]': i !== activeSlide,
+        'w-2.5 bg-[#003f47] opacity-40': i !== activeSlide,
         'w-8 bg-cyan-400': i === activeSlide
       }"
       (click)="goToSlide(i)"
