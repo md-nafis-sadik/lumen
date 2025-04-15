@@ -13,7 +13,7 @@
   
   
       <!-- Main content -->
-      <main class="flex-1 overflow-auto bg-[#F6F6F6] px-4">
+      <main class="flex-1 overflow-auto bg-[#F6F6F6] px-4 mt-[60px] pt-[20px]">
         
         <app-image-slider
         *ngIf="showSlider"
@@ -22,7 +22,7 @@
         [interval]="5000"   
         ></app-image-slider>
 
-        <div class="pb-[400px] mt-[80px] space-y-4">
+        <div class="pb-[400px] space-y-4">
           <div *ngFor="let msg of messages" class="flex" [ngClass]="{ 'justify-end': msg.sender === 'user' }">
             <div *ngIf="msg.type === 'text'" class="bg-white p-3 rounded-lg shadow">
               {{ msg.content }}
