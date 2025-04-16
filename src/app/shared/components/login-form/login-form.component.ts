@@ -24,8 +24,10 @@ export class LoginFormComponent {
   constructor(private router: Router) {}
 
   isFormValid(): boolean {
-    return this.email.trim() !== '' && this.password.trim() !== '' && this.email.includes('@');
-  }  
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{1,}$/i;
+    return this.email.trim() !== '' && this.password.trim() !== '' && emailPattern.test(this.email);
+  }
+   
 
   onSubmit() {
     if (this.isFormValid()) {

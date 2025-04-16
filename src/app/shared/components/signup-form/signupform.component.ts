@@ -28,11 +28,12 @@ export class SignUpFormComponent {
 
   isFormValid(): boolean {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phonePattern = /^\+?[0-9]{10,15}$/;
     return (
       this.first_name.trim() !== '' &&
       this.last_name.trim() !== '' &&
       emailPattern.test(this.email) &&
-      this.phone.trim() !== '' &&
+      phonePattern.test(this.phone) &&
       this.password.trim().length >= 6
     );
   }

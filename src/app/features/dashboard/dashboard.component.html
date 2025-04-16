@@ -42,19 +42,30 @@
           <h2 class="text-xl font-semibold text-center py-4">How can I assist you today?</h2>
         
           <div class="flex flex-wrap justify-center gap-3">
-            <button class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
+            <button 
+              (click)="sendQuickMessage('Show my upcoming bookings')"
+              class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
               <img src="assets/icons/calender-icon.svg"/>
               Upcoming Bookings
             </button>
-            <button class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
+            
+            <button 
+              (click)="sendQuickMessage('Book a pickleball court')"
+              class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
               <img src="assets/icons/pickle-racket-icon.svg"/>
               Pickleball Court
             </button>
-            <button class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
+            
+            <button 
+              (click)="sendQuickMessage('Schedule doctor appointment')"
+              class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
               <img src="assets/icons/square-plus-icon.svg"/>
               Doctor Appointment
             </button>
-            <button class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
+            
+            <button 
+              (click)="sendQuickMessage('Show payment history')"
+              class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
               <img src="assets/icons/payment-history-icon.svg"/>
               Payment History
             </button>
@@ -90,7 +101,7 @@
   </div>
   
 
-  <!-- Add this just before the final closing </div> in your template -->
+
 <div
 *ngIf="showAddChannelModal"
 class="fixed inset-0 z-50 bg-black bg-opacity-10 flex items-center justify-center"

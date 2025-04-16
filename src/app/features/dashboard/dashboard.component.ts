@@ -5,14 +5,14 @@ import { SidebarComponent } from '../../layouts/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { ImageSliderComponent } from '../../shared/components/image-slider/image-slider.component';
 import { PickleballBookingCardComponent } from '../../shared/components/pickleball-booking-card/pickleball-booking-card.component';
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { SubmenuService } from '../../services/submenu.service';
 import { PrimaryButtonComponent } from '../../shared/components/common/primary-button/primary-button.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent, SidebarComponent, ImageSliderComponent, PickleballBookingCardComponent, FormsModule, PrimaryButtonComponent],
+  imports: [CommonModule, RouterModule, HeaderComponent, SidebarComponent, ImageSliderComponent, PickleballBookingCardComponent, FormsModule, PrimaryButtonComponent, ReactiveFormsModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
@@ -120,6 +120,11 @@ closeModal() {
 saveChannel() {
   this.submenuService.addChannel(this.channels, this.newChannelName);
   this.closeModal();
+}
+
+sendQuickMessage(message: string) {
+  this.userInput = message;
+  this.sendMessage();
 }
 }
 
