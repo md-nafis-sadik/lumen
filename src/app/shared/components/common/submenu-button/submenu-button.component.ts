@@ -12,7 +12,7 @@ export class SubmenuButtonComponent {
   @Input() icon: string = '';
   @Input() label: string = '';
   @Input() isActive: boolean = false;
-  @Input() activeRingColor: string = '#9BDEEB';
+  @Input() activeRingColor: string = 'mint-200';
   @Input() textColor: string = '#000000';
   @Input() activeBackgroundColor: string = 'rgba(155, 222, 235, 0.15)';
   hoverRingColor: string = 'blue-500';

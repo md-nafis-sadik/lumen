@@ -3,3 +3,32 @@
 body {
   font-family: 'Inter', sans-serif;
 }
+
+@theme {
+  --color-mint-400: #1293AB;
+  --color-mint-900: #0A3F49;
+  --color-mint-200: #9BDEEB;
+
+  /* font size */
+
+  --text-tiny: 1.0625rem;
+}
+
+/* In your global styles.css or component style file */
+::-webkit-scrollbar {
+  height: 8px; /* horizontal */
+  width: 8px;  /* vertical */
+}
+
+::-webkit-scrollbar-track {
+  background: #f6f6f6;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #EDEDED;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}

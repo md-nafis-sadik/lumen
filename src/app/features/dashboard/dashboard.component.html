@@ -6,8 +6,8 @@
       <!-- Sidebar -->
       <app-sidebar
       [class.max-w-0]="!sidebarOpen"
-      [class.max-w-[355px]]="sidebarOpen"
-      class="w-full max-w-[355px] absolute lg:relative z-40 h-[calc(100vh-60px)] lg:h-auto bg-white transition-all duration-700 overflow-hidden mt-[60px]"
+      [class.max-w-[320px]]="sidebarOpen"
+      class="w-full max-w-[320px] absolute lg:relative z-40 h-[calc(100vh-60px)] lg:h-auto bg-white transition-all duration-700 overflow-hidden mt-[60px]"
     ></app-sidebar>
 
   
@@ -23,54 +23,72 @@
         ></app-image-slider>
 
         <div class="pb-[400px] space-y-4">
-          <div *ngFor="let msg of messages" class="flex" [ngClass]="{ 'justify-end': msg.sender === 'user' }">
-            <div *ngIf="msg.type === 'text'" class="bg-white p-3 rounded-lg shadow">
+          <div
+            *ngFor="let msg of messages"
+            class="flex"
+            [ngClass]="{
+              'justify-end': msg.sender === 'user',
+              'justify-start': msg.sender === 'bot'
+            }"
+          >
+            <!-- Text message -->
+            <div
+              *ngIf="msg.type === 'text'"
+              [ngClass]="{
+                'bg-mint-200 rounded-tr-none text-gray-900': msg.sender === 'user',
+                'bg-white rounded-tl-none text-gray-900': msg.sender === 'bot'
+              }"
+              class="p-3 shadow max-w-[70%] whitespace-pre-wrap rounded-lg text-sm"
+            >
               {{ msg.content }}
             </div>
         
+            <!-- Booking message -->
             <ng-container *ngIf="msg.type === 'booking'">
-              <!-- Include your existing booking card layout here -->
               <app-pickleball-booking-card></app-pickleball-booking-card>
             </ng-container>
           </div>
         </div>
         
+        
+        
+        
 
         <div class="flex flex-col items-center gap-4 sticky bottom-4 w-full bg-[#F6F6F6] message transition-all duration-700">
           <!-- Input content remains the same -->
-<div *ngIf="showSlider">
-          <h2 class="text-xl font-semibold text-center py-4">How can I assist you today?</h2>
-        
-          <div class="flex flex-wrap justify-center gap-3">
-            <button 
-              (click)="sendQuickMessage('Show my upcoming bookings')"
-              class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
-              <img src="assets/icons/calender-icon.svg"/>
-              Upcoming Bookings
-            </button>
-            
-            <button 
-              (click)="sendQuickMessage('Book a pickleball court')"
-              class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
-              <img src="assets/icons/pickle-racket-icon.svg"/>
-              Pickleball Court
-            </button>
-            
-            <button 
-              (click)="sendQuickMessage('Schedule doctor appointment')"
-              class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
-              <img src="assets/icons/square-plus-icon.svg"/>
-              Doctor Appointment
-            </button>
-            
-            <button 
-              (click)="sendQuickMessage('Show payment history')"
-              class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
-              <img src="assets/icons/payment-history-icon.svg"/>
-              Payment History
-            </button>
+          <div *ngIf="showSlider">
+            <h2 class="text-xl font-semibold text-center py-4">How can I assist you today?</h2>
+          
+            <div class="flex flex-wrap justify-center gap-3">
+              <button 
+                (click)="sendQuickMessage('Show my upcoming bookings')"
+                class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
+                <img src="assets/icons/calender-icon.svg"/>
+                Upcoming Bookings
+              </button>
+              
+              <button 
+                (click)="sendQuickMessage('Book a pickleball court')"
+                class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
+                <img src="assets/icons/pickle-racket-icon.svg"/>
+                Pickleball Court
+              </button>
+              
+              <button 
+                (click)="sendQuickMessage('Schedule doctor appointment')"
+                class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
+                <img src="assets/icons/square-plus-icon.svg"/>
+                Doctor Appointment
+              </button>
+              
+              <button 
+                (click)="sendQuickMessage('Show payment history')"
+                class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
+                <img src="assets/icons/payment-history-icon.svg"/>
+                Payment History
+              </button>
+            </div>
           </div>
-        </div>
           <div class="w-full max-w-[750px] mt-4 flex items-center border border-gray-200 rounded-xl bg-white px-4 py-2 shadow">
             <input
               type="text"
@@ -86,7 +104,7 @@
             </div>
             <button
               (click)="sendMessage()"
-              class="ml-2 text-white bg-gray-200 rounded-xl p-2 hover:bg-[#06ACCE] transition-colors duration-500 cursor-pointer"
+              class="ml-2 text-white bg-gray-200 rounded-xl p-2 hover:bg-black transition-colors duration-500 cursor-pointer"
             >
               <img src="assets/icons/send-icon.svg" />
             </button>

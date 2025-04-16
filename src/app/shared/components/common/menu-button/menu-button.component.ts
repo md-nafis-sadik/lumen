@@ -12,8 +12,8 @@ export class MenuButtonComponent {
   @Input() image: string = '';
   @Input() alt: string = '';
   @Input() isActive: boolean = false;
-  @Input() activeColor: string = '#9BDEEB'; // Default active color
-  @Input() inactiveColor: string = '#9BDEEB'; // Default inactive color
+  @Input() activeColor: string = 'mint-200'; // Default active color
+  @Input() inactiveColor: string = 'mint-200'; // Default inactive color
 
   @Output() click = new EventEmitter<void>(); // Define the output click event
 
