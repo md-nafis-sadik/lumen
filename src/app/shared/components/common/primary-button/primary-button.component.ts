@@ -24,9 +24,10 @@ export class PrimaryButtonComponent {
     return `
       mt-4
       ${this.width}
-      text-white 
+      text-white-00 
       rounded-lg 
       transition-colors 
+      duration-200
       cursor-pointer 
       ${this.fontSize} 
       ${this.padding} 

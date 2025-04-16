@@ -7,13 +7,13 @@
       <app-sidebar
       [class.max-w-0]="!sidebarOpen"
       [class.max-w-[320px]]="sidebarOpen"
-      class="w-full max-w-[320px] absolute lg:relative z-40 h-[calc(100vh-60px)] lg:h-auto bg-white transition-all duration-700 overflow-hidden mt-[60px]"
+      class="w-full max-w-[320px] absolute lg:relative z-40 h-[calc(100vh-60px)] lg:h-auto bg-white-00-00 transition-all duration-700 overflow-hidden mt-[60px]"
     ></app-sidebar>
 
   
   
       <!-- Main content -->
-      <main class="flex-1 overflow-auto bg-[#F6F6F6] px-4 mt-[60px] pt-[20px]">
+      <main class="flex-1 overflow-auto bg-fade-white px-4 mt-[60px] pt-[20px]">
         
         <app-image-slider
         *ngIf="showSlider"
@@ -35,10 +35,10 @@
             <div
               *ngIf="msg.type === 'text'"
               [ngClass]="{
-                'bg-mint-200 rounded-tr-none text-gray-900': msg.sender === 'user',
-                'bg-white rounded-tl-none text-gray-900': msg.sender === 'bot'
+                'bg-mint-200 rounded-tr-none text-primary-text': msg.sender === 'user',
+                'bg-white-00 rounded-tl-none text-primary-text': msg.sender === 'bot'
               }"
-              class="p-3 shadow max-w-[70%] whitespace-pre-wrap rounded-lg text-sm"
+              class="p-3 shadow max-w-[70%] white-00space-pre-wrap rounded-lg text-sm"
             >
               {{ msg.content }}
             </div>
@@ -54,7 +54,7 @@
         
         
 
-        <div class="flex flex-col items-center gap-4 sticky bottom-4 w-full bg-[#F6F6F6] message transition-all duration-700">
+        <div class="flex flex-col items-center gap-4 sticky bottom-4 w-full bg-fade-white message transition-all duration-700">
           <!-- Input content remains the same -->
           <div *ngIf="showSlider">
             <h2 class="text-xl font-semibold text-center py-4">How can I assist you today?</h2>
@@ -62,34 +62,34 @@
             <div class="flex flex-wrap justify-center gap-3">
               <button 
                 (click)="sendQuickMessage('Show my upcoming bookings')"
-                class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
+                class="flex items-center gap-2 px-4 py-2 bg-white-00 rounded-full shadow text-sm hover:bg-fade-white transition-colors duration-200">
                 <img src="assets/icons/calender-icon.svg"/>
                 Upcoming Bookings
               </button>
               
               <button 
                 (click)="sendQuickMessage('Book a pickleball court')"
-                class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
+                class="flex items-center gap-2 px-4 py-2 bg-white-00 rounded-full shadow text-sm hover:bg-fade-white transition-colors duration-200">
                 <img src="assets/icons/pickle-racket-icon.svg"/>
                 Pickleball Court
               </button>
               
               <button 
                 (click)="sendQuickMessage('Schedule doctor appointment')"
-                class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
+                class="flex items-center gap-2 px-4 py-2 bg-white-00 rounded-full shadow text-sm hover:bg-fade-white transition-colors duration-200">
                 <img src="assets/icons/square-plus-icon.svg"/>
                 Doctor Appointment
               </button>
               
               <button 
                 (click)="sendQuickMessage('Show payment history')"
-                class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow text-sm hover:bg-gray-100">
+                class="flex items-center gap-2 px-4 py-2 bg-white-00 rounded-full shadow text-sm hover:bg-fade-white transition-colors duration-200">
                 <img src="assets/icons/payment-history-icon.svg"/>
                 Payment History
               </button>
             </div>
           </div>
-          <div class="w-full max-w-[750px] mt-4 flex items-center border border-gray-200 rounded-xl bg-white px-4 py-2 shadow">
+          <div class="w-full max-w-[750px] mt-4 flex items-center border border-fade-white rounded-xl bg-white-00 px-4 py-2 shadow transition-colors duration-200">
             <input
               type="text"
               [(ngModel)]="userInput"
@@ -97,14 +97,14 @@
               class="flex-1 outline-none text-sm px-2 placeholder-custom"
               (keydown.enter)="sendMessage()"  
             />
-            <div class="flex items-center gap-3 text-gray-500 cursor-pointer">
+            <div class="flex items-center gap-3 text-fade-text cursor-pointer">
               <img src="assets/icons/plus-chat-icon.svg"/>
               <img src="assets/icons/mike-icon.svg"/>
               <img src="assets/icons/echo-icon.svg"/>
             </div>
             <button
               (click)="sendMessage()"
-              class="ml-2 text-white bg-gray-200 rounded-xl p-2 hover:bg-black transition-colors duration-500 cursor-pointer"
+              class="ml-2 text-white-00 bg-fade-white rounded-xl p-2 hover:bg-black transition-colors duration-500 cursor-pointer"
             >
               <img src="assets/icons/send-icon.svg" />
             </button>
@@ -119,33 +119,42 @@
   </div>
   
 
-
-<div
-*ngIf="showAddChannelModal"
-class="fixed inset-0 z-50 bg-black bg-opacity-10 flex items-center justify-center"
+  <div
+  *ngIf="showAddChannelModal"
+  class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center"
+  (click)="closeModal()"
 >
-<div class="bg-white w-full h-full md:w-[500px] md:h-auto p-6 rounded-lg shadow-lg overflow-y-auto relative">
-  <button
-    class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl"
-    (click)="closeModal()"
+  <!-- Modal Box -->
+  <div
+    class="bg-white w-full max-h-[90vh] mx-4 md:w-[500px] md:h-auto p-6 rounded-lg shadow-lg overflow-y-auto relative
+           animate-[fadeInModal_0.3s_ease-out_forwards]"
+    (click)="$event.stopPropagation()"
   >
-    &times;
-  </button>
-  <h2 class="text-lg font-semibold mb-4">Add Chat Channel</h2>
-  <input
-    type="text"
-    [(ngModel)]="newChannelName"
-    placeholder="Channel name"
-    class="w-full p-2 border border-gray-300 rounded-md mb-4"
-  />
-  <app-primary-button
-    [text]="'Add Channel'"
-    (click)="saveChannel()"
-    [bgColor]="'#06ACCE'"
-    [hoverColor]="'#0799B7'"
-    fontSize="text-sm"
-    padding="py-2 px-3"
-    width="w-full"
-  ></app-primary-button>
+    <button
+      class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl cursor-pointer"
+      (click)="closeModal()"
+    >
+      &times;
+    </button>
+
+    <h2 class="text-lg font-semibold mb-4">Add Chat Channel</h2>
+
+    <input
+      type="text"
+      [(ngModel)]="newChannelName"
+      placeholder="Channel name"
+      class="w-full p-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+
+    <app-primary-button
+      [text]="'Add Channel'"
+      (click)="saveChannel()"
+      [bgColor]="'#06ACCE'"
+      [hoverColor]="'#0799B7'"
+      fontSize="text-sm"
+      padding="py-2 px-3"
+      width="w-full"
+    ></app-primary-button>
+  </div>
 </div>
-</div>
+

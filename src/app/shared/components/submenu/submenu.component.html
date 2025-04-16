@@ -13,8 +13,8 @@
         (click)="selectSubmenu(item.key)"
         class="flex items-center gap-2 px-3 py-2  rounded-md w-52 cursor-pointer transition-all duration-200 ease-in-out"
         [ngClass]="{
-          'bg-[#EAF9FC] ring-1 ring-mint-200 border-mint-200 border-b-2': item.key === activeSubmenu,
-          'hover:bg-gray-100 border-b-transparent': item.key !== activeSubmenu
+          'bg-mint-50 ring-1 ring-mint-200 border-mint-200 border-b-2': item.key === activeSubmenu,
+          'hover:bg-fade-white border-b-transparent': item.key !== activeSubmenu
         }"
       >
         <img [src]="item.icon" [alt]="item.label" class="w-5 h-5 object-contain" />
@@ -28,7 +28,7 @@
         <div class="h-[36px] overflow-y-auto">
         <button
           (click)="openChannelModal()"
-          class="bg-[#F6F6F6] hover:bg-[#EDEDED] border border-[#EDEDED] p-1 rounded-full cursor-pointer"
+          class="bg-fade-white hover:bg-fade-white border border-fade-white p-1 rounded-full cursor-pointer"
         >
           <img src="assets/icons/add-icon.svg" class="w-[11px] object-contain" />
         </button>
@@ -54,10 +54,10 @@
 
   <div>
     <div
-      class="max-w-xs mx-auto rounded-2xl border border-[#EDEDED] bg-[#fafafa] p-3 text-center"
+      class="max-w-[208px] max-h-[182px] mx-auto rounded-2xl border border-fade-white bg-[#fafafa] p-3 text-center"
     >
       <div class="flex justify-center mb-2">
-        <div class="rounded-full bg-[#EBF9FB] p-1.5">
+        <div class="rounded-full bg-fade-white p-1.5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5 text-cyan-500"
@@ -74,14 +74,14 @@
           </svg>
         </div>
       </div>
-      <h2 class="font-semibold text-gray-900">
+      <h2 class="font-semibold text-primary-text">
         Upgrade to
         <span
-          class="bg-[#D7F2F7] text-[#0799B7] text-sm font-medium px-2 py-0.5 rounded-md ml-1 align-middle"
+          class="bg-mint-50 text-mint-400 text-sm font-medium px-2 py-0.5 rounded-md ml-1 align-middle"
           >Pro</span
         >
       </h2>
-      <p class="text-gray-500 mt-2 text-xs">
+      <p class="text-fade-text mt-2 text-xs">
         Dorem ipsum dolor sit amet, consectetur adipiscing elit.
       </p>
 
@@ -89,9 +89,9 @@
         [text]="'Learn more'"
         [bgColor]="'#06ACCE'"
         [hoverColor]="'#0799B7'"
-        fontSize="text-xs"
+        fontSize="text-sm"
         padding="py-2 px-3"
-        width="w-32"
+        width="w-[108px]"
       ></app-primary-button>
     </div>
   </div>

@@ -4,11 +4,12 @@ import { LogoComponent } from '../../shared/components/common/logo/logo.componen
 import { AvatarComponent } from '../../shared/components/common/avatar/avatar.component';
 import { ToggleButtonComponent } from '../../shared/components/common/toggle-button/toggle-button.component';
 import { IconButtonComponent } from '../../shared/components/common/icon-button/icon-button.component';
+import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, LogoComponent, AvatarComponent, ToggleButtonComponent, IconButtonComponent],
+  imports: [CommonModule, LogoComponent, AvatarComponent, ToggleButtonComponent, IconButtonComponent, ClickOutsideDirective],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })

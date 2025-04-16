@@ -8,9 +8,15 @@ body {
   --color-mint-400: #1293AB;
   --color-mint-900: #0A3F49;
   --color-mint-200: #9BDEEB;
+  --color-mint-50: #EAF9FC;
+  --color-white-00: white;
+  --color-primary-text: #141414;
+  --color-fade-text: #BDBDBD;
+  --color-fade-white: #F6F6F6;
 
   /* font size */
 
+  --text-h1: 56px;
   --text-tiny: 1.0625rem;
 }
 
@@ -31,4 +37,18 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #888;
+}
+
+
+
+
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

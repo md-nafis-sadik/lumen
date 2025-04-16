@@ -1,22 +1,35 @@
-<!-- src/app/login/welcome-sidebar/welcome-sidebar.component.html -->
-<div class="h-full bg-gradient-to-t from-mint-900 to-mint-400 text-white p-20 flex flex-col justify-between">
-    <div>
-        <div class="text-5xl xl:text-6xl font-semibold leading-16 flex items-center">Hello <div><img src="assets/icons/hand-wave.png" class="w-[60px] xl:w-[70px] ml-1"/></div></div>
-      <div class="text-5xl xl:text-6xl font-semibold mb-8 leading-16">Welcome to <br/> <span class="text-white font-semibold">Picklebug</span></div>
-      <p class="text-xl xl:text-2xl font-semibold mb-8">AI Conversational Assistant!</p>
-      <p class="xl:text-lg opacity-80 font-[300]">
-        The next-gen AI chatbot that transforms conversations into <br/> solutions.
-        Powered by LUMEN’s intelligent modular system.
-      </p>
-    </div>
-  
-    <div class="mt-10 text-sm">
-      <div class="mb-6 flex items-center">
-        <img src="assets/icons/pindrop-icon.svg" class="w-4"/>
+<!-- Outer wrapper fills full height and has background -->
+<div class="h-full bg-gradient-to-t from-mint-900 to-mint-400 text-white-00 p-20 flex flex-col justify-between items-end">
 
-        <span class="text-md xl:text-lg opacity-80 ml-4">789 Innovation Drive, San Francisco, CA, USA</span></div>
-        <app-social-icon [icons]="socialIcons"></app-social-icon>
-
+  <!-- Inner content box: max width 720px, aligned right -->
+  <div class="w-full max-w-[720px]">
+    <div class="text-5xl xl:text-6xl font-semibold leading-16 flex items-center">
+      Hello
+      <div>
+        <img src="assets/icons/hand-wave.png" class="w-[60px] xl:w-[70px] ml-1" />
+      </div>
     </div>
+
+    <div class="text-5xl xl:text-h1 font-semibold mb-8 leading-16">
+      Welcome to <br />
+      <span class="text-white-00 font-semibold">Picklebug</span>
+    </div>
+
+    <p class="text-xl xl:text-2xl font-semibold mb-8">AI Conversational Assistant!</p>
+
+    <p class="xl:text-lg opacity-80 font-light">
+      The next-gen AI chatbot that transforms conversations into <br />
+      solutions. Powered by LUMEN’s intelligent modular system.
+    </p>
   </div>
-  
+
+  <!-- Footer content: also limited to 720px and aligned right -->
+  <div class="mt-10 text-sm w-full max-w-[720px]">
+    <div class="mb-6 flex items-center">
+      <img src="assets/icons/pindrop-icon.svg" class="w-4" />
+      <span class="text-md xl:text-lg opacity-80 ml-4">789 Innovation Drive, San Francisco, CA, USA</span>
+    </div>
+    <app-social-icon [icons]="socialIcons"></app-social-icon>
+  </div>
+
+</div>

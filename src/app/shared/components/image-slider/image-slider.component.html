@@ -9,7 +9,7 @@
     <div
       *ngFor="let slide of slides; let i = index"
       class="w-full flex-shrink-0 xl:flex items-center"
-      [ngClass]="slide.textColor || 'text-white'"
+      [ngClass]="slide.textColor || 'text-white-00'"
       [ngStyle]="{
         backgroundImage: slide.gradient ? 'radial-gradient(' + slide.gradient + ')' : 'radial-gradient(circle at top right, #118A9F, #07282E)'
       }"
@@ -27,6 +27,8 @@
             [text]="slide.buttonText"
             [bgColor]="slide.buttonColor || '#06ACCE'"
             [hoverColor]="slide.buttonHoverColor || '#0799B7'"
+            width="w-[108px]"
+            fontSize="text-sm"
           ></app-primary-button>
         </div>
       </div>

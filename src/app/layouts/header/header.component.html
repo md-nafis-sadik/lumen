@@ -1,4 +1,4 @@
-<header class="flex items-center justify-between px-4 py-3 bg-white border-b border-b-gray-200 w-full fixed top-0 z-50">
+<header class="flex items-center justify-between px-4 py-3 bg-white-00 border-b border-b-fade-white w-full fixed top-0 z-50">
     <!-- Toggle button (left) -->
      <div class="flex">
 
@@ -22,17 +22,17 @@
   
   <div 
   *ngIf="showAvatarDropdown"
-  class="fixed z-50 top-10 right-2 mt-2 w-48 bg-white rounded-md shadow-lg py-1 border border-gray-200">
-  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
-  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+  class="fixed z-50 top-10 right-2 mt-2 w-48 bg-white-00 rounded-md shadow-lg border border-fade-white">
+  <a href="#" class="block px-4 py-2 text-sm text-primary-text hover:bg-fade-white">Profile</a>
+  <a href="#" class="block px-4 py-2 text-sm text-primary-text hover:bg-fade-white">Settings</a>
 
-  <a href="/login" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+  <a href="/login" class="block px-4 py-2 text-sm text-primary-text hover:bg-fade-white">Logout</a>
 </div>
   <!-- Settings Sidebar -->
-<div *ngIf="showSettingsSidebar" class="fixed inset-y-0 right-0 w-80 bg-white shadow-lg z-50">
+<div *ngIf="showSettingsSidebar" class="fixed inset-y-0 right-0 w-80 bg-white-00 shadow-lg z-50">
   <div class="p-4 flex justify-between items-center">
     <h3 class="text-lg font-semibold">Settings</h3>
-    <button (click)="closeSettings()" class="text-gray-500 hover:text-gray-700">
+    <button (click)="closeSettings()" class="text-fade-text hover:text-primary-text cursor-pointer">
       &times;
     </button>
   </div>
@@ -40,14 +40,13 @@
 </div>
 
 <!-- Notifications Sidebar -->
-<div *ngIf="showNotificationsSidebar" class="fixed inset-y-0 right-0 w-80 bg-white shadow-lg z-50">
+<div *ngIf="showNotificationsSidebar" class="fixed inset-y-0 right-0 w-80 bg-white-00 shadow-lg z-50">
   <div class="p-4 flex justify-between items-center">
     <h3 class="text-lg font-semibold">Notifications</h3>
-    <button (click)="closeNotifications()" class="text-gray-500 hover:text-gray-700">
+    <button (click)="closeNotifications()" class="text-fade-text hover:text-primary-text cursor-pointer">
       &times;
     </button>
   </div>
   <!-- Add notifications content here -->
 </div>
 
-<!-- Backdrop -->

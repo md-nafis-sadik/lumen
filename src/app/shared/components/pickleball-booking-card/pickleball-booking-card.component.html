@@ -1,9 +1,9 @@
-<div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md space-y-6">
-  <h3 class="text-2xl font-bold text-gray-800">Pickleball Court Booking</h3>
+<div class="bg-white-00 rounded-xl shadow-lg p-6 w-full max-w-md space-y-6">
+  <h3 class="text-2xl font-bold text-primary-text">Pickleball Court Booking</h3>
 
   <button 
     (click)="useMyLocation()"
-    class="w-full flex items-center justify-center gap-2 py-3 px-4 border border-[#06ACCE] rounded-lg text-[#06ACCE] hover:bg-[#E6F7FB] transition-colors">
+    class="w-full flex items-center justify-center gap-2 py-3 px-4 border border-[#06ACCE] rounded-lg text-mint-200 hover:bg-[#E6F7FB] transition-colors">
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -13,7 +13,7 @@
 
   <div class="space-y-4">
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
+      <label class="block text-sm font-medium text-primary-text mb-2">Country</label>
       <ng-select
         [items]="countries"
         [searchable]="true"
@@ -25,7 +25,7 @@
     </div>
 
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">City</label>
+      <label class="block text-sm font-medium text-primary-text mb-2">City</label>
       <ng-select
         [items]="cities"
         [searchable]="true"
@@ -37,7 +37,7 @@
     </div>
 
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">District</label>
+      <label class="block text-sm font-medium text-primary-text mb-2">District</label>
       <ng-select
         [items]="districts"
         [searchable]="true"
@@ -49,7 +49,7 @@
     </div>
 
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+      <label class="block text-sm font-medium text-primary-text mb-2">Date</label>
       <div class="flex items-center gap-2">
         <button mat-icon-button class="!p-1">
           <mat-icon>chevron_left</mat-icon>
@@ -67,7 +67,7 @@
   </div>
 
   <button 
-    class="w-full bg-[#06ACCE] hover:bg-[#0799B7] text-white py-3 px-6 rounded-lg font-medium transition-colors">
+    class="w-full bg-[#06ACCE] hover:bg-[#0799B7] text-white-00 py-3 px-6 rounded-lg font-medium transition-colors">
     Search
   </button>
 </div>

@@ -1,46 +1,63 @@
 <div class="w-full max-w-md space-y-6">
   <app-logo customClass="mb-6" />
 
-  <div class="">
+  <div>
     <h2 class="text-4xl lg:text-5xl font-bold mb-4 text-center lg:text-start">Sign in</h2>
-    <p class="text-md text-mint-500 text-center lg:text-start">Enter your personal details and start journey with us</p>
+    <p class="text-md text-mint-500 text-center lg:text-start">
+      Enter your personal details and start journey with us
+    </p>
   </div>
 
   <form class="space-y-4" (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate>
 
-    <app-form-input 
-      [(value)]="email" 
-      name="email" 
-      placeholder="Enter your email" 
-      type="email" 
-      autocomplete="email"
-      label="Email" 
-      required 
-      #emailRef="ngModel"
-      [(ngModel)]="email"
-      (blur)="onEmailBlur()">
-    </app-form-input>
-    <div *ngIf="(emailRef.invalid && emailTouched)" class="text-red-500 text-sm">
-      <div *ngIf="emailRef.errors?.['required']">Email is required.</div>
-      <div *ngIf="emailRef.errors?.['email']">Please enter a valid email address.</div>
+    <!-- Email Field -->
+    <div class="mb-4">
+      <label class="block mb-2 font-medium">Email</label>
+      <input
+        type="email"
+        name="email"
+        placeholder="Enter your email"
+        [(ngModel)]="email"
+        (blur)="onEmailBlur()"
+        autocomplete="email"
+        required
+        email
+        #emailRef="ngModel"
+        class="bg-custom placeholder-custom w-full p-2.5 border border-[#EDEDED] rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
+      />
+      <div *ngIf="emailRef.invalid && emailTouched" class="text-red-400 text-sm mt-1">
+        <div *ngIf="emailRef.errors?.['required']">Email is required.</div>
+        <div *ngIf="emailRef.errors?.['email']">Please enter a valid email address.</div>
+      </div>
     </div>
-  
-    <app-password-toggle-input 
-      [(value)]="password" 
-      name="password" 
-      placeholder="Enter your password" 
-      type="password"
-      autocomplete="current-password" 
-      label="Password" 
-      required 
-      #passwordRef="ngModel"
-      [(ngModel)]="password"
-      (blur)="onPasswordBlur()">
-    </app-password-toggle-input>
-    <div *ngIf="passwordRef.invalid && passwordTouched" class="text-red-500 text-sm">
-      Password is required.
-    </div>
-  
+
+    <!-- Password Field -->
+    <!-- Custom Password Input -->
+<app-password-toggle-input
+[(value)]="password"
+name="password"
+placeholder="Enter your password"
+type="password"
+autocomplete="current-password"
+label="Password"
+(blur)="onPasswordBlur()">
+</app-password-toggle-input>
+
+<!-- Hidden ngModel Input for Validation -->
+<input
+type="password"
+name="password"
+[(ngModel)]="password"
+#passwordRef="ngModel"
+hidden
+required
+/>
+<div *ngIf="passwordRef.invalid && passwordTouched" class="text-red-500 text-sm">
+Password is required.
+</div>
+
+
+    <!-- Keep Me Signed In -->
     <div class="flex justify-between items-center text-sm">
       <div class="flex items-center cursor-pointer" (click)="checked = !checked">
         <input
@@ -48,27 +65,29 @@
           name="rememberMe"
           [(ngModel)]="checked"
           (click)="$event.stopPropagation()" />
-        <span class="ml-2 text-gray-800">Keep me signed in</span>
+        <span class="ml-2 text-primary-text">Keep me signed in</span>
       </div>
-            
       <div><a href="#" class="text-[#09B3D1]">Forgot password</a></div>
     </div>
-  
+
+    <!-- Submit Button -->
     <app-submit-button [label]="'Sign in'" [disabled]="!isFormValid()" />
-  
   </form>
 
-  <div class="flex items-center gap-2 text-sm text-gray-400">
-    <div class="flex-1 h-px bg-gray-300"></div>
+  <!-- Divider -->
+  <div class="flex items-center gap-2 text-sm text-fade-text">
+    <div class="flex-1 h-px bg-fade-white"></div>
     Or
-    <div class="flex-1 h-px bg-gray-300"></div>
+    <div class="flex-1 h-px bg-fade-white"></div>
   </div>
 
+  <!-- Social Login -->
   <div class="space-x-2 lg:flex justify-between">
     <app-social-button imageSrc="assets/icons/google-icon.svg" imageAlt="Google logo" label="Sign in with Google" />
     <app-social-button iconClass="fa-brands fa-apple" label="Sign in with Apple" />
   </div>
 
+  <!-- Sign Up Prompt -->
   <p class="text-center text-sm">
     New to Lumen?
     <a href="/signup" class="text-[#09B3D1] hover:underline">Sign Up</a>
