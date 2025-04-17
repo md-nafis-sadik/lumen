@@ -1,9 +1,16 @@
-<div class="relative w-full overflow-hidden rounded-2xl">
+<div
+  class="relative w-full overflow-hidden rounded-2xl"
+  (mousedown)="onMouseDown($event)"
+  (mousemove)="onMouseMove($event)"
+  (mouseup)="onMouseUp()"
+  (mouseleave)="onMouseLeave()"
+  [ngClass]="{ 'cursor-grab': !isDragging, 'cursor-grabbing': isDragging }" 
+>
   <div
-    class="flex ease-in-out"
+    #slider
+    class="flex ease-in-out transition-transform duration-700"
     [ngStyle]="{
-      transform: 'translateX(-' + activeSlide * 100 + '%)',
-      transition: 'transform 700ms'
+      transform: 'translateX(-' + activeSlide * 100 + '%)'
     }"
   >
     <div
@@ -11,7 +18,10 @@
       class="w-full flex-shrink-0 xl:flex items-center"
       [ngClass]="slide.textColor || 'text-white-00'"
       [ngStyle]="{
-        backgroundImage: slide.gradient ? 'radial-gradient(' + slide.gradient + ')' : 'radial-gradient(circle at top right, #118A9F, #07282E)'
+        width: '100%',
+        backgroundImage: slide.gradient
+          ? 'radial-gradient(' + slide.gradient + ')'
+          : 'radial-gradient(circle at top right, #118A9F, #07282E)'
       }"
     >
       <div class="xl:w-1/2 px-10 pt-16 xl:px-20">

@@ -1,0 +1,13 @@
+.slider-track {
+    cursor: grab;
+  }
+  
+  .slider-track.dragging {
+    cursor: grabbing;
+    transition: none !important;
+  }
+  
+  :host {
+    user-select: none;
+  }
+  

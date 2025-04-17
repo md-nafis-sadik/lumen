@@ -31,21 +31,21 @@ export class HeaderComponent {
       showNotificationsSidebar = false;
 
       
-  onGearClick() {
-    this.gearClicked.emit();
-  }
-  
-  onBellClick() {
-    this.bellClicked.emit();
-  }
-  
-  toggleAvatarDropdown() {
-    this.avatarClicked.emit();
-  }
-  
-
-
-
+      onGearClick() {
+        this.showSettingsSidebar = !this.showSettingsSidebar; 
+        this.gearClicked.emit();
+      }
+      
+      onBellClick() {
+        this.showNotificationsSidebar = !this.showNotificationsSidebar; 
+        this.bellClicked.emit();
+      }
+      
+      toggleAvatarDropdown() {
+        this.showAvatarDropdown = !this.showAvatarDropdown;
+        this.avatarClicked.emit();
+      }
+      
   
   
     closeSettings() {

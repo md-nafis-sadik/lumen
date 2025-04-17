@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ElementRef, ViewChild, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { CommonModule, isPlatformBrowser  } from '@angular/common';
 import { HeaderComponent } from '../../layouts/header/header.component';
 import { SidebarComponent } from '../../layouts/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
@@ -22,9 +22,7 @@ showSlider = true;
 
 sidebarOpen = true;
 
-toggleSidebar() {
-  this.sidebarOpen = !this.sidebarOpen;
-}
+
   
 
   sliderSlides = [
@@ -71,39 +69,99 @@ toggleSidebar() {
   
 
   userInput = '';
-messages: { sender: 'user' | 'bot', content: string, type: 'text' | 'booking' }[] = [];
+  messages: { 
+    sender: 'user' | 'bot', 
+    content: string, 
+    type: 'text' | 'booking',
+    timestamp: Date,
+    avatar: string 
+  }[] = [];
 
 sendMessage() {
   const trimmed = this.userInput.trim();
   if (!trimmed) return;
 
   // Push user message
-  this.messages.push({ sender: 'user', content: trimmed, type: 'text' });
+  this.messages.push({ 
+    sender: 'user', 
+    content: trimmed, 
+    type: 'text',
+    timestamp: new Date(),
+    avatar: 'assets/icons/Avatar.png' 
+  });
 
-  // Reset input
   this.userInput = '';
   this.showSlider = false;
 
   // Handle response
   setTimeout(() => {
     if (trimmed.toLowerCase().includes('book') && trimmed.toLowerCase().includes('pickleball')) {
-      this.messages.push({ sender: 'bot', content: '', type: 'booking' });
+      this.messages.push({ 
+        sender: 'bot', 
+        content: '', 
+        type: 'booking',
+        timestamp: new Date(),
+        avatar: 'assets/icons/LUMEN.svg' 
+      });
     } else {
-      this.messages.push({ sender: 'bot', content: "I'm here to help!", type: 'text' });
+      this.messages.push({ 
+        sender: 'bot', 
+        content: "I'm here to help!", 
+        type: 'text',
+        timestamp: new Date(),
+        avatar: 'assets/icons/LUMEN.svg' 
+      });
     }
   }, 300);
 }
 
-constructor(private submenuService: SubmenuService) {}
+
+constructor(
+  private submenuService: SubmenuService,
+  @Inject(PLATFORM_ID) private platformId: Object
+) {
+  this.initializeSidebarState();
+}
 
 ngOnInit() {
-  // Optional: Subscribe to the modal and name states if needed
-  this.submenuService.showAddChannelModal$.subscribe((show) => {
+  this.setupSubmenuSubscriptions();
+  this.setupResizeListener();
+}
+
+ngOnDestroy() {
+  if (isPlatformBrowser(this.platformId)) {
+    window.removeEventListener('resize', this.handleResize);
+  }
+}
+
+private initializeSidebarState() {
+  if (isPlatformBrowser(this.platformId)) {
+    this.handleResize();
+  }
+}
+
+private handleResize = () => {
+  const isLgScreen = window.innerWidth >= 1024;
+  this.sidebarOpen = isLgScreen;
+}
+
+private setupResizeListener() {
+  if (isPlatformBrowser(this.platformId)) {
+    window.addEventListener('resize', this.handleResize);
+  }
+}
+
+private setupSubmenuSubscriptions() {
+  this.submenuService.showAddChannelModal$.subscribe(show => {
     this.showAddChannelModal = show;
   });
-  this.submenuService.newChannelName$.subscribe((name) => {
+  this.submenuService.newChannelName$.subscribe(name => {
     this.newChannelName = name;
   });
+}
+
+toggleSidebar() {
+  this.sidebarOpen = !this.sidebarOpen;
 }
 channels = ['Pickleball Expert'];
 showAddChannelModal = false;
@@ -151,6 +209,37 @@ closeAll() {
   this.showNotificationsSidebar = false;
   this.showAvatarDropdown = false;
 }
+
+@ViewChild('chatContainer') private chatContainer!: ElementRef;
+  private previousMessagesLength = 0;
+  private shouldAutoScroll = true; // New flag
+
+
+  // Detect manual scrolling
+  onScroll() {
+    const element = this.chatContainer.nativeElement;
+    const atBottom = element.scrollHeight - element.scrollTop === element.clientHeight;
+    this.shouldAutoScroll = atBottom;
+  }
+
+  ngAfterViewChecked() {
+    if (this.messages.length > this.previousMessagesLength) {
+      if (this.shouldAutoScroll) {
+        this.scrollToBottom();
+      }
+      this.previousMessagesLength = this.messages.length;
+    }
+  }
+
+  private scrollToBottom() {
+    try {
+      this.chatContainer.nativeElement.scrollTop = 
+        this.chatContainer.nativeElement.scrollHeight;
+    } catch (err) { 
+      console.error('Scroll error:', err); 
+    }
+  }
+
 
 }
 
