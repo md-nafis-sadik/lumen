@@ -1,73 +1,84 @@
-<div class="bg-white-00 rounded-xl shadow-lg p-6 w-full max-w-md space-y-6">
-  <h3 class="text-2xl font-bold text-primary-text">Pickleball Court Booking</h3>
+<!-- Top prompt text -->
 
-  <button 
-    (click)="useMyLocation()"
-    class="w-full flex items-center justify-center gap-2 py-3 px-4 border border-[#06ACCE] rounded-lg text-mint-200 hover:bg-[#E6F7FB] transition-colors">
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-    </svg>
-    Use my location
-  </button>
 
-  <div class="space-y-4">
-    <div>
-      <label class="block text-sm font-medium text-primary-text mb-2">Country</label>
-      <ng-select
-        [items]="countries"
-        [searchable]="true"
-        placeholder="Select country"
-        [(ngModel)]="countryControl"
-        class="w-full"
-        >
-      </ng-select>
+<!-- Booking Card -->
+<div class="bg-white rounded-xl p-6 w-full max-w-2xl border border-gray-200">
+  <p class="text-gray-700 text-[14px] mb-4 bg-white-00 py-4">Sure, here you go. Book your Pickleball Court from below.</p>
+  
+<div class="border border-gray-200 rounded-md p-4"><h3 class="text-lg font-semibold text-gray-800 mb-4">Pickleball Court Booking</h3>
+  <div class="flex flex-col sm:flex-row gap-6">
+    <!-- Left Panel (Inputs) -->
+     
+    <div class="w-full sm:w-1/3 space-y-4 text-[12px]">
+      <button 
+        (click)="useMyLocation()"
+        class="flex items-center gap-2 w-full px-3 py-2 border border-gray-200 rounded-lg hover:bg-[#E6F7FB] transition">
+        
+        Use my location
+      </button>
+
+      <div>
+
+        <div class="px-3 py-2 border-b-2 ring-1 ring-mint-200 border-mint-200  rounded-lg ">
+          {{ countryControl.value || 'Select your country' }}
+        </div>
+      </div>
+
+      <div>
+     
+        <div class="px-3 py-2 border border-gray-200 rounded-lg text-gray-600 cursor-not-allowed">
+          <div>City</div>
+          <div>Select your city</div>
+        </div>
+      </div>
+
+      <div>
+
+        <div class="px-3 py-2 border border-gray-200 rounded-lg text-gray-600 bg-gray-100 cursor-not-allowed">
+          Select your district
+        </div>
+      </div>
+
+      <div>
+
+        <div class="px-3 py-2 border border-gray-200 rounded-lg text-gray-600 bg-gray-100 cursor-not-allowed">
+          Pick a date
+        </div>
+      </div>
     </div>
 
-    <div>
-      <label class="block text-sm font-medium text-primary-text mb-2">City</label>
-      <ng-select
-        [items]="cities"
-        [searchable]="true"
-        placeholder="Select city"
-        [(ngModel)]="cityControl"
-        class="w-full"
-        >
-      </ng-select>
-    </div>
+    <!-- Right Panel (Selectable countries) -->
+    <div class="w-full sm:w-2/3 bg-gray-50 p-4">
+      <app-search-input/>
 
-    <div>
-      <label class="block text-sm font-medium text-primary-text mb-2">District</label>
-      <ng-select
-        [items]="districts"
-        [searchable]="true"
-        placeholder="Select district"
-        [(ngModel)]="districtControl"
-        class="w-full"
-        >
-      </ng-select>
-    </div>
+      <div class="h-56 overflow-y-auto space-y-1 p-1 text-sm">
+        <div 
+          *ngFor="let country of filteredCountries()" 
+          (click)="selectCountry(country)"
+          class="flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-100 "
+          [class.border-b-2]="countryControl.value === country"
+          [class.border-mint-200]="countryControl.value === country"
+          [class.ring-1]="countryControl.value === country"
+          [class.ring-mint-200]="countryControl.value === country">
+          
+          <div class="flex items-center gap-2">
+            <img 
+              [src]="'/assets/flags/' + country.toLowerCase() + '.svg'" 
+              alt="{{country}}" 
+              class="w-5 h-5 rounded-full">
+            <span>{{ country }}</span>
+          </div>
 
-    <div>
-      <label class="block text-sm font-medium text-primary-text mb-2">Date</label>
-      <div class="flex items-center gap-2">
-        <button mat-icon-button class="!p-1">
-          <mat-icon>chevron_left</mat-icon>
-        </button>
-        <input 
-          [matDatepicker]="picker"
-          class="w-full px-3 py-2 border rounded-md text-center"
-          [formControl]="selectedDate">
-        <mat-datepicker #picker></mat-datepicker>
-        <button mat-icon-button class="!p-1">
-          <mat-icon>chevron_right</mat-icon>
-        </button>
+
+        </div>
       </div>
     </div>
   </div>
 
-  <button 
-    class="w-full bg-[#06ACCE] hover:bg-[#0799B7] text-white-00 py-3 px-6 rounded-lg font-medium transition-colors">
-    Search
-  </button>
+  <!-- Footer buttons -->
+  <div class="flex justify-between items-center mt-6">
+    <button class="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-100">Back</button>
+    <button class="px-4 py-2 bg-gray-200 text-gray-500 rounded-lg text-sm cursor-not-allowed" disabled>Next</button>
+  </div>
+</div>
 </div>

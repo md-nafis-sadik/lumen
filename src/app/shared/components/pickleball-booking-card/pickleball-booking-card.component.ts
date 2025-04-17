@@ -1,3 +1,4 @@
+// pickleball-booking-card.component.ts
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -7,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { SearchInputComponent } from '../common/search-input/search-input.component';
 
 @Component({
   selector: 'app-pickleball-booking-card',
@@ -19,16 +21,17 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatIconModule,
     NgSelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SearchInputComponent
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './pickleball-booking-card.component.html',
   styleUrls: ['./pickleball-booking-card.component.css']
 })
 export class PickleballBookingCardComponent {
-  countries = ['India', 'USA', 'Canada', 'Australia', 'Germany', 'Bangladesh'];
-  cities = ['New Delhi', 'Mumbai', 'Bangalore', 'Chennai'];
-  districts = ['Central', 'East', 'West', 'North', 'South'];
+  countries = ['Argentina', 'Australia', 'Bangladesh', 'Canada', 'India', 'Germany'];
+  cities: string[] = []; // Initialize as empty
+  districts: string[] = []; // Initialize as empty
   
   selectedDate = new FormControl(new Date());
   countryControl = new FormControl();
@@ -42,4 +45,16 @@ export class PickleballBookingCardComponent {
       });
     }
   }
+  countrySearch = '';
+
+filteredCountries() {
+  return this.countries.filter(c =>
+    c.toLowerCase().includes(this.countrySearch.toLowerCase())
+  );
+}
+
+selectCountry(country: string) {
+  this.countryControl.setValue(country);
+}
+
 }
