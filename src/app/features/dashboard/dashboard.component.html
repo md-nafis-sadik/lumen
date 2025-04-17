@@ -21,11 +21,11 @@
   
   
       <!-- Main content -->
-      <main class="flex-1 overflow-auto bg-fade-white px-4 mt-[60px] pt-[20px]">
-        <app-image-slider *ngIf="showSlider" [slides]="sliderSlides"></app-image-slider>
+      <main class="flex-1 overflow-auto bg-fade-white mt-[60px] pt-[20px]">
+        <div class="px-4"><app-image-slider *ngIf="showSlider" [slides]="sliderSlides"></app-image-slider></div>
 
         <!-- Chat messages container -->
-        <div #chatContainer class="flex justify-center items-end mx-auto overflow-y-auto space-y-4 pb-24"
+        <div #chatContainer class="flex justify-center items-end mx-auto overflow-y-auto space-y-4 pb-24 px-4"
              style="max-height: calc(100vh - 100px)" (scroll)="onScroll()">
             <div class="w-full max-w-[720px]">
                 <div *ngFor="let msg of messages" class="flex mb-4"
@@ -65,11 +65,11 @@
         </div>
 
         <!-- Input container -->
-        <div class="flex flex-col items-center gap-4 fixed bottom-0 w-[95%] lg:w-[calc(100vw-320px)] bg-fade-white message transition-all duration-700 py-4 xl:px-4"
+        <div class="flex flex-col items-center gap-4 fixed bottom-0 w-full lg:w-[calc(100vw-320px)] bg-fade-white message transition-all duration-700 py-4 px-4"
                  [class.lg:w-[calc(100vw-320px)]]="sidebarOpen"
-                 [class.lg:w-[calc(100vw-36px)]]="!sidebarOpen">
+                 [class.lg:w-[100%]]="!sidebarOpen">
           <!-- Input content remains the same -->
-          <div *ngIf="showSlider" class="w-full max-w-[720px]">
+          <div *ngIf="showSlider" class="w-full max-w-[720px] ">
             <h2 class="text-xl font-semibold text-center py-4">How can I assist you today?</h2>
           
             <div class="flex flex-wrap justify-center gap-3">
