@@ -126,6 +126,32 @@ sendQuickMessage(message: string) {
   this.userInput = message;
   this.sendMessage();
 }
+
+showSettingsSidebar = false;
+showNotificationsSidebar = false;
+showAvatarDropdown = false;
+
+toggleSettings() {
+  this.closeAll();
+  this.showSettingsSidebar = true;
+}
+
+toggleNotifications() {
+  this.closeAll();
+  this.showNotificationsSidebar = true;
+}
+
+toggleAvatar() {
+  this.closeAll();
+  this.showAvatarDropdown = true;
+}
+
+closeAll() {
+  this.showSettingsSidebar = false;
+  this.showNotificationsSidebar = false;
+  this.showAvatarDropdown = false;
+}
+
 }
 
 

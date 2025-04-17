@@ -1,6 +1,13 @@
 <div class="flex flex-col h-screen overflow-hidden">
     <!-- Header -->
-    <app-header (menuClicked)="toggleSidebar()" ngClass="max-h-[70px]"/>
+    <app-header
+        (menuClicked)="toggleSidebar()"
+        (gearClicked)="toggleSettings()"
+        (bellClicked)="toggleNotifications()"
+        (avatarClicked)="toggleAvatar()"
+        ngClass="max-h-[70px]"
+      />
+
   
     <div class="flex flex-1 overflow-hidden">
       <!-- Sidebar -->
@@ -115,6 +122,49 @@
 
 
       </main>
+
+      <!-- Settings Sidebar -->
+      <div
+        *ngIf="showSettingsSidebar"
+        appClickOutside
+  (appClickOutside)="showSettingsSidebar = false"
+        class=" dropdown-panel inset-y-0 right-0 w-80 bg-white-00 shadow-lg z-50 dropdown-panel transition-transform duration-500 ease-out transform translate-x-0"
+      >
+        <div class="p-4 flex justify-between items-center">
+          <h3 class="text-lg font-semibold">Settings</h3>
+          <button class="text-fade-text hover:text-primary-text" (click)="closeAll()">&times;</button>
+        </div>
+      </div>
+
+
+      <div
+      
+        *ngIf="showAvatarDropdown"
+        appClickOutside
+        (appClickOutside)="showAvatarDropdown = false"
+        class="fixed z-50 top-10 right-2 mt-2 w-48 bg-white-00 rounded-md shadow-lg border border-fade-white dropdown-panel transition-all duration-300 ease-out opacity-100"
+      >
+        <a href="#" class="block px-4 py-2 text-sm text-primary-text hover:bg-fade-white">Profile</a>
+        <a href="#" class="block px-4 py-2 text-sm text-primary-text hover:bg-fade-white">Settings</a>
+        <a href="/login" class="block px-4 py-2 text-sm text-primary-text hover:bg-fade-white">Logout</a>
+      </div>
+
+      
+    
+    
+    <!-- Notifications Sidebar -->
+    <div
+      *ngIf="showNotificationsSidebar"
+      appClickOutside
+  (appClickOutside)="showNotificationsSidebar = false"
+      class="inset-y-0 right-0 w-80 bg-white-00 shadow-lg z-50 dropdown-panel transition-transform duration-300 ease-out transform translate-x-0"
+    >
+      <div class="p-4 flex justify-between items-center">
+        <h3 class="text-lg font-semibold">Notifications</h3>
+        <button class="text-fade-text hover:text-primary-text" (click)="closeAll()">&times;</button>
+      </div>
+    </div>
+
     </div>
   </div>
   
@@ -157,4 +207,6 @@
     ></app-primary-button>
   </div>
 </div>
+
+
 
