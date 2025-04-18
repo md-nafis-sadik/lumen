@@ -8,14 +8,14 @@
 >
   <div
     #slider
-    class="flex ease-in-out transition-transform duration-700"
+    class="flex ease-in-out transition-transform duration-700  rounded-2xl"
     [ngStyle]="{
       transform: 'translateX(-' + activeSlide * 100 + '%)'
     }"
   >
     <div
       *ngFor="let slide of slides; let i = index"
-      class="w-full flex-shrink-0 xl:flex items-center"
+      class="w-full flex-shrink-0 xl:flex items-center "
       [ngClass]="slide.textColor || 'text-white-00'"
       [ngStyle]="{
         width: '100%',
@@ -43,8 +43,16 @@
         </div>
       </div>
       <div class="xl:w-1/2 flex justify-center xl:justify-end items-end xl:h-[468px]">
-        <img [src]="slide.patternUrl" alt="Pattern" class="max-h-full object-contain relative" />
-        <img [src]="slide.imageUrl" alt="Slide" class="max-h-[468px] lg:h-[468px] xl:w-auto xl:mr-16 absolute object-contain px-10" />
+        <img 
+  [src]="slide.patternUrl" 
+  alt="Pattern" 
+  class="max-h-full object-contain relative pointer-events-none select-none"
+/>
+<img 
+  [src]="slide.imageUrl" 
+  alt="Slide" 
+  class="max-h-[468px] lg:h-[468px] xl:w-auto xl:mr-16 absolute object-contain px-10 pointer-events-none select-none"
+/>
       </div>
     </div>
   </div>

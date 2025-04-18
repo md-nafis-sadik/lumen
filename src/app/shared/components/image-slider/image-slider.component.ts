@@ -73,7 +73,8 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
     this.isDragging = true;
     this.startX = event.clientX;
     this.stopAutoPlay();
-    this.slider.nativeElement.classList.add('dragging');
+    // Disable transitions during drag
+    this.slider.nativeElement.style.transition = 'none';
     this.animationID = requestAnimationFrame(this.animate.bind(this));
   }
 
@@ -102,6 +103,7 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
     if (this.autoPlay) {
       this.startAutoPlay();
     }
+    this.setPositionByIndex();
   }
 
   onMouseLeave(): void {
@@ -120,6 +122,7 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
   }
 
   setPositionByIndex(): void {
+    this.slider.nativeElement.style.transition = 'transform 0.5s ease';
     this.currentTranslate = 0;
     this.prevTranslate = -this.activeSlide * this.slider.nativeElement.offsetWidth;
     this.slider.nativeElement.style.transition = 'transform 0.5s ease';

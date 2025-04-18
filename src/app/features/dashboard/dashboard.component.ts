@@ -8,11 +8,13 @@ import { PickleballBookingCardComponent } from '../../shared/components/pickleba
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { SubmenuService } from '../../services/submenu.service';
 import { PrimaryButtonComponent } from '../../shared/components/common/primary-button/primary-button.component';
+import { DateFormatterPipe } from '../../shared/pipes/date-formatter.pipe';
+import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent, SidebarComponent, ImageSliderComponent, PickleballBookingCardComponent, FormsModule, PrimaryButtonComponent, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, HeaderComponent, SidebarComponent, ImageSliderComponent, PickleballBookingCardComponent, FormsModule, PrimaryButtonComponent, ReactiveFormsModule, DateFormatterPipe, TimeAgoPipe],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
@@ -215,22 +217,19 @@ closeAll() {
   private shouldAutoScroll = true; // New flag
 
 
-  // Detect manual scrolling
-  onScroll() {
-    const element = this.chatContainer.nativeElement;
-    const atBottom = element.scrollHeight - element.scrollTop === element.clientHeight;
-    this.shouldAutoScroll = atBottom;
-  }
-
   ngAfterViewChecked() {
     if (this.messages.length > this.previousMessagesLength) {
-      if (this.shouldAutoScroll) {
-        this.scrollToBottom();
-      }
+      // Add a small delay to ensure DOM updates
+      setTimeout(() => {
+        if (this.shouldAutoScroll) {
+          this.scrollToBottom();
+        }
+      }, 50);
       this.previousMessagesLength = this.messages.length;
     }
   }
 
+  // Keep existing scrollToBottom and onScroll methods
   private scrollToBottom() {
     try {
       this.chatContainer.nativeElement.scrollTop = 
@@ -240,6 +239,34 @@ closeAll() {
     }
   }
 
+  onScroll() {
+    const element = this.chatContainer.nativeElement;
+    const atBottom = element.scrollHeight - element.scrollTop <= element.clientHeight + 50;
+    this.shouldAutoScroll = atBottom;
+  }
+
+  get groupedMessages() {
+    if (!this.messages || !Array.isArray(this.messages)) return [];
+  
+    const grouped: any[] = [];
+    let lastDateKey = '';
+  
+    for (const msg of this.messages) {
+      if (!msg || !msg.timestamp) continue; // guard against undefined
+  
+      const dateKey = new Date(msg.timestamp).toDateString();
+  
+      if (dateKey !== lastDateKey) {
+        grouped.push({ type: 'date', date: msg.timestamp });
+        lastDateKey = dateKey;
+      }
+  
+      grouped.push({ type: 'message', data: msg });
+    }
+  
+    return grouped;
+  }
+  
 
 }
 

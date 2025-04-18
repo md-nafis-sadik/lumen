@@ -23,45 +23,76 @@
       <!-- Main content -->
       <main class="flex-1 overflow-auto bg-fade-white mt-[60px] pt-[20px]">
         <div class="px-4"><app-image-slider *ngIf="showSlider" [slides]="sliderSlides"></app-image-slider></div>
-
+      
         <!-- Chat messages container -->
-        <div #chatContainer class="flex justify-center items-end mx-auto overflow-y-auto space-y-4 pb-24 px-4"
-             style="max-height: calc(100vh - 100px)" (scroll)="onScroll()">
-            <div class="w-full max-w-[720px]">
-                <div *ngFor="let msg of messages" class="flex mb-4"
-                     [ngClass]="{'justify-end': msg.sender === 'user', 'justify-start': msg.sender === 'bot'}">
+        <div class="flex justify-center mx-auto pb-24 px-4 h-full">
+          <div #chatContainer 
+               class="w-full h-full overflow-y-auto"
+               (scroll)="onScroll()">
+            <div class="flex flex-col mx-auto space-y-4 max-w-[720px]">
+              <ng-container *ngFor="let item of groupedMessages">
+                <!-- Date Separator -->
+                <div *ngIf="item.type === 'date'" class="sticky-date w-full flex items-center justify-center bg-fade-white">
+                  <div class="flex items-center w-full px-4">
                     
-                    <!-- Bot avatar -->
-                    <img *ngIf="msg.sender === 'bot'" [src]="msg.avatar" 
-                         class="w-8 h-8 rounded-full mr-2 " alt="Bot avatar"/>
+                    <!-- Left full-width line -->
+                    <div class="flex-grow border-t border-fade-bg"></div>
                     
-                    <div class="flex flex-col max-w-[70%]">
-                      <div *ngIf="msg.type === 'text'" 
-                            [ngClass]="{
-                              'bg-mint-200 rounded-tr-none': msg.sender === 'user',
-                              'bg-white-00 rounded-tl-none': msg.sender === 'bot'
-                            }" 
-                            class="p-3 shadow space-pre-wrap rounded-lg text-sm">
-                        {{ msg.content }}
-                      </div>
-                        <app-pickleball-booking-card 
-                          *ngIf="msg.type === 'booking'" 
-                          class="shadow rounded-lg">
-                        </app-pickleball-booking-card>
-                        <div class="text-xs text-gray-500 mt-3"
-                        [ngClass]="{
-                          ' text-end': msg.sender === 'user',
-                          'text-start': msg.sender === 'bot'
-                      }">
-                          {{ msg.timestamp | date:'shortTime' }}
-                      </div>
+                    <!-- Date label -->
+                    <div class="mx-4 text-sm text-gray-500 bg-white px-4 py-1 rounded-full border border-fade-bg whitespace-nowrap">
+                      {{ item.date | dateFormatter }}
                     </div>
                     
-                    <!-- User avatar -->
-                    <img *ngIf="msg.sender === 'user'" [src]="msg.avatar" 
-                         class="w-8 h-8 rounded-full ml-2" alt="User avatar"/>
+                    <!-- Right full-width line -->
+                    <div class="flex-grow border-t border-fade-bg"></div>
+                
+                  </div>
                 </div>
+                
+                
+        
+                <!-- Message Template (existing styles preserved) -->
+                <div *ngIf="item.type === 'message'" class="flex mb-4"
+                     [ngClass]="{'justify-end': item.data?.sender === 'user', 'justify-start': item.data.sender === 'bot'}">
+                  
+                  <!-- Bot Avatar -->
+                  <img *ngIf="item.data?.sender === 'bot'" [src]="item.data?.avatar" 
+                       class="w-8 h-8 rounded-full mr-2" alt="Bot avatar"/>
+                  
+                  <div class="flex flex-col max-w-[70%]">
+                    <!-- Text Message -->
+                    <div *ngIf="item.data?.type === 'text'" 
+                         [ngClass]="{
+                            'bg-[#C3EBF3] rounded-tr-none': item.data?.sender === 'user',
+                            'bg-white-00 rounded-tl-none': item.data?.sender === 'bot'
+                          }" 
+                         class="p-3 shadow space-pre-wrap rounded-lg text-sm">
+                      {{ item.data?.content }}
+                    </div>
+                    
+                    <!-- Booking Card -->
+                    <app-pickleball-booking-card 
+                      *ngIf="item.data?.type === 'booking'" 
+                      class="shadow rounded-lg">
+                    </app-pickleball-booking-card>
+                    
+                    <!-- Timestamp (updated with timeAgo pipe) -->
+                    <div class="text-xs text-gray-500 mt-3"
+                         [ngClass]="{
+                            'text-end': item.data?.sender === 'user',
+                            'text-start': item.data?.sender === 'bot'
+                          }">
+                      {{ item.data?.timestamp | timeAgo }}
+                    </div>
+                  </div>
+                  
+                  <!-- User Avatar -->
+                  <img *ngIf="item.data?.sender === 'user'" [src]="item.data?.avatar" 
+                       class="w-8 h-8 rounded-full ml-2" alt="User avatar"/>
+                </div>
+              </ng-container>
             </div>
+          </div>
         </div>
 
         <!-- Input container -->
