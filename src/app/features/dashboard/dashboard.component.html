@@ -133,7 +133,10 @@
               </button>
             </div>
           </div>
-          <div class="w-full lg:max-w-[720px] mt-4 flex items-center border border-fade-white rounded-xl bg-white-00 px-4 py-2 shadow">
+          <div
+            class="w-full lg:max-w-[720px] mt-4 flex items-center rounded-xl bg-white-00 px-4 py-2 shadow transition-all duration-300"
+            [ngClass]="userInput ? 'border-gray-500 border' : 'border-fade-white border'"
+          >
             <input
               type="text"
               [(ngModel)]="userInput"
@@ -147,11 +150,15 @@
               <img src="assets/icons/echo-icon.svg"/>
             </div>
             <button
-              (click)="sendMessage()"
-              class="ml-2 text-white-00 bg-fade-white rounded-xl p-2 hover:bg-black transition-colors duration-500 cursor-pointer"
-            >
-              <img src="assets/icons/send-icon.svg" />
-            </button>
+  (click)="sendMessage()"
+  class="ml-2 rounded-xl p-2 transition-colors duration-500 cursor-pointer"
+  [ngClass]="{
+    'bg-black text-white': userInput,
+    'bg-fade-white text-white-00 hover:bg-black': !userInput
+  }"
+>
+  <img src="assets/icons/send-icon.svg" />
+</button>
           </div>
           
         </div>
@@ -250,11 +257,12 @@
     <h2 class="text-lg font-semibold mb-4">Add Chat Channel</h2>
 
     <input
-      type="text"
-      [(ngModel)]="newChannelName"
-      placeholder="Channel name"
-      class="w-full p-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-    />
+  type="text"
+  [(ngModel)]="newChannelName"
+  placeholder="Channel name"
+  class="w-full p-2 border border-gray-300 rounded-md mb-4 placeholder-custom"
+  (keyup.enter)="saveChannel()"
+/>
 
     <app-primary-button
       [text]="'Add Channel'"

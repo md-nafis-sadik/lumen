@@ -24,7 +24,9 @@ showSlider = true;
 
 sidebarOpen = true;
 
-
+channels = ['Pickleball Expert'];
+showAddChannelModal = false;
+newChannelName = '';
   
 
   sliderSlides = [
@@ -165,9 +167,7 @@ private setupSubmenuSubscriptions() {
 toggleSidebar() {
   this.sidebarOpen = !this.sidebarOpen;
 }
-channels = ['Pickleball Expert'];
-showAddChannelModal = false;
-newChannelName = '';
+
 
 addChannel() {
   this.submenuService.openAddChannelModal();
@@ -178,7 +178,7 @@ closeModal() {
 }
 
 saveChannel() {
-  this.submenuService.addChannel(this.channels, this.newChannelName);
+  this.submenuService.addChannel(this.newChannelName);
   this.closeModal();
 }
 

@@ -54,6 +54,11 @@ export class SubmenuComponent implements OnInit {
   ngOnInit() {
     this.setActiveSubmenu();
     this.filteredItems = this.getFilteredSubmenuItems();
+
+    this.submenuService.channels$.subscribe(channels => {
+      this.channels = channels;
+      this.changeDetector.detectChanges();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -99,5 +104,7 @@ export class SubmenuComponent implements OnInit {
   openChannelModal() {
     this.submenuService.openAddChannelModal();
   }
+
+  
 
 }

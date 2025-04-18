@@ -5,6 +5,8 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class SubmenuService {
+  private channelsSource = new BehaviorSubject<string[]>(['Pickleball Expert']);
+  channels$ = this.channelsSource.asObservable();
   private showAddChannelModalSource = new BehaviorSubject<boolean>(false);
   private newChannelNameSource = new BehaviorSubject<string>('');
 
@@ -24,9 +26,10 @@ export class SubmenuService {
     this.newChannelNameSource.next(name);
   }
 
-  addChannel(channels: string[], name: string) {
+  addChannel(name: string) {
     if (name.trim()) {
-      channels.push(name.trim());
+      const updatedChannels = [...this.channelsSource.value, name.trim()];
+      this.channelsSource.next(updatedChannels);
     }
   }
 }
