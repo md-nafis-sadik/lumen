@@ -14,7 +14,7 @@ import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent, SidebarComponent, ImageSliderComponent, PickleballBookingCardComponent, FormsModule, PrimaryButtonComponent, ReactiveFormsModule, DateFormatterPipe, TimeAgoPipe],
+  imports: [CommonModule, RouterModule, HeaderComponent, SidebarComponent, ImageSliderComponent, PickleballBookingCardComponent, FormsModule, PrimaryButtonComponent, ReactiveFormsModule, DateFormatterPipe, TimeAgoPipe, PickleballBookingCardComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
@@ -221,15 +221,12 @@ closeAll() {
     if (this.messages.length > this.previousMessagesLength) {
       // Add a small delay to ensure DOM updates
       setTimeout(() => {
-        if (this.shouldAutoScroll) {
-          this.scrollToBottom();
-        }
+        this.scrollToBottom();
       }, 50);
       this.previousMessagesLength = this.messages.length;
     }
   }
-
-  // Keep existing scrollToBottom and onScroll methods
+  
   private scrollToBottom() {
     try {
       this.chatContainer.nativeElement.scrollTop = 

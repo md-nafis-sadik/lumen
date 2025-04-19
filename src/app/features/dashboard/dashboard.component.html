@@ -21,14 +21,14 @@
   
   
       <!-- Main content -->
-      <main class="flex-1 overflow-auto bg-fade-white mt-[60px] pt-[20px]">
+      <main class="flex-1 overflow-auto bg-fade-white mt-[60px] pt-[20px] w-[500px]">
         <div class="px-4"><app-image-slider *ngIf="showSlider" [slides]="sliderSlides"></app-image-slider></div>
       
         <!-- Chat messages container -->
-        <div class="flex justify-center mx-auto pb-24 px-4 h-full">
+        <div class="flex justify-center mx-auto pb-24 px-4 h-full ">
           <div #chatContainer 
                class="w-full h-full overflow-y-auto"
-               (scroll)="onScroll()">
+               >
             <div class="flex flex-col mx-auto space-y-4 max-w-[720px]">
               <ng-container *ngFor="let item of groupedMessages">
                 <!-- Date Separator -->
@@ -73,7 +73,7 @@
                     <!-- Booking Card -->
                     <app-pickleball-booking-card 
                       *ngIf="item.data?.type === 'booking'" 
-                      class="shadow rounded-lg">
+                      class="shadow rounded-lg max-w-[648px] xl:w-[648px]">
                     </app-pickleball-booking-card>
                     
                     <!-- Timestamp (updated with timeAgo pipe) -->
@@ -163,6 +163,9 @@
           
         </div>
     </main>
+    
+    </div>
+  </div>
 
 
       <div
@@ -275,6 +278,7 @@
     ></app-primary-button>
   </div>
 </div>
+
 
 
 

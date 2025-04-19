@@ -1,10 +1,13 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 body {
   font-family: 'Inter', sans-serif;
 }
 
-@theme {
+:root {
   --color-mint-400: #1293AB;
   --color-mint-900: #0A3F49;
   --color-mint-200: #9BDEEB;
@@ -14,8 +17,6 @@ body {
   --color-fade-text: #BDBDBD;
   --color-fade-bg: #EDEDED;
   --color-fade-white: #F6F6F6;
-
-  /* font size */
 
   --text-h1: 56px;
   --text-tiny: 1.0625rem;

@@ -5,10 +5,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { SearchInputComponent } from '../common/search-input/search-input.component';
+import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
+import {HttpClientModule} from '@angular/common/http';
 
 @Component({
   selector: 'app-pickleball-booking-card',
@@ -19,10 +20,11 @@ import { SearchInputComponent } from '../common/search-input/search-input.compon
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    NgSelectModule,
+
     FormsModule,
     ReactiveFormsModule,
-    SearchInputComponent
+    SearchInputComponent,
+    MatSelectCountryModule, HttpClientModule,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './pickleball-booking-card.component.html',
@@ -56,5 +58,7 @@ filteredCountries() {
 selectCountry(country: string) {
   this.countryControl.setValue(country);
 }
+
+
 
 }
