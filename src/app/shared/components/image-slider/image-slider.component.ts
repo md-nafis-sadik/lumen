@@ -5,6 +5,7 @@ import { PrimaryButtonComponent } from '../common/primary-button/primary-button.
 interface Slide {
   title: string;
   highlight: string;
+  after_highlight: string;
   description: string;
   buttonText: string;
   patternUrl: string;

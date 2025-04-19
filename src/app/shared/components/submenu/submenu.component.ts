@@ -25,7 +25,7 @@ export class SubmenuComponent implements OnInit {
 
   private submenuItemsMap: { [key: string]: SubmenuItem[] } = {
     booking: [
-      { key: 'bookCourt', icon: 'assets/icons/calender-icon.svg', label: 'Pickleball Booking' },
+      { key: 'bookCourt', icon: 'assets/icons/calender-tick-icon.svg', label: 'Pickleball Booking' },
       { key: 'events', icon: 'assets/icons/events-icon.svg', label: 'Events' },
       { key: 'membership', icon: 'assets/icons/profile-circle-icon.svg', label: 'Membership' },
       { key: 'shopping', icon: 'assets/icons/shopping-bag-icon.svg', label: 'Shopping' },
