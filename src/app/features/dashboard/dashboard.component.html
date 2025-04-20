@@ -1,155 +1,97 @@
 <div class="flex flex-col h-screen overflow-hidden">
-    <!-- Header -->
-    <app-header
-        (menuClicked)="toggleSidebar()"
-        (gearClicked)="toggleSettings()"
-        (bellClicked)="toggleNotifications()"
-        (avatarClicked)="toggleAvatar()"
-        ngClass="max-h-[70px]"
-      />
-
-  
-    <div class="flex flex-1 overflow-hidden">
-      <!-- Sidebar -->
-      <app-sidebar
-      [class.max-w-0]="!sidebarOpen"
-      [class.max-w-[320px]]="sidebarOpen"
-      class="w-full max-w-[320px] absolute lg:relative z-40 h-[calc(100vh-60px)] lg:h-auto bg-white-00-00 transition-all duration-700 overflow-hidden mt-[60px]"
-      ></app-sidebar>
-    
-
-  
-  
-      <!-- Main content -->
-      <main class="flex-1 overflow-auto bg-fade-white mt-[60px] pt-[20px] w-[500px]">
-        <!-- <div class="px-4"><app-image-slider *ngIf="showSlider" [slides]="sliderSlides"></app-image-slider></div> -->
-      
-        <!-- Chat messages container -->
-        <app-chats
-        [messages]="messages"
-        [showSlider]="showSlider"
-        (messageSent)="onMessageSent($event)"
-      ></app-chats>
+  <!-- Header -->
+  <app-header (menuClicked)="toggleSidebar()" (gearClicked)="toggleSettings()" (bellClicked)="toggleNotifications()"
+    (avatarClicked)="toggleAvatar()" ngClass="max-h-[70px]" />
 
 
-        
+  <div class="flex flex-1 overflow-hidden">
+    <!-- Sidebar -->
+    <app-sidebar [class.max-w-0]="!sidebarOpen" [class.max-w-[320px]]="sidebarOpen"
+      class="w-full max-w-[320px] absolute lg:relative z-40 h-[calc(100vh-60px)] lg:h-auto bg-white-00-00 transition-all duration-700 overflow-hidden mt-[60px]"></app-sidebar>
+
+
+    <!-- Main content -->
+    <main class="flex-1 overflow-auto bg-fade-white mt-[60px] pt-[20px] w-[500px]">
+      <div class="px-4"><app-image-slider *ngIf="showSlider" [slides]="sliderSlides"></app-image-slider></div>
+
+      <!-- Chat messages container -->
+      <app-chats [messages]="chatData" [showSlider]="showSlider" (messageSent)="onMessageSent($event)"
+        [chatId]="selectedChatId"></app-chats>
+
     </main>
-    
-    </div>
+
   </div>
+</div>
 
 
-      <div
-      *ngIf="showAvatarDropdown"
-      class="fixed inset-0 z-50 bg-transparent flex justify-end top-[-10px]"
-      (click)="closeAll()"
-    >
-      <div
-        class="mt-[70px] mr-2 w-48 bg-white-00 rounded-md shadow-lg border border-fade-white dropdown-panel transition-all duration-300 ease-out opacity-100 h-[110px] animate-[fadeInModal_0.3s_ease-out_forwards]"
-        (click)="$event.stopPropagation()"
-      >
-        <a href="#" class="block px-4 py-2 text-sm text-primary-text rounded-md hover:bg-fade-white">Profile</a>
-        <a href="#" class="block px-4 py-2 text-sm text-primary-text rounded-md hover:bg-fade-white">Settings</a>
-        <a href="/login" class="block px-4 py-2 text-sm text-primary-text rounded-md hover:bg-fade-white">Logout</a>
-      </div>
-    </div>
-    
+<div *ngIf="showAvatarDropdown" class="fixed inset-0 z-50 bg-transparent flex justify-end top-[-10px]"
+  (click)="closeAll()">
+  <div
+    class="mt-[70px] mr-2 w-48 bg-white-00 rounded-md shadow-lg border border-fade-white dropdown-panel transition-all duration-300 ease-out opacity-100 h-[110px] animate-[fadeInModal_0.3s_ease-out_forwards]"
+    (click)="$event.stopPropagation()">
+    <a href="#" class="block px-4 py-2 text-sm text-primary-text rounded-md hover:bg-fade-white">Profile</a>
+    <a href="#" class="block px-4 py-2 text-sm text-primary-text rounded-md hover:bg-fade-white">Settings</a>
+    <a href="/login" class="block px-4 py-2 text-sm text-primary-text rounded-md hover:bg-fade-white">Logout</a>
+  </div>
+</div>
 
-      <!-- Settings Sidebar -->
-      <div
-      class="fixed inset-0 z-50 bg-transparent flex justify-end"
-      [class.pointer-events-none]="!showSettingsSidebar"
-      (click)="closeAll()"
-    >
-      <div
-        (click)="$event.stopPropagation()"
-        class="inset-y-0 right-0 w-full max-w-[320px] bg-white shadow-lg z-50 transition-transform duration-700 ease-in-out overflow-hidden"
-        [ngClass]="{
+
+<!-- Settings Sidebar -->
+<div class="fixed inset-0 z-50 bg-transparent flex justify-end" [class.pointer-events-none]="!showSettingsSidebar"
+  (click)="closeAll()">
+  <div (click)="$event.stopPropagation()"
+    class="inset-y-0 right-0 w-full max-w-[320px] bg-white shadow-lg z-50 transition-transform duration-700 ease-in-out overflow-hidden"
+    [ngClass]="{
           'translate-x-full': !showSettingsSidebar,
           'translate-x-0': showSettingsSidebar
-        }"
-      >
-        <div class="p-4 flex justify-between items-center w-full">
-          <h3 class="text-lg font-semibold">Settings</h3>
-          <button class="text-fade-text hover:text-primary-text cursor-pointer text-2xl transition-colors duration-200" (click)="closeAll()">&times;</button>
-        </div>
-        <!-- Add your notification content here -->
-      </div>
+        }">
+    <div class="p-4 flex justify-between items-center w-full">
+      <h3 class="text-lg font-semibold">Settings</h3>
+      <button class="text-fade-text hover:text-primary-text cursor-pointer text-2xl transition-colors duration-200"
+        (click)="closeAll()">&times;</button>
     </div>
-
-
-
-
-
-      
-    
-    
-    <!-- Notifications Sidebar -->
-    <div
-    class="fixed inset-0 z-50 bg-transparent flex justify-end"
-    [class.pointer-events-none]="!showNotificationsSidebar"
-    (click)="closeAll()"
-  >
-    <div
-      (click)="$event.stopPropagation()"
-      class="inset-y-0 right-0 w-full max-w-[320px] bg-white shadow-lg z-50 transition-transform duration-700 ease-in-out overflow-hidden"
-      [ngClass]="{
-        'translate-x-full': !showNotificationsSidebar,
-        'translate-x-0': showNotificationsSidebar
-      }"
-    >
-      <div class="p-4 flex justify-between items-center w-full">
-        <h3 class="text-lg font-semibold">Notifications</h3>
-        <button class="text-fade-text hover:text-primary-text cursor-pointer text-2xl transition-colors duration-200" (click)="closeAll()">&times;</button>
-      </div>
-      <!-- Add your notification content here -->
-    </div>
-  </div>
-  
-
-
-  
-
-  <div
-  *ngIf="showAddChannelModal"
-  class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center"
-  (click)="closeModal()"
->
-  <!-- Modal Box -->
-  <div
-    class="bg-white w-full max-h-[90vh] mx-4 md:w-[500px] md:h-auto p-6 rounded-lg shadow-lg overflow-y-auto relative
-           animate-[fadeInModal_0.3s_ease-out_forwards]"
-    (click)="$event.stopPropagation()"
-  >
-    <button
-      class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl cursor-pointer"
-      (click)="closeModal()"
-    >
-      &times;
-    </button>
-
-    <h2 class="text-lg font-semibold mb-4">Add Chat Channel</h2>
-
-    <input
-  type="text"
-  [(ngModel)]="newChannelName"
-  placeholder="Channel name"
-  class="w-full p-2 border border-gray-300 rounded-md mb-4 placeholder-custom"
-  (keyup.enter)="saveChannel()"
-/>
-
-    <app-primary-button
-      [text]="'Add Channel'"
-      (click)="saveChannel()"
-      [bgColor]="'#06ACCE'"
-      [hoverColor]="'#0799B7'"
-      fontSize="text-sm"
-      padding="py-2 px-3"
-      width="w-full"
-    ></app-primary-button>
+    <!-- Add your notification content here -->
   </div>
 </div>
 
 
 
+<!-- Notifications Sidebar -->
+<div class="fixed inset-0 z-50 bg-transparent flex justify-end" [class.pointer-events-none]="!showNotificationsSidebar"
+  (click)="closeAll()">
+  <div (click)="$event.stopPropagation()"
+    class="inset-y-0 right-0 w-full max-w-[320px] bg-white shadow-lg z-50 transition-transform duration-700 ease-in-out overflow-hidden"
+    [ngClass]="{
+        'translate-x-full': !showNotificationsSidebar,
+        'translate-x-0': showNotificationsSidebar
+      }">
+    <div class="p-4 flex justify-between items-center w-full">
+      <h3 class="text-lg font-semibold">Notifications</h3>
+      <button class="text-fade-text hover:text-primary-text cursor-pointer text-2xl transition-colors duration-200"
+        (click)="closeAll()">&times;</button>
+    </div>
+    <!-- Add your notification content here -->
+  </div>
+</div>
 
+
+
+<div *ngIf="showAddChannelModal" class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center"
+  (click)="closeModal()">
+  <!-- Modal Box -->
+  <div class="bg-white w-full max-h-[90vh] mx-4 md:w-[500px] md:h-auto p-6 rounded-lg shadow-lg overflow-y-auto relative
+           animate-[fadeInModal_0.3s_ease-out_forwards]" (click)="$event.stopPropagation()">
+    <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl cursor-pointer"
+      (click)="closeModal()">
+      &times;
+    </button>
+
+    <h2 class="text-lg font-semibold mb-4">Add Chat Channel</h2>
+
+    <input type="text" [(ngModel)]="newChannelName" placeholder="Channel name"
+      class="w-full p-2 border border-gray-300 rounded-md mb-4 placeholder-custom" (keyup.enter)="saveChannel()" />
+
+    <app-primary-button [text]="'Add Channel'" (click)="saveChannel()" [bgColor]="'#06ACCE'" [hoverColor]="'#0799B7'"
+      fontSize="text-sm" padding="py-2 px-3" width="w-full"></app-primary-button>
+  </div>
+</div>

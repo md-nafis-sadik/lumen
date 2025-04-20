@@ -1,135 +1,119 @@
 <div class="flex justify-center mx-auto pb-24 px-4 h-full">
-    <div #chatContainer 
-         class="w-full h-full overflow-y-auto"
-         (scroll)="onScroll()">
-      <div class="flex flex-col mx-auto space-y-4 max-w-[720px]">
-        <ng-container *ngFor="let item of groupedMessages; trackBy: trackById">
-          <!-- Date Separator -->
-          <div *ngIf="item.type === 'date'" class="sticky-date w-full flex items-center justify-center bg-fade-white">
-            <div class="flex items-center w-full px-4">
-              <div class="flex-grow border-t border-fade-bg"></div>
-              <div class="mx-4 text-sm text-gray-500 bg-white px-4 py-1 rounded-full border border-fade-bg whitespace-nowrap">
-                {{ item.date | dateFormatter }}
-              </div>
-              <div class="flex-grow border-t border-fade-bg"></div>
+  <div #chatContainer class="w-full h-full overflow-y-auto" (scroll)="onScroll()">
+    <div class="flex flex-col mx-auto space-y-4 max-w-[720px]">
+      <ng-container *ngFor="let item of groupedMessages; trackBy: trackById">
+        <!-- Date Separator -->
+        <div *ngIf="item.type === 'date'" class="sticky-date w-full flex items-center justify-center bg-fade-white">
+          <div class="flex items-center w-full px-4">
+            <div class="flex-grow border-t border-fade-bg"></div>
+            <div
+              class="mx-4 text-sm text-gray-500 bg-white px-4 py-1 rounded-full border border-fade-bg whitespace-nowrap">
+              {{ item.date | dateFormatter }}
             </div>
+            <div class="flex-grow border-t border-fade-bg"></div>
           </div>
-  
-          <!-- Message Template -->
-          <!-- Update message template section -->
-<div *ngIf="item.type === 'message'" class="flex mb-4"
-[ngClass]="{'justify-end': item.data?.sender === 'user', 'justify-start': item.data?.sender === 'bot'}">
+        </div>
 
-<img *ngIf="item.data?.sender === 'bot'" [src]="item.data?.avatar" 
-  class="w-8 h-8 rounded-full mr-2" alt="Bot avatar"/>
+        <!-- Message Template -->
+        <!-- Update message template section -->
+        <div *ngIf="item.type === 'message'" class="flex mb-4"
+          [ngClass]="{'justify-end': item.data?.sender === 'user', 'justify-start': item.data?.sender === 'bot'}">
 
-<div class="flex flex-col max-w-[70%]">
-<!-- Text Message -->
-<div *ngIf="item.data?.type === 'text'" 
-    [ngClass]="{
+          <img *ngIf="item.data?.sender === 'bot'" [src]="item.data?.avatar" class="w-8 h-8 rounded-full mr-2"
+            alt="Bot avatar" />
+
+          <div class="flex flex-col max-w-[70%]">
+            <!-- Text Message -->
+            <div *ngIf="item.data?.type === 'text'" [ngClass]="{
        'bg-[#C3EBF3] rounded-tr-none': item.data?.sender === 'user',
        'bg-white-00 rounded-tl-none': item.data?.sender === 'bot'
-     }" 
-    class="p-3 shadow space-pre-wrap rounded-lg text-sm">
- {{ item.data?.content }}
-</div>
+     }" class="p-3 shadow space-pre-wrap rounded-lg text-sm">
+              {{ item.data?.content }}
+            </div>
 
-<!-- Image Message -->
-<div *ngIf="item.data?.type === 'image'" 
-    class="shadow rounded-lg overflow-hidden">
- <img [src]="item.data?.content" 
-      class="max-w-[300px] h-auto" 
-      alt="Uploaded image"/>
-</div>
+            <!-- Image Message -->
+            <div *ngIf="item.data?.type === 'image'" class="shadow rounded-lg overflow-hidden">
+              <img [src]="item.data?.content" class="max-w-[300px] h-auto" alt="Uploaded image" />
+            </div>
 
-<!-- File/PDF Message -->
-<div *ngIf="item.data?.type === 'file'" 
-    class="p-3 bg-white-00 shadow rounded-lg flex items-center gap-2">
- <img src="assets/icons/pdf-icon.svg" class="w-6 h-6" alt="PDF icon"/>
- <a [href]="item.data?.content" 
-    target="_blank" 
-    class="text-blue-500 hover:underline">
-   Download PDF
- </a>
-</div>
+            <!-- File/PDF Message -->
+            <div *ngIf="item.data?.type === 'file'" class="p-3 bg-white-00 shadow rounded-lg flex items-center gap-2">
+              <img src="assets/icons/pdf-icon.svg" class="w-6 h-6" alt="PDF icon" />
+              <a [href]="item.data?.content" target="_blank" class="text-blue-500 hover:underline">
+                Download PDF
+              </a>
+            </div>
 
-<!-- Booking Card -->
-<app-pickleball-booking-card 
- *ngIf="item.data?.type === 'booking'" 
- class="shadow rounded-lg max-w-[648px] xl:w-[648px]">
-</app-pickleball-booking-card>
+            <!-- Booking Card -->
+            <app-pickleball-booking-card *ngIf="item.data?.type === 'booking'"
+              class="shadow rounded-lg max-w-[648px] xl:w-[648px]">
+            </app-pickleball-booking-card>
 
-<!-- Timestamp -->
-<div class="text-xs text-gray-500 mt-3"
-    [ngClass]="{
+            <!-- Timestamp -->
+            <div class="text-xs text-gray-500 mt-3" [ngClass]="{
        'text-end': item.data?.sender === 'user',
        'text-start': item.data?.sender === 'bot'
      }">
- {{ item.data?.timestamp | timeAgo }}
-</div>
-</div>
+              {{ item.data?.id | timeAgo }}
+            </div>
+          </div>
 
-<img *ngIf="item.data?.sender === 'user'" src="assets/icons/Avatar.png" 
-  class="w-8 h-8 rounded-full ml-2" alt="User avatar"/>
-</div>
-        </ng-container>
-      </div>
+          <img *ngIf="item.data?.sender === 'user'" src="assets/icons/Avatar.png" class="w-8 h-8 rounded-full ml-2"
+            alt="User avatar" />
+        </div>
+      </ng-container>
     </div>
   </div>
-  
-  <!-- Input container -->
-  <div class="flex flex-col items-center gap-4 fixed bottom-0 w-full lg:w-[calc(100vw-320px)] bg-fade-white message transition-all duration-700 py-4 px-4">
-    <div *ngIf="showSlider" class="w-full max-w-[720px] ">
-        <h2 class="text-xl font-semibold text-center py-4">How can I assist you today?</h2>
-        <div class="flex flex-wrap justify-center gap-2">
-          <!-- <button (click)="setChatUser('contact-id-1')">Load Bella Cote Chat {{chatId}}</button> -->
-          <!-- <button (click)="setChatUser('contact-id-12')">Load Channel Chat</button> -->
-          <button 
-            (click)="sendQuickMessage('Show my upcoming bookings')"
-            class="flex items-center gap-2 px-3 py-2 bg-white-00 rounded-xl shadow text-sm hover:bg-fade-white transition-colors duration-200">
-            <img src="assets/icons/calender-icon.svg"/>
-            Upcoming Bookings
-          </button>
-          
-          <button 
-            (click)="sendQuickMessage('Book a pickleball court')"
-            class="flex items-center gap-2 px-3 py-2 bg-white-00 rounded-xl shadow text-sm hover:bg-fade-white transition-colors duration-200">
-            <img src="assets/icons/pickle-racket-icon.svg"/>
-            Pickleball Court
-          </button>
-          
-          <button 
-            (click)="sendQuickMessage('Schedule doctor appointment')"
-            class="flex items-center gap-2 px-3 py-2 bg-white-00 rounded-xl shadow text-sm hover:bg-fade-white transition-colors duration-200">
-            <img src="assets/icons/square-plus-icon.svg"/>
-            Doctor Appointment
-          </button>
-          
-          <button 
-            (click)="sendQuickMessage('Show payment history')"
-            class="flex items-center gap-2 px-3 py-2 bg-white-00 rounded-xl shadow text-sm hover:bg-fade-white transition-colors duration-200">
-            <img src="assets/icons/payment-history-icon.svg"/>
-            Payment History
-          </button>
-        </div>
-      </div>
-    <div class="w-full lg:max-w-[720px] mt-4 flex items-center rounded-xl bg-white-00 px-4 py-2 shadow transition-all duration-300"
-         [ngClass]="userInput ? 'border-gray-500 border' : 'border-fade-white border'">
-      <input type="text" [(ngModel)]="userInput" placeholder="Type here..."
-             class="flex-1 outline-none text-sm px-2 placeholder-custom"
-             (keydown.enter)="sendMessage()"/>
-      <div class="flex items-center gap-3 text-fade-text cursor-pointer">
-        <img src="assets/icons/plus-chat-icon.svg"/>
-        <img src="assets/icons/mike-icon.svg"/>
-        <img src="assets/icons/echo-icon.svg"/>
-      </div>
-      <button (click)="sendMessage()"
-              class="ml-2 rounded-xl p-2 transition-colors duration-500 cursor-pointer"
-              [ngClass]="{
-                'bg-black text-white': userInput,
-                'bg-fade-white text-white-00 hover:bg-black': !userInput
-              }">
-        <img src="assets/icons/send-icon.svg"/>
+</div>
+
+<!-- Input container -->
+<div
+  class="flex flex-col items-center gap-4 fixed bottom-0 w-full lg:w-[calc(100vw-320px)] bg-fade-white message transition-all duration-700 py-4 px-4">
+  <div *ngIf="showSlider" class="w-full max-w-[720px] ">
+    <h2 class="text-xl font-semibold text-center py-4">How can I assist you today?</h2>
+    <div class="flex flex-wrap justify-center gap-2">
+      <!-- <button (click)="setChatUser('contact-id-1')">Load Bella Cote Chat {{chatId}}</button> -->
+      <!-- <button (click)="setChatUser('contact-id-12')">Load Channel Chat</button> -->
+      <button (click)="sendQuickMessage('Show my upcoming bookings')"
+        class="flex items-center gap-2 px-3 py-2 bg-white-00 rounded-xl shadow text-sm hover:bg-fade-white transition-colors duration-200">
+        <img src="assets/icons/calender-icon.svg" />
+        Upcoming Bookings
+      </button>
+
+      <button (click)="sendQuickMessage('Book a pickleball court')"
+        class="flex items-center gap-2 px-3 py-2 bg-white-00 rounded-xl shadow text-sm hover:bg-fade-white transition-colors duration-200">
+        <img src="assets/icons/pickle-racket-icon.svg" />
+        Pickleball Court
+      </button>
+
+      <button (click)="sendQuickMessage('Schedule doctor appointment')"
+        class="flex items-center gap-2 px-3 py-2 bg-white-00 rounded-xl shadow text-sm hover:bg-fade-white transition-colors duration-200">
+        <img src="assets/icons/square-plus-icon.svg" />
+        Doctor Appointment
+      </button>
+
+      <button (click)="sendQuickMessage('Show payment history')"
+        class="flex items-center gap-2 px-3 py-2 bg-white-00 rounded-xl shadow text-sm hover:bg-fade-white transition-colors duration-200">
+        <img src="assets/icons/payment-history-icon.svg" />
+        Payment History
       </button>
     </div>
   </div>
+  <div
+    class="w-full lg:max-w-[720px] mt-4 flex items-center rounded-xl bg-white-00 px-4 py-2 shadow transition-all duration-300"
+    [ngClass]="userInput ? 'border-gray-500 border' : 'border-fade-white border'">
+    <input type="text" [(ngModel)]="userInput" placeholder="Type here..."
+      class="flex-1 outline-none text-sm px-2 placeholder-custom" (keydown.enter)="sendMessage()" />
+    <div class="flex items-center gap-3 text-fade-text cursor-pointer">
+      <img src="assets/icons/plus-chat-icon.svg" />
+      <img src="assets/icons/mike-icon.svg" />
+      <img src="assets/icons/echo-icon.svg" />
+    </div>
+    <button (click)="sendMessage()" class="ml-2 rounded-xl p-2 transition-colors duration-500 cursor-pointer" [ngClass]="{
+                'bg-black text-white': userInput,
+                'bg-fade-white text-white-00 hover:bg-black': !userInput
+              }">
+      <img src="assets/icons/send-icon.svg" />
+    </button>
+  </div>
+</div>

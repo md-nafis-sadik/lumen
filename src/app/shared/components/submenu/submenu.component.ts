@@ -22,7 +22,7 @@ interface SubmenuItem {
 })
 export class SubmenuComponent implements OnInit {
   
-  
+  @Input() showSlider = true;
   @Input() menu: string = 'booking';
   activeSubmenu: string = '';
   searchQuery = '';
@@ -107,8 +107,15 @@ ngOnInit() {
 
   selectSubmenu(key: string) {
     this.activeSubmenu = key;
-    this.router.navigate(['/dashboard'], { queryParams: { chatId: key } });
+    // Clear previous chat selection
+    this.chatService.setSelectedChatId(null);
+    // Navigate with clean state
+    this.router.navigate(['/dashboard'], { 
+      queryParams: { chatId: key },
+      queryParamsHandling: 'merge'
+    });
 
+    this.showSlider = false;
   }
 
   getSubmenuItems(): SubmenuItem[] {
@@ -140,7 +147,7 @@ ngOnInit() {
       this.filteredChannels = this.channels.filter(ch => 
         ch.name.toLowerCase().includes(query)
       );
-      this.filteredActionMenu = this.channels.filter(ch => 
+      this.filteredActionMenu = this.actionmenu.filter(ch => 
         ch.name.toLowerCase().includes(query)
       );
     } else {
@@ -168,6 +175,11 @@ ngOnInit() {
 
   selectChat(chatId: string) {
     this.chatService.setSelectedChatId(chatId);
+    this.router.navigate([], {
+      queryParams: { chatId },
+      queryParamsHandling: 'merge'
+    });
+    
   }
   
 

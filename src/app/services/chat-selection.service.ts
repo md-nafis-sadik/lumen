@@ -9,7 +9,7 @@ export class ChatSelectionService {
   private selectedChatIdSubject = new BehaviorSubject<string | null>(null);
   selectedChatId$ = this.selectedChatIdSubject.asObservable();
 
-  setSelectedChatId(chatId: string) {
+  setSelectedChatId(chatId: string | null) {
     this.selectedChatIdSubject.next(chatId);
   }
 }

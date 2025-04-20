@@ -7,8 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { provideNativeDateAdapter } from '@angular/material/core';
-import { SearchInputComponent } from '../common/search-input/search-input.component';
+import { provideNativeDateAdapter } from '@angular/material/core'
 import { Country, State, City } from 'country-state-city';
 
 
@@ -23,7 +22,6 @@ import { Country, State, City } from 'country-state-city';
     MatFormFieldModule,
     MatButtonModule,
     MatIconModule,
-    SearchInputComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './pickleball-booking-card.component.html',

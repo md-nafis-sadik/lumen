@@ -27,7 +27,7 @@ export class MainMenuComponent {
   selectMenu(key: string) {
     this.active = key;  // Set active key to the selected menu
     this.menuSelect.emit(key);  // Emit the active key to the parent component
-    console.log(key);  // Debugging to check selected key
+
     this.router.navigate(['/dashboard'], );
 
   }
