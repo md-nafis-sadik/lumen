@@ -4,7 +4,9 @@ import { CommonModule } from '@angular/common';
 import { PrimaryButtonComponent } from '../common/primary-button/primary-button.component';
 import { SearchInputComponent } from '../common/search-input/search-input.component';
 import { SubmenuService } from '../../../services/submenu.service';
-import { contactlist, Messages, channel } from '../chats/data';
+import { contactlist, Messages, channel, actionmenu } from '../chats/data';
+import { ChatSelectionService } from '../../../services/chat-selection.service';
+import { Router } from '@angular/router';
 interface SubmenuItem {
   key: string;
   icon: string;
@@ -19,6 +21,8 @@ interface SubmenuItem {
   styleUrls: ['./submenu.component.css']
 })
 export class SubmenuComponent implements OnInit {
+  
+  
   @Input() menu: string = 'booking';
   activeSubmenu: string = '';
   searchQuery = '';
@@ -27,10 +31,14 @@ export class SubmenuComponent implements OnInit {
   favourites = contactlist;
   directMessages = Messages;
   channels = channel;
+  actionmenu = actionmenu;
   filteredFavourites = this.favourites;
   filteredDirectMessages = this.directMessages;
   filteredChannels = this.channels;
-  
+
+  filteredActionMenu = this.actionmenu;
+
+
   // Helper to check if current menu is chat
   get isChatMenu(): boolean {
     return this.menu === 'chat';
@@ -99,6 +107,8 @@ ngOnInit() {
 
   selectSubmenu(key: string) {
     this.activeSubmenu = key;
+    this.router.navigate(['/dashboard'], { queryParams: { chatId: key } });
+
   }
 
   getSubmenuItems(): SubmenuItem[] {
@@ -114,7 +124,9 @@ ngOnInit() {
   }
   constructor(
     private submenuService: SubmenuService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private chatService: ChatSelectionService,
+    private router: Router
   ) {}
   onSearchChange() {
     if (this.isChatMenu) {
@@ -128,6 +140,9 @@ ngOnInit() {
       this.filteredChannels = this.channels.filter(ch => 
         ch.name.toLowerCase().includes(query)
       );
+      this.filteredActionMenu = this.channels.filter(ch => 
+        ch.name.toLowerCase().includes(query)
+      );
     } else {
       this.filteredItems = this.getFilteredSubmenuItems();
     }
@@ -139,7 +154,21 @@ ngOnInit() {
   openChannelModal() {
     this.submenuService.openAddChannelModal();
   }
+  getInitials(name: string): string {
+    if (!name) return '';
+    const names = name.split(' ');
+    let initials = names[0].substring(0, 1).toUpperCase();
+    
+    if (names.length > 1) {
+      initials += names[names.length - 1].substring(0, 1).toUpperCase();
+    }
+    return initials;
+  }
+  
 
+  selectChat(chatId: string) {
+    this.chatService.setSelectedChatId(chatId);
+  }
   
 
 }

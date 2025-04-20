@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-menu',
@@ -11,6 +12,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class MainMenuComponent {
   @Input() active: string = '';  // This will hold the active menu key.
   @Output() menuSelect = new EventEmitter<string>();
+
+  constructor(private router: Router){}
 
   menus = [
     { key: 'booking', image: 'assets/icons/profile-circle-icon.svg' },
@@ -25,6 +28,8 @@ export class MainMenuComponent {
     this.active = key;  // Set active key to the selected menu
     this.menuSelect.emit(key);  // Emit the active key to the parent component
     console.log(key);  // Debugging to check selected key
+    this.router.navigate(['/dashboard'], );
+
   }
 
   // Check if the current menu button is active

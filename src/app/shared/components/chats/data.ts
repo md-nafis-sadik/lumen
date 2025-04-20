@@ -34,7 +34,7 @@ const Messages = [
     {
         "id": "contact-id-5",
         "type": "direct-message",
-        "name": "Nicholas Staten",
+        "name": "Pickleball Booking",
         "imageURL": "assets/images/users/avatar-3.jpg",
         "badgeCount": null
     },
@@ -80,6 +80,45 @@ const Messages = [
         "badgeCount": null
     }
 ]
+
+const actionmenu = [
+    {
+        "id": "contact-id-1",
+        "type": "action-menu",
+        "name": "Pickleball Booking",
+        "imageURL": "assets/icons/calender-tick-icon.svg",
+        "badgeCount": null
+    },
+    {
+        "id": "contact-id-6",
+        "type": "action-menu",
+        "name": "Events",
+        "imageURL": "assets/icons/events-icon.svg",
+        "badgeCount": 8
+    },
+    {
+        "id": "contact-id-7",
+        "type": "action-menu",
+        "name": "Membership",
+        "imageURL": "assets/icons/profile-circle-icon.svg",
+        "badgeCount": null
+    },
+    {
+        "id": "contact-id-8",
+        "type": "action-menu",
+        "name": "Shopping",
+        "imageURL": "assets/icons/shopping-bag-icon.svg",
+        "badgeCount": null
+    },
+    {
+        "id": "contact-id-9",
+        "type": "action-menu",
+        "name": "Contact Support",
+        "imageURL": "assets/icons/headphone-icon.svg",
+        "badgeCount": null
+    },
+]
+
 
 const channel =
     [
@@ -230,4 +269,4 @@ const channel_chat = [
 ]
 
 
-export { contactlist, Messages, channel, chat, channel_chat }
+export { contactlist, Messages, channel, chat, channel_chat, actionmenu }

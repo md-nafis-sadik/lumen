@@ -25,7 +25,8 @@ export class DashboardComponent {
     return item.id || index;
   }
   
-
+  selectedChatId: string | null = null;
+  
 showSlider = true;
 
 sidebarOpen = true;

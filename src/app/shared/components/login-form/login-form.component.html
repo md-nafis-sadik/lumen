@@ -58,8 +58,8 @@ Password is required.
 
 
     <!-- Keep Me Signed In -->
-    <div class="flex justify-between items-center text-sm">
-      <div class="flex items-center cursor-pointer" (click)="checked = !checked">
+    <div class="flex justify-between items-start text-sm">
+      <div class="flex items-center cursor-pointer mb-4" (click)="checked = !checked">
         <input
           type="checkbox"
           name="rememberMe"
@@ -67,7 +67,7 @@ Password is required.
           (click)="$event.stopPropagation()" />
         <span class="ml-2 text-primary-text">Keep me signed in</span>
       </div>
-      <div><a href="#" class="text-[#09B3D1]">Forgot password</a></div>
+      <div><a href="#" class="text-[#09B3D1] mb-4">Forgot password</a></div>
     </div>
 
     <!-- Submit Button -->

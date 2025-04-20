@@ -10,24 +10,39 @@
 <ng-container *ngIf="isChatMenu">
   <!-- Favourites Section -->
   <div class="section mt-5">
-    <div class="section-title mb-3 text-sm text-gray-400">FAVOURITES</div>
+    <!-- <div class="section-title mb-3 text-sm text-gray-400">FAVOURITES</div> -->
+    <div class="mb-3 mt-2 font-semibold">Action Menu</div>
     <div class="max-h-[196px] overflow-y-auto p-1 space-y-1">
-      <div *ngFor="let contact of filteredFavourites" 
+      <div *ngFor="let contact of filteredActionMenu" 
       (click)="selectSubmenu(contact.id)"
       class="contact-item flex items-center space-x-3 px-3 py-2 rounded-md cursor-pointer transition-all duration-200 ease-in-out"
       [ngClass]="{
         'bg-mint-50 ring-1 ring-mint-200 border-mint-200 border-b-2': contact.id === activeSubmenu,
         'hover:bg-fade-white border-b-transparent': contact.id !== activeSubmenu
       }">
-      <img [src]="contact.imageURL || 'assets/images/default-avatar.jpg'" class="avatar w-7 h-7 rounded-full"/>
+      <div class="relative">
+        <ng-container *ngIf="!contact.imageURL; else avatarImage">
+          <div class="w-7 h-7 rounded-full bg-mint-200 flex items-center justify-center text-mint-600 text-xs font-medium uppercase">
+            {{ getInitials(contact.name) }}
+          </div>
+        </ng-container>
+        <ng-template #avatarImage>
+          <img [src]="contact.imageURL" class="w-5 h-5 object-contain"/>
+        </ng-template>
+      </div>
       <span class="text-sm">{{ contact.name }}</span>
       <div *ngIf="contact.badgeCount" class="badge bg-mint-200 px-1.5 py-1 rounded-md text-xs">{{ contact.badgeCount }}</div>
     </div>
     </div>
   </div>
 
+  <!-- submenu.component.html -->
+<!-- <button (click)="selectChat('contact-id-1')">Chat with Bella Cote</button> -->
+<!-- <button (click)="selectChat('channel-id-12')">Pickleball Expert</button> -->
+
+
   <!-- Direct Messages Section -->
-  <div class="section mt-7">
+  <!-- <div class="section mt-7">
     <div class="section-title mb-3 text-sm text-gray-400">DIRECT MESSAGES</div>
     <div class="max-h-[196px] overflow-y-auto p-1 space-y-1">
       <div *ngFor="let message of filteredDirectMessages" 
@@ -37,24 +52,33 @@
         'bg-mint-50 ring-1 ring-mint-200 border-mint-200 border-b-2': message.id === activeSubmenu,
         'hover:bg-fade-white border-b-transparent': message.id !== activeSubmenu
       }">
-      <img [src]="message.imageURL || 'assets/images/default-avatar.jpg'" class="avatar w-7 h-7 rounded-full"/>
+      <div class="relative">
+        <ng-container *ngIf="!message.imageURL; else avatarImage">
+          <div class="w-7 h-7 rounded-full bg-mint-200 flex items-center justify-center text-mint-600 text-xs font-medium uppercase">
+            {{ getInitials(message.name) }}
+          </div>
+        </ng-container>
+        <ng-template #avatarImage>
+          <img [src]="message.imageURL" class="w-7 h-7 rounded-full object-cover"/>
+        </ng-template>
+      </div>
       <span class="text-sm">{{ message.name }}</span>
       <div *ngIf="message.badgeCount" class="badge bg-mint-200 px-1.5 py-1 rounded-md text-xs">{{ message.badgeCount }}</div>
     </div>
   </div>
-  </div>
+  </div> -->
 
   <!-- Channels Section -->
-  <div class="section mt-5">
+  <div class="section mt-6">
     <div class="flex items-center justify-between mb-3">
       <h2 class="font-medium">Chat Channels</h2>
-      <div class="h-[36px] overflow-y-auto">
-      <button
+      <div class="">
+      <div
         (click)="openChannelModal()"
         class="bg-fade-white hover:bg-fade-white border border-fade-white p-1 rounded-full cursor-pointer"
       >
         <img src="assets/icons/add-icon.svg" class="w-[11px] object-contain" />
-      </button>
+      </div>
       </div>
 
     </div>
@@ -105,7 +129,7 @@
 
       </div>
 
-      <div class="space-y-2 h-[50px] overflow-y-auto p-1">
+      <div class="space-y-2 h-[196px] overflow-y-auto p-1">
         <div *ngFor="let message of filteredDirectMessages" 
         (click)="selectSubmenu(message.id)"
         class="contact-item flex items-center space-x-3 px-3 py-2 rounded-md cursor-pointer transition-all duration-200 ease-in-out"

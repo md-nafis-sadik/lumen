@@ -2,6 +2,8 @@
 import { Injectable } from '@angular/core';
 import { chat } from '../shared/components/chats/data';
 import { ChatMessage } from '../models/chat.model';
+import { BehaviorSubject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -38,4 +40,18 @@ export class ChatService {
     date.setMinutes(minutes);
     return date;
   }
+
+  private currentChatSubject = new BehaviorSubject<{id: string, avatar: string} | null>(null);
+  
+  // Observable for components to subscribe to
+  currentChat$ = this.currentChatSubject.asObservable();
+
+  setCurrentChatUser(userId: string, avatar: string) {
+    this.currentChatSubject.next({ id: userId, avatar });
+  }
+
+  getCurrentChatAvatar(): string {
+    return this.currentChatSubject.value?.avatar || 'assets/icons/default-avatar.svg';
+  }
+
 }
