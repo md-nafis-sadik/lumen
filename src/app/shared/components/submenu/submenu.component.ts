@@ -27,6 +27,9 @@ export class SubmenuComponent implements OnInit {
   favourites = contactlist;
   directMessages = Messages;
   channels = channel;
+  filteredFavourites = this.favourites;
+  filteredDirectMessages = this.directMessages;
+  filteredChannels = this.channels;
   
   // Helper to check if current menu is chat
   get isChatMenu(): boolean {
@@ -114,10 +117,23 @@ ngOnInit() {
     private changeDetector: ChangeDetectorRef
   ) {}
   onSearchChange() {
-    this.filteredItems = this.getFilteredSubmenuItems();
-    // Force change detection if needed
+    if (this.isChatMenu) {
+      const query = this.searchQuery.toLowerCase();
+      this.filteredFavourites = this.favourites.filter(c => 
+        c.name.toLowerCase().includes(query)
+      );
+      this.filteredDirectMessages = this.directMessages.filter(m => 
+        m.name.toLowerCase().includes(query)
+      );
+      this.filteredChannels = this.channels.filter(ch => 
+        ch.name.toLowerCase().includes(query)
+      );
+    } else {
+      this.filteredItems = this.getFilteredSubmenuItems();
+    }
     this.changeDetector.detectChanges();
   }
+
 
 
   openChannelModal() {
