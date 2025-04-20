@@ -87,25 +87,29 @@ const channel =
             "id": "contact-id-12",
             "type": "channel",
             "name": "Landing Design",
-            "badgeCount": 12
+            "badgeCount": 12,
+            "imageURL": "assets/images/users/avatar-10.jpg",
         },
         {
             "id": "contact-id-13",
             "type": "channel",
             "name": "Design Phase 2",
-            "badgeCount": null
+            "badgeCount": null,
+            "imageURL": "assets/images/users/avatar-10.jpg",
         },
         {
             "id": "contact-id-14",
             "type": "channel",
             "name": "Brand Suggestion",
-            "badgeCount": 85
+            "badgeCount": 85,
+            "imageURL": "assets/images/users/avatar-10.jpg",
         },
         {
             "id": "contact-id-15",
             "type": "channel",
             "name": "Reporting",
-            "badgeCount": null
+            "badgeCount": null,
+            "imageURL": "assets/images/users/avatar-10.jpg",
         }
     ]
 

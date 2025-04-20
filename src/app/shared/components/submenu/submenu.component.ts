@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { PrimaryButtonComponent } from '../common/primary-button/primary-button.component';
 import { SearchInputComponent } from '../common/search-input/search-input.component';
 import { SubmenuService } from '../../../services/submenu.service';
+import { contactlist, Messages, channel } from '../chats/data';
 interface SubmenuItem {
   key: string;
   icon: string;
@@ -23,6 +24,15 @@ export class SubmenuComponent implements OnInit {
   searchQuery = '';
   filteredItems: SubmenuItem[] = [];
 
+  favourites = contactlist;
+  directMessages = Messages;
+  channels = channel;
+  
+  // Helper to check if current menu is chat
+  get isChatMenu(): boolean {
+    return this.menu === 'chat';
+  }
+
   private submenuItemsMap: { [key: string]: SubmenuItem[] } = {
     booking: [
       { key: 'bookCourt', icon: 'assets/icons/calender-tick-icon.svg', label: 'Pickleball Booking' },
@@ -31,7 +41,7 @@ export class SubmenuComponent implements OnInit {
       { key: 'shopping', icon: 'assets/icons/shopping-bag-icon.svg', label: 'Shopping' },
       { key: 'bookingHistory', icon: 'assets/icons/headphone-icon.svg', label: 'Contact Support' }
     ],
-    events: [
+    chat: [
       { key: 'upcomingEvents', icon: 'assets/icons/calender-icon.svg', label: 'Upcoming Events' },
       { key: 'pastEvents', icon: 'assets/icons/events-icon.svg', label: 'Past Events' }
     ],
@@ -49,17 +59,26 @@ export class SubmenuComponent implements OnInit {
     ]
   };
 
-  channels = ['Pickleball Expert'];
+  // channels = ['Pickleball Expert'];
 
-  ngOnInit() {
-    this.setActiveSubmenu();
-    this.filteredItems = this.getFilteredSubmenuItems();
+  // submenu.component.ts
+ngOnInit() {
+  this.setActiveSubmenu();
+  this.filteredItems = this.getFilteredSubmenuItems();
 
-    this.submenuService.channels$.subscribe(channels => {
-      this.channels = channels;
-      this.changeDetector.detectChanges();
-    });
-  }
+  // Update the subscription to use correct channel format
+  // this.submenuService.channels$.subscribe((channels: any) => {
+  //   // Transform string channels to object format if needed
+  //   this.channels = channels.map((ch: string | any) => typeof ch === 'string' ? {
+  //     id: `gen-${Math.random().toString(36).substr(2, 9)}`,
+  //     type: 'channel',
+  //     name: ch,
+  //     badgeCount: null
+  //   } : ch);
+    
+  //   this.changeDetector.detectChanges();
+  // });
+}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['menu']) {

@@ -2,7 +2,7 @@
 <div class="bg-white rounded-xl p-6 h-full">
   <p class="text-gray-700 text-[14px] mb-4">Sure, here you go. Book your Pickleball Court from below.</p>
 
-  <div class="border border-gray-200 rounded-md" [ngClass]="{ 'fixed top-16 right-0 h-full bg-white z-50': isExpanded }">
+  <div class="border border-gray-200 rounded-md" [ngClass]="{ 'fixed top-16 right-0 h-full bg-white z-50 min-w-[675px]': isExpanded }">
     <div class="flex items-center justify-between py-2 px-4 border-b">
       <div class="text-lg font-semibold text-gray-800">Pickleball Court Booking</div>
       <div class="cursor-pointer" (click)="toggleExpand()">

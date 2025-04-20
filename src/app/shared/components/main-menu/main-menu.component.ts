@@ -14,7 +14,7 @@ export class MainMenuComponent {
 
   menus = [
     { key: 'booking', image: 'assets/icons/profile-circle-icon.svg' },
-    { key: 'events', image: 'assets/icons/message-typing-icon.svg' },
+    { key: 'chat', image: 'assets/icons/message-typing-icon.svg' },
     { key: 'memberships', image: 'assets/icons/profile-stick-icon.svg' },
     { key: 'shop', image: 'assets/icons/phone-icon.svg' },
     { key: 'support', image: 'assets/icons/bookmark-icon.svg' },
