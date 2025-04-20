@@ -10,15 +10,21 @@ import { SubmenuService } from '../../services/submenu.service';
 import { PrimaryButtonComponent } from '../../shared/components/common/primary-button/primary-button.component';
 import { DateFormatterPipe } from '../../shared/pipes/date-formatter.pipe';
 import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
+import { ChatsComponent } from '../../shared/components/chats/chats.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent, SidebarComponent, ImageSliderComponent, PickleballBookingCardComponent, FormsModule, PrimaryButtonComponent, ReactiveFormsModule, DateFormatterPipe, TimeAgoPipe, PickleballBookingCardComponent],
+  imports: [CommonModule, RouterModule, HeaderComponent, SidebarComponent, ImageSliderComponent, PickleballBookingCardComponent, FormsModule, PrimaryButtonComponent, ReactiveFormsModule, DateFormatterPipe, TimeAgoPipe, PickleballBookingCardComponent, ChatsComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
+
+  trackById(index: number, item: any): any {
+    return item.id || index;
+  }
+  
 
 showSlider = true;
 
@@ -215,58 +221,46 @@ closeAll() {
   this.showAvatarDropdown = false;
 }
 
-@ViewChild('chatContainer') private chatContainer!: ElementRef;
-  private previousMessagesLength = 0;
-  private shouldAutoScroll = true; // New flag
 
+  
 
-  ngAfterViewChecked() {
-    if (this.messages.length > this.previousMessagesLength) {
-      // Add a small delay to ensure DOM updates
-      setTimeout(() => {
-        this.scrollToBottom();
-      }, 50);
-      this.previousMessagesLength = this.messages.length;
-    }
-  }
-  
-  private scrollToBottom() {
-    try {
-      this.chatContainer.nativeElement.scrollTop = 
-        this.chatContainer.nativeElement.scrollHeight;
-    } catch (err) { 
-      console.error('Scroll error:', err); 
-    }
-  }
+  @ViewChild(ChatsComponent) chatMessages!: ChatsComponent;
 
-  onScroll() {
-    const element = this.chatContainer.nativeElement;
-    const atBottom = element.scrollHeight - element.scrollTop <= element.clientHeight + 50;
-    this.shouldAutoScroll = atBottom;
-  }
+  onMessageSent(message: string) {
+    // Existing sendMessage logic
+    const trimmed = message.trim();
+    if (!trimmed) return;
 
-  get groupedMessages() {
-    if (!this.messages || !Array.isArray(this.messages)) return [];
-  
-    const grouped: any[] = [];
-    let lastDateKey = '';
-  
-    for (const msg of this.messages) {
-      if (!msg || !msg.timestamp) continue; // guard against undefined
-  
-      const dateKey = new Date(msg.timestamp).toDateString();
-  
-      if (dateKey !== lastDateKey) {
-        grouped.push({ type: 'date', date: msg.timestamp });
-        lastDateKey = dateKey;
+    this.messages.push({ 
+      sender: 'user', 
+      content: trimmed, 
+      type: 'text',
+      timestamp: new Date(),
+      avatar: 'assets/icons/Avatar.png' 
+    });
+
+    this.showSlider = false;
+
+    setTimeout(() => {
+      if (trimmed.toLowerCase().includes('book') && trimmed.toLowerCase().includes('pickleball')) {
+        this.messages.push({ 
+          sender: 'bot', 
+          content: '', 
+          type: 'booking',
+          timestamp: new Date(),
+          avatar: 'assets/icons/LUMEN.svg' 
+        });
+      } else {
+        this.messages.push({ 
+          sender: 'bot', 
+          content: "I'm here to help!", 
+          type: 'text',
+          timestamp: new Date(),
+          avatar: 'assets/icons/LUMEN.svg' 
+        });
       }
-  
-      grouped.push({ type: 'message', data: msg });
-    }
-  
-    return grouped;
+    }, 300);
   }
-  
 
 }
 
