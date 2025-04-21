@@ -291,28 +291,38 @@ export class ChatsComponent implements AfterViewChecked {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   }
 
-
   private parseTimeString(timeString: string | undefined): Date {
-    const date = new Date();
-
-    if (!timeString || typeof timeString !== 'string' || !timeString.includes(':')) {
-      return date; // fallback to current time
+    const now = new Date();
+    
+    if (!timeString) return now;
+  
+    // Handle full ISO strings
+    if (timeString.includes('T')) {
+      const date = new Date(timeString);
+      return isNaN(date.getTime()) ? now : date;
     }
-
-    try {
-      const [time, period] = timeString.split(' ');
-      const [hours, minutes] = time.split(':').map(Number);
-
-      let parsedHours = period === 'pm' && hours < 12 ? hours + 12 : hours;
-      if (period === 'am' && hours === 12) parsedHours = 0;
-
-      date.setHours(parsedHours);
-      date.setMinutes(minutes || 0);
-    } catch (err) {
-      console.warn('Invalid time string:', timeString, err);
+  
+    // Handle time strings like "2:30 pm"
+    const timeRegex = /(\d{1,2}):(\d{2})\s*(am|pm)?/i;
+    const match = timeString.match(timeRegex);
+  
+    if (match) {
+      let hours = parseInt(match[1]);
+      const minutes = parseInt(match[2]);
+      const period = match[3]?.toLowerCase();
+  
+      // Convert 12-hour format to 24-hour
+      if (period === 'pm' && hours < 12) hours += 12;
+      if (period === 'am' && hours === 12) hours = 0;
+  
+      // Create date with today's date but specified time
+      const date = new Date();
+      date.setHours(hours, minutes, 0, 0);
+      return date;
     }
-
-    return date;
+  
+    console.warn('Invalid time string format:', timeString);
+    return now;
   }
 
   stringToTime(timeStr: string): Date {

@@ -1,15 +1,15 @@
 // pickleball-booking-card.component.ts
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { provideNativeDateAdapter } from '@angular/material/core'
+import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { Country, State, City } from 'country-state-city';
-
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-pickleball-booking-card',
@@ -17,11 +17,12 @@ import { Country, State, City } from 'country-state-city';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule, // Added FormsModule for ngModel
     MatDatepickerModule,
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatIconModule,
+    MatIconModule, CalendarModule
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './pickleball-booking-card.component.html',
@@ -33,11 +34,14 @@ export class PickleballBookingCardComponent {
   states: any[] = [];
   cities: any[] = [];
   searchTerm = '';
-
+  date: Date | undefined;
   selectedDate = new FormControl();
   countryControl = new FormControl();
   stateControl = new FormControl();
   cityControl = new FormControl();
+
+
+  
 
   useMyLocation() {
     if (navigator.geolocation) {
@@ -68,6 +72,13 @@ export class PickleballBookingCardComponent {
   onCountrySelected(country: any) {
     this.countryControl.setValue(country);
     this.states = State.getStatesOfCountry(country.isoCode);
+    // Check if country has no states, fetch cities directly
+    if (this.states.length === 0) {
+      this.cities = City.getCitiesOfCountry(country.isoCode) || [];
+
+    } else {
+      this.cities = [];
+    }
     this.stateControl.reset();
     this.cityControl.reset();
     this.searchTerm = '';
@@ -88,22 +99,39 @@ export class PickleballBookingCardComponent {
     this.searchTerm = '';
   }
 
+  selectCountry() {
+    this.countryControl.reset();
+    this.stateControl.reset();
+    this.cityControl.reset();
+    this.states = [];
+    this.cities = [];
+    this.searchTerm = '';
+  }
+
+  selectState() {
+    this.stateControl.reset();
+    this.cityControl.reset();
+    this.cities = [];
+    this.searchTerm = '';
+  }
+
+  selectCity() {
+    this.cityControl.reset();
+    this.searchTerm = '';
+  }
+
   toggleExpand() {
     this.isExpanded = !this.isExpanded;
   }
 
   get currentStep() {
     if (!this.countryControl.value) return 'country';
-    if (!this.stateControl.value) return 'state';
-    if (!this.cityControl.value) return 'city';
+    if (this.states.length > 0 && !this.stateControl.value) return 'state';
+    if (this.cities.length > 0 && !this.cityControl.value) return 'city';
     return 'date';
   }
 
   getCountryCode(country: any): string {
     return country.isoCode.toLowerCase();
-  }
-
-  getFlagPath(code: string): string {
-    return `node_modules/flag-icons/flags/4x3/${code}.svg`;
   }
 }

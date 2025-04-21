@@ -15,6 +15,8 @@
     }">
     <div class="flex items-center justify-between py-2 px-4 border-b">
       <div class="text-lg font-semibold text-gray-800">Pickleball Court Booking</div>
+
+      
       <div class="cursor-pointer" (click)="toggleExpand()">
         <img src="assets/icons/expand-icon.svg" />
       </div>
@@ -34,7 +36,7 @@
           </div>
 
           <!-- Country -->
-          <div class="px-3 py-2 rounded-lg cursor-pointer border border-gray-200" [class.border-b-2]="countryControl.value"
+          <div  (click)="selectCountry()" class="px-3 py-2 rounded-lg cursor-pointer border border-gray-200" [class.border-b-2]="countryControl.value"
             [class.ring-1]="countryControl.value" [class.border-mint-200]="countryControl.value"
             [class.ring-mint-200]="countryControl.value">
             <div class="text-sm mb-1">Country</div>
@@ -42,14 +44,14 @@
           </div>
 
           <!-- State -->
-          <div class="px-3 py-2 border border-gray-200 rounded-lg" [class.cursor-not-allowed]="!countryControl.value"
+          <div (click)="selectState()" class="px-3 py-2 border cursor-pointer border-gray-200 rounded-lg" [class.cursor-not-allowed]="!countryControl.value"
             [class.bg-gray-100]="!countryControl.value">
             <div class="text-sm mb-1">State</div>
             <div class="truncate">{{ stateControl.value?.name || 'Select state' }}</div>
           </div>
 
           <!-- City -->
-          <div class="px-3 py-2 border border-gray-200 rounded-lg" [class.cursor-not-allowed]="!stateControl.value"
+          <div (click)="selectCity()" class="px-3 py-2 border cursor-pointer border-gray-200 rounded-lg" [class.cursor-not-allowed]="!stateControl.value"
             [class.bg-gray-100]="!stateControl.value">
             <div class="text-sm mb-1">City</div>
             <div class="truncate">{{ cityControl.value?.name || 'Select city' }}</div>
@@ -59,10 +61,9 @@
           <div class="px-3 py-2 border border-gray-200 rounded-lg" [class.cursor-not-allowed]="!cityControl.value"
             [class.bg-gray-100]="!cityControl.value">
             <div class="text-sm mb-1">Date</div>
-            <input *ngIf="cityControl.value" [matDatepicker]="picker" [formControl]="selectedDate"
-              class="w-full cursor-pointer">
-            <div *ngIf="!cityControl.value" class="text-fade-text">Select date</div>
-            <mat-datepicker #picker></mat-datepicker>
+            <div class="text-fade-text">Select date</div>
+
+ 
           </div>
         </div>
 
@@ -71,25 +72,23 @@
 
 
           <div class=" overflow-y-auto space-y-1 p-1 text-sm" [ngClass]="{
-            'h-[246px]': !isExpanded,
+            'h-[346px]': !isExpanded,
             'h-[calc(100vh-220px)]': isExpanded
         }">
         
+        <!-- Search Bar -->
+        <div *ngIf="currentStep !== 'date'" class="relative w-full mb-4">
+          <img src="assets/icons/search-icon.svg" 
+               class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 pointer-events-none" 
+               alt="Search"/>
+          <input type="text"
+                 placeholder="Search..."
+                 [(ngModel)]="searchTerm"
+                 class="w-full rounded-full border border-gray-200 bg-gray-50 pl-9 pr-4 py-[4px] focus:outline-none focus:ring-2 focus:ring-mint-200"/>
+        </div>
             <!-- Countries List -->
             <div *ngIf="currentStep === 'country'" >
-              <div class="relative w-full mb-4">
-                <img 
-                  src="assets/icons/search-icon.svg" 
-                  class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-fade-text pointer-events-none" 
-                  alt="Search"
-                />
               
-                <input 
-                  type="text"
-                  placeholder="Search..."
-                  class="w-full rounded-full border border-gray-200 bg-gray-50 pl-9 pr-4 py-[4px] placeholder-custom bg-custom focus:outline-none focus:ring-2 focus:ring-mint-200"
-                />
-              </div>
               <div *ngFor="let country of filteredCountries" (click)="onCountrySelected(country)"
                 class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-100">
                 <img [src]="'https://flagcdn.com/48x36/' + getCountryCode(country) + '.png'" srcset="https://flagcdn.com/32x24/{{ getCountryCode(country) }}.png 2x,
@@ -113,6 +112,16 @@
                 class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-100">
                 <span>{{ city.name }}</span>
               </div>
+            </div>
+
+            <div  *ngIf="currentStep === 'date'" class="..." [class.cursor-not-allowed]="currentStep !== 'date'">
+              <div *ngIf="currentStep === 'date'" class="..." [class.cursor-not-allowed]="currentStep !== 'date'">
+                <div class="card flex justify-content-center">
+                  <p-calendar [(ngModel)]="date" />
+              </div>
+                
+              </div>
+              
             </div>
           </div>
         </div>

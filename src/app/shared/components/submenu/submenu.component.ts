@@ -36,6 +36,8 @@ export class SubmenuComponent implements OnInit {
   filteredDirectMessages = this.directMessages;
   filteredChannels = this.channels;
 
+  selectedCity = [];
+
   filteredActionMenu = this.actionmenu;
 
 
