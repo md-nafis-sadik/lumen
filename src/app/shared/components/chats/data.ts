@@ -158,22 +158,22 @@ const chat = [
     {
         "id": "1",
         "sender": "left",
-        "message": "Good morning 😊",
+        "message": ["Good morning 😊"],
         "time": "10:07 am",
         "isdataSender": false,
     },
     {
         "id": "2",
         "sender": "right",
-        "message": "Good morning, How are you? What about our next meeting?",
+        "message": ["Good morning, How are you? What about our next meeting?"],
         "time": "10:12 am",
         "isdataSender": true,
     },
     {
         "id": "3",
         "sender": "left",
-        "message": "Yeah everything is fine. Our next meeting tomorrow at 10.00 AM",
-        "message2": "Hey, I'm going to meet a friend of mine at the department store. I have to buy some presents for my parents 🎁.",
+        "message": ["Yeah everything is fine. Our next meeting tomorrow at 10.00 AM",
+        "Hey, I'm going to meet a friend of mine at the department store. I have to buy some presents for my parents 🎁."],
         "time": "10:13 am",
         "isdataSender": false,
     },
@@ -181,7 +181,7 @@ const chat = [
     {
         "id": "5",
         "sender": "right",
-        "message": "Wow that's great",
+        "message": ["Wow that's great"],
         "time": "10:14 am",
         "isdataSender": true,
     },
@@ -212,7 +212,7 @@ const chat = [
     {
         "id": "8",
         "sender": "left",
-        "message": "typing...",
+        "message": ["typing..."],
         "isdataSender": false,
         "options": []
     },
@@ -225,7 +225,7 @@ const channel_chat = [
         "id": 1,
         "from_id": 2,
         "to_id": 1,
-        "msg": "Good morning Everyone",
+        "msg": ["Good morning Everyone"],
         "isSender": false,
         "datetime": "10:07 am",
         "image": "assets/images/users/avatar-2.jpg"
@@ -235,7 +235,7 @@ const channel_chat = [
         "from_id": 1,
         "to_id": 2,
         "has_dropDown": true,
-        "msg": "Good morning, How are you? What about our next meeting?",
+        "msg": ["Good morning, How are you? What about our next meeting?"],
         "isSender": true,
         "datetime": "10:12 am"
     },
@@ -243,8 +243,8 @@ const channel_chat = [
         "id": 3,
         "from_id": 7,
         "to_id": 6,
-        "msg": "Yeah everything is fine, Our next meeting tomorrow at 10.00 am AM",
-        "message2": "Wow that's great",
+        "msg": ["Yeah everything is fine, Our next meeting tomorrow at 10.00 am AM", "Wow that's great"],
+        
         "isSender": false,
         "datetime": "10:13 am",
         "image": "assets/images/users/avatar-8.jpg"
@@ -254,15 +254,15 @@ const channel_chat = [
         "from_id": 1,
         "to_id": 2,
         "isSender": true,
-        "msg": "@Jean Berwick, Please Assign AB-123 to me",
+        "msg": ["@Jean Berwick, Please Assign AB-123 to me"],
         "datetime": "10:14 am"
     },
     {
         "id": 6,
         "from_id": 2,
         "to_id": 1,
-        "msg": "Okay, Sure",
-        "image": "assets/images/users/avatar-2.jpg",
+        "msg": ["Okay, Sure"],
+        "image": ["assets/images/users/avatar-2.jpg"],
         "isSender": false,
         "datetime": "10:15 am"
     }

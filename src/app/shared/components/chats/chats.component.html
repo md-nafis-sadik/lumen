@@ -24,12 +24,25 @@
 
           <div class="flex flex-col max-w-[70%]">
             <!-- Text Message -->
-            <div *ngIf="item.data?.type === 'text'" [ngClass]="{
-       'bg-[#C3EBF3] rounded-tr-none': item.data?.sender === 'user',
-       'bg-white-00 rounded-tl-none': item.data?.sender === 'bot'
-     }" class="p-3 shadow space-pre-wrap rounded-lg text-sm">
-              {{ item.data?.content }}
+            <div *ngIf="item.data?.type === 'text'">
+              <div 
+                *ngFor="let messageItem of item.data?.content"
+                [ngClass]="{
+                  'bg-[#C3EBF3] rounded-tr-none self-end': item.data?.sender === 'user',
+                  'bg-white-00 rounded-tl-none self-start': item.data?.sender === 'bot'
+                }"
+                class="p-3 shadow whitespace-pre-wrap rounded-lg text-sm mb-2 last:mb-0 inline-block"
+              >
+                {{ messageItem }}
+              </div>
             </div>
+            
+            <div *ngIf="item.data?.type === 'text' && item.data?.content2"  [ngClass]="{
+              'bg-[#C3EBF3] rounded-tr-none': item.data?.sender === 'user',
+              'bg-white-00 rounded-tl-none': item.data?.sender === 'bot'
+            }" class="p-3 shadow space-pre-wrap rounded-lg text-sm mt-3">
+                     {{ item.data?.content2 }}
+              </div>
 
             <div *ngIf="item.data?.type === 'image'" class="flex flex-wrap gap-4">
               <div *ngFor="let img of item.data?.content" class="shadow rounded-lg overflow-hidden">

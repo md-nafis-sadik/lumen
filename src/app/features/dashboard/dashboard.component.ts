@@ -102,7 +102,7 @@ export class DashboardComponent {
   userInput = '';
   messages: {
     sender: 'user' | 'bot',
-    content: string,
+    content: string[],
     type: 'text' | 'booking',
     timestamp: Date,
     avatar: string
@@ -119,7 +119,7 @@ export class DashboardComponent {
       {
         id: Date.now().toString(),
         sender: 'user' as const,
-        content: trimmed,
+        content: [trimmed],
         type: 'text' as const,
         timestamp: new Date(),
         avatar: 'assets/icons/Avatar.png'
@@ -138,7 +138,7 @@ export class DashboardComponent {
         ? {
           id: Date.now().toString(),
           sender: 'bot',
-          content: '',
+          content: [''],
           type: 'booking',
           timestamp: new Date(),
           avatar: 'assets/icons/LUMEN.svg'
@@ -146,7 +146,7 @@ export class DashboardComponent {
         : {
           id: Date.now().toString(),
           sender: 'bot',
-          content: "I'm here to help!",
+          content: ["I'm here to help!"],
           type: 'text',
           timestamp: new Date(),
           avatar: 'assets/icons/LUMEN.svg'
@@ -263,7 +263,7 @@ export class DashboardComponent {
       {
         id: Date.now().toString(),
         sender: 'user',
-        content: trimmed,
+        content: [trimmed],
         type: 'text',
         timestamp: new Date(),
         avatar: 'assets/icons/Avatar.png'
@@ -280,7 +280,7 @@ export class DashboardComponent {
         ? {
           id: Date.now().toString(),
           sender: 'bot',
-          content: '',
+          content: [''],
           type: 'booking',
           timestamp: new Date(),
           avatar: 'assets/icons/LUMEN.svg'
@@ -288,7 +288,7 @@ export class DashboardComponent {
         : {
           id: Date.now().toString(),
           sender: 'bot',
-          content: "I'm here to help!",
+          content: ["I'm here to help!"],
           type: 'text',
           timestamp: new Date(),
           avatar: 'assets/icons/LUMEN.svg'

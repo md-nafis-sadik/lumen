@@ -116,7 +116,7 @@ export class ChatsComponent implements AfterViewChecked {
     const newMessage: ChatMessage = {
       id: Date.now().toString(),
       sender: 'user',
-      content: trimmed,
+      content: [trimmed],
       timestamp: new Date(),
       type: 'text',
       avatar: 'assets/icons/Avatar.png'
@@ -206,7 +206,7 @@ export class ChatsComponent implements AfterViewChecked {
       // Default text message
       return {
         id: msg.id,
-        sender: msg?.sender === 'right' || msg?.from_id === 1 ? 'user' : 'bot',
+        sender: msg?.sender === 'right' || msg?.isSender ? 'user' : 'bot',
         content: msg?.message || msg?.msg,
         type: 'text',
         timestamp: this.parseTimeString(msg.time),
@@ -214,6 +214,22 @@ export class ChatsComponent implements AfterViewChecked {
       };
     });
   }
+
+  getContentParts(msg: any): string[] {
+  const parts: string[] = [];
+  let i = 1;
+
+  while (true) {
+    const val = msg[`message${i === 1 ? '' : i}`] || msg[`msg${i === 1 ? '' : i}`];
+    if (val) parts.push(val);
+    else break;
+    i++;
+  }
+
+  return parts;
+}
+
+
 
   // getMessageType method remains the same
   private getMessageType(msg: any): 'text' | 'image' | 'file' | 'booking' {
