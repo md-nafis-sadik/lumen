@@ -75,6 +75,7 @@ export class PickleballBookingCardComponent {
     // Check if country has no states, fetch cities directly
     if (this.states.length === 0) {
       this.cities = City.getCitiesOfCountry(country.isoCode) || [];
+      
 
     } else {
       this.cities = [];

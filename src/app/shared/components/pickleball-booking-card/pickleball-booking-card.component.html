@@ -36,22 +36,26 @@
           </div>
 
           <!-- Country -->
-          <div  (click)="selectCountry()" class="px-3 py-2 rounded-lg cursor-pointer border border-gray-200" [class.border-b-2]="countryControl.value"
-            [class.ring-1]="countryControl.value" [class.border-mint-200]="countryControl.value"
-            [class.ring-mint-200]="countryControl.value">
+          <div  (click)="selectCountry()" class="px-3 py-2 rounded-lg cursor-pointer border" [ngClass]="{
+            'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-50': currentStep === 'country'
+          }">
             <div class="text-sm mb-1">Country</div>
             <div class="truncate">{{ countryControl.value?.name || 'Select country' }}</div>
           </div>
 
           <!-- State -->
-          <div (click)="selectState()" class="px-3 py-2 border cursor-pointer border-gray-200 rounded-lg" [class.cursor-not-allowed]="!countryControl.value"
-            [class.bg-gray-100]="!countryControl.value">
+          <div (click)="selectState()" class="px-3 py-2 border cursor-pointer border-gray-200 rounded-lg" [ngClass]="{
+            'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-50': currentStep === 'state'
+          }" [class.cursor-not-allowed]="!countryControl.value"
+            [class.bg-gray-100]="!countryControl.value" >
             <div class="text-sm mb-1">State</div>
             <div class="truncate">{{ stateControl.value?.name || 'Select state' }}</div>
           </div>
 
           <!-- City -->
-          <div (click)="selectCity()" class="px-3 py-2 border cursor-pointer border-gray-200 rounded-lg" [class.cursor-not-allowed]="!stateControl.value"
+          <div (click)="selectCity()" class="px-3 py-2 border cursor-pointer border-gray-200 rounded-lg" [ngClass]="{
+            'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-50': currentStep === 'city' 
+          }" [class.cursor-not-allowed]="!stateControl.value"
             [class.bg-gray-100]="!stateControl.value">
             <div class="text-sm mb-1">City</div>
             <div class="truncate">{{ cityControl.value?.name || 'Select city' }}</div>
@@ -59,7 +63,9 @@
 
           <!-- Date -->
           <div class="px-3 py-2 border border-gray-200 rounded-lg" [class.cursor-not-allowed]="!cityControl.value"
-            [class.bg-gray-100]="!cityControl.value">
+            [class.bg-gray-100]="!cityControl.value" [ngClass]="{
+              'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-50': currentStep === 'date'
+            }">
             <div class="text-sm mb-1">Date</div>
             <div class="text-fade-text">Select date</div>
 
@@ -117,7 +123,11 @@
             <div  *ngIf="currentStep === 'date'" class="..." [class.cursor-not-allowed]="currentStep !== 'date'">
               <div *ngIf="currentStep === 'date'" class="..." [class.cursor-not-allowed]="currentStep !== 'date'">
                 <div class="card flex justify-content-center">
-                  <p-calendar [(ngModel)]="date" />
+                  <p-calendar 
+                      class="max-w-full" 
+                      [(ngModel)]="date" 
+                      [inline]="true" 
+                      [showWeek]="true" />
               </div>
                 
               </div>
