@@ -1,99 +1,116 @@
 <!-- pickleball-booking-card.component.html -->
 <div class="bg-white rounded-xl p-6 h-full">
   <p class="text-gray-700 text-[14px] mb-4">Sure, here you go. Book your Pickleball Court from below.</p>
-
-  <div class="border border-gray-200 rounded-md" [ngClass]="{ 'fixed top-16 right-0 h-full bg-white z-50 min-w-[675px]': isExpanded }">
+  <div class="border border-gray-200 rounded-lg" [ngClass]="{ 'hidden': !isExpanded }">
+    <div class="flex items-center justify-between py-2 px-4">
+    <div class="text-lg font-semibold text-gray-800">Pickleball Court Booking</div>
+    <div class="cursor-pointer" (click)="toggleExpand()">
+      <img src="assets/icons/expand-icon.svg" />
+    </div>
+  </div></div>
+  <div class="border border-gray-200 rounded-md transition-all duration-300 ease-in-out"
+    [ngClass]="{
+        'fixed top-[58px] right-[675px] h-[calc(100vh-60px)] bg-white z-10 w-full xl:w-[675px] transform translate-x-[1px]': !isExpanded,
+        'fixed top-[58px] right-0 h-[calc(100vh-60px)] bg-white z-10 w-full xl:w-[675px] transform translate-x-0': isExpanded
+    }">
     <div class="flex items-center justify-between py-2 px-4 border-b">
       <div class="text-lg font-semibold text-gray-800">Pickleball Court Booking</div>
       <div class="cursor-pointer" (click)="toggleExpand()">
-        <img src="assets/icons/expand-icon.svg"/>
+        <img src="assets/icons/expand-icon.svg" />
       </div>
     </div>
 
-    <div class="mb-4 h-[286px] overflow-y-auto">
+    <div class="mb-4  overflow-y-auto" [ngClass]="{
+      'h-[346px]': !isExpanded,
+      'h-full': isExpanded
+  }">
       <div class="flex flex-col sm:flex-row gap-6 p-4">
         <!-- Left Panel -->
         <div class="w-full sm:w-[176px] space-y-4 text-[12px]">
-          <div (click)="useMyLocation()" 
-               class="flex items-center gap-1 w-full px-3 py-2 border border-gray-200 rounded-lg hover:bg-[#E6F7FB] transition cursor-pointer">
-            <img src="assets/icons/location-select-icon.svg"/>
+          <div (click)="useMyLocation()"
+            class="flex items-center gap-1 w-full px-3 py-2 border border-gray-200 rounded-lg hover:bg-[#E6F7FB] transition cursor-pointer">
+            <img src="assets/icons/location-select-icon.svg" />
             <div>Use my location</div>
           </div>
 
           <!-- Country -->
-          <div class="px-3 py-2 rounded-lg cursor-pointer"
-               [class.border-b-2]="countryControl.value"
-               [class.ring-1]="countryControl.value"
-               [class.border-mint-200]="countryControl.value"
-               [class.ring-mint-200]="countryControl.value">
+          <div class="px-3 py-2 rounded-lg cursor-pointer border border-gray-200" [class.border-b-2]="countryControl.value"
+            [class.ring-1]="countryControl.value" [class.border-mint-200]="countryControl.value"
+            [class.ring-mint-200]="countryControl.value">
             <div class="text-sm mb-1">Country</div>
             <div class="truncate">{{ countryControl.value?.name || 'Select country' }}</div>
           </div>
 
           <!-- State -->
-          <div class="px-3 py-2 border border-gray-200 rounded-lg"
-               [class.cursor-not-allowed]="!countryControl.value"
-               [class.bg-gray-100]="!countryControl.value">
+          <div class="px-3 py-2 border border-gray-200 rounded-lg" [class.cursor-not-allowed]="!countryControl.value"
+            [class.bg-gray-100]="!countryControl.value">
             <div class="text-sm mb-1">State</div>
             <div class="truncate">{{ stateControl.value?.name || 'Select state' }}</div>
           </div>
 
           <!-- City -->
-          <div class="px-3 py-2 border border-gray-200 rounded-lg"
-               [class.cursor-not-allowed]="!stateControl.value"
-               [class.bg-gray-100]="!stateControl.value">
+          <div class="px-3 py-2 border border-gray-200 rounded-lg" [class.cursor-not-allowed]="!stateControl.value"
+            [class.bg-gray-100]="!stateControl.value">
             <div class="text-sm mb-1">City</div>
             <div class="truncate">{{ cityControl.value?.name || 'Select city' }}</div>
           </div>
 
           <!-- Date -->
-          <div class="px-3 py-2 border border-gray-200 rounded-lg"
-               [class.cursor-not-allowed]="!cityControl.value"
-               [class.bg-gray-100]="!cityControl.value">
+          <div class="px-3 py-2 border border-gray-200 rounded-lg" [class.cursor-not-allowed]="!cityControl.value"
+            [class.bg-gray-100]="!cityControl.value">
             <div class="text-sm mb-1">Date</div>
-            <input *ngIf="cityControl.value" 
-                   [matDatepicker]="picker" 
-                   [formControl]="selectedDate"
-                   class="w-full cursor-pointer">
+            <input *ngIf="cityControl.value" [matDatepicker]="picker" [formControl]="selectedDate"
+              class="w-full cursor-pointer">
             <div *ngIf="!cityControl.value" class="text-fade-text">Select date</div>
             <mat-datepicker #picker></mat-datepicker>
           </div>
         </div>
 
         <!-- Right Panel -->
-        <div class="w-full sm:w-2/3 bg-gray-50 p-4">
-    
+        <div class="w-full sm:w-2/3 bg-fade-white p-4">
 
-          <div class="h-56 overflow-y-auto space-y-1 p-1 text-sm">
+
+          <div class=" overflow-y-auto space-y-1 p-1 text-sm" [ngClass]="{
+            'h-[246px]': !isExpanded,
+            'h-[calc(100vh-220px)]': isExpanded
+        }">
+        
             <!-- Countries List -->
-            <div *ngIf="currentStep === 'country'">
-              <div *ngFor="let country of filteredCountries" 
-       (click)="onCountrySelected(country)"
-       class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-100">
-       <img 
-  [src]="'https://flagcdn.com/48x36/' + getCountryCode(country) + '.png'"
-  srcset="https://flagcdn.com/32x24/{{ getCountryCode(country) }}.png 2x,
-          https://flagcdn.com/48x36/{{ getCountryCode(country) }}.png 3x"
-  class="w-5 h-5 rounded-full"
-  alt="{{ country.name }} flag">
-    <span>{{ country.name }}</span>
-  </div>
+            <div *ngIf="currentStep === 'country'" >
+              <div class="relative w-full mb-4">
+                <img 
+                  src="assets/icons/search-icon.svg" 
+                  class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-fade-text pointer-events-none" 
+                  alt="Search"
+                />
+              
+                <input 
+                  type="text"
+                  placeholder="Search..."
+                  class="w-full rounded-full border border-gray-200 bg-gray-50 pl-9 pr-4 py-[4px] placeholder-custom bg-custom focus:outline-none focus:ring-2 focus:ring-mint-200"
+                />
+              </div>
+              <div *ngFor="let country of filteredCountries" (click)="onCountrySelected(country)"
+                class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-100">
+                <img [src]="'https://flagcdn.com/48x36/' + getCountryCode(country) + '.png'" srcset="https://flagcdn.com/32x24/{{ getCountryCode(country) }}.png 2x,
+          https://flagcdn.com/48x36/{{ getCountryCode(country) }}.png 3x" class="w-5 h-5 rounded-full"
+                  alt="{{ country.name }} flag">
+                <span>{{ country.name }}</span>
+              </div>
             </div>
 
             <!-- States List -->
             <div *ngIf="currentStep === 'state'">
-              <div *ngFor="let state of filteredStates" 
-                   (click)="onStateSelected(state)"
-                   class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-100">
+              <div *ngFor="let state of filteredStates" (click)="onStateSelected(state)"
+                class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-100">
                 <span>{{ state.name }}</span>
               </div>
             </div>
 
             <!-- Cities List -->
             <div *ngIf="currentStep === 'city'">
-              <div *ngFor="let city of filteredCities" 
-                   (click)="onCitySelected(city)"
-                   class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-100">
+              <div *ngFor="let city of filteredCities" (click)="onCitySelected(city)"
+                class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-100">
                 <span>{{ city.name }}</span>
               </div>
             </div>
@@ -102,7 +119,7 @@
       </div>
     </div>
 
-    <div class="flex justify-between items-center px-4 py-3 border-t">
+    <div class="flex justify-between items-center px-4 py-3 border-t absolute z-50 bottom-0 w-full bg-white-00">
       <button class="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-100">Back</button>
       <button class="px-4 py-2 bg-gray-200 text-gray-500 rounded-lg text-sm cursor-not-allowed" disabled>Next</button>
     </div>

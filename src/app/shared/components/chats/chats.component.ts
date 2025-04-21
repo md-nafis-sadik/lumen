@@ -239,32 +239,56 @@ export class ChatsComponent implements AfterViewChecked {
     return 'text';
   }
 
-  handleFileUpload(event: any, type: 'image' | 'file') {
-    const file = event.target.files[0];
+  handleFileUpload(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
     if (!file) return;
-
+  
     const reader = new FileReader();
-
-    reader.onload = (e: any) => {
+    const fileType = this.getFileType(file);
+  
+    reader.onload = (e: ProgressEvent<FileReader>) => {
+      if (!e.target?.result) return;
+  
       const newMessage: ChatMessage = {
         id: Date.now().toString(),
         sender: 'user',
-        content: e.target.result,
+        content: [e.target.result as string],
         timestamp: new Date(),
-        type: type,
+        type: fileType,
         avatar: 'assets/icons/Avatar.png'
       };
-
+  
+      if (fileType === 'file') {
+        newMessage.file = {
+          name: file.name,
+          size: this.formatFileSize(file.size),
+          url: e.target.result as string
+        };
+      } else if (fileType === 'image') {
+        newMessage.images = [e.target.result as string];
+      }
+  
       this.chatData.push(newMessage);
-      this.messageSent.emit(type === 'image' ? '[Image]' : '[File]');
       this.previousMessagesLength = this.chatData.length;
+      input.value = ''; // Reset input
+      this.showSlider = false;
     };
+  
+    reader.readAsDataURL(file);
+  }
 
-    if (type === 'image') {
-      reader.readAsDataURL(file);
-    } else {
-      reader.readAsText(file);
-    }
+  private getFileType(file: File): 'image' | 'file' {
+    const imageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
+    return imageTypes.includes(file.type) ? 'image' : 'file';
+  }
+
+  private formatFileSize(bytes: number): string {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   }
 
 

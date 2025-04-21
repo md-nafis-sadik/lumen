@@ -36,13 +36,6 @@
                 {{ messageItem }}
               </div>
             </div>
-            
-            <div *ngIf="item.data?.type === 'text' && item.data?.content2"  [ngClass]="{
-              'bg-[#C3EBF3] rounded-tr-none': item.data?.sender === 'user',
-              'bg-white-00 rounded-tl-none': item.data?.sender === 'bot'
-            }" class="p-3 shadow space-pre-wrap rounded-lg text-sm mt-3">
-                     {{ item.data?.content2 }}
-              </div>
 
             <div *ngIf="item.data?.type === 'image'" class="flex flex-wrap gap-4">
               <div *ngFor="let img of item.data?.content" class="shadow rounded-lg overflow-hidden">
@@ -128,7 +121,8 @@
     <input type="text" [(ngModel)]="userInput" placeholder="Type here..."
       class="flex-1 outline-none text-sm px-2 placeholder-custom" (keydown.enter)="sendMessage()" />
     <div class="flex items-center gap-3 text-fade-text cursor-pointer">
-      <img src="assets/icons/plus-chat-icon.svg" />
+      <img src="assets/icons/plus-chat-icon.svg"  (click)="fileInput.click()"/>
+      <input  type="file" (change)="handleFileUpload($event)"hidden #fileInput />
       <img src="assets/icons/mike-icon.svg" />
       <img src="assets/icons/echo-icon.svg" />
     </div>
