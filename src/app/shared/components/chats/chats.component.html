@@ -31,17 +31,27 @@
               {{ item.data?.content }}
             </div>
 
-            <!-- Image Message -->
-            <div *ngIf="item.data?.type === 'image'" class="shadow rounded-lg overflow-hidden">
-              <img [src]="item.data?.content" class="max-w-[300px] h-auto" alt="Uploaded image" />
+            <div *ngIf="item.data?.type === 'image'" class="flex flex-wrap gap-4">
+              <div *ngFor="let img of item.data?.content" class="shadow rounded-lg overflow-hidden">
+                <img [src]="img" class="max-w-[200px] h-auto" alt="Uploaded image" />
+              </div>
             </div>
+            
 
             <!-- File/PDF Message -->
-            <div *ngIf="item.data?.type === 'file'" class="p-3 bg-white-00 shadow rounded-lg flex items-center gap-2">
-              <img src="assets/icons/pdf-icon.svg" class="w-6 h-6" alt="PDF icon" />
-              <a [href]="item.data?.content" target="_blank" class="text-blue-500 hover:underline">
-                Download PDF
+            <div *ngIf="item.data?.type === 'file'" class="p-3 bg-[#C3EBF3] shadow rounded-lg flex items-center gap-2">
+              <div class="p-2 border border-mint-400 rounded-md flex items-center space-x-3 px-4">
+              <img src="assets/icons/attachment-icon.svg" class="w-6 h-6" alt="PDF icon" />
+              <a [href]="item.data?.content" target="_blank" class="text-sm flex items-center space-x-3">
+                
+                  <div class="space-y-2">
+                    <div>{{item.data?.fileName}}</div>
+                    <div>{{item.data?.fileSize}}</div>
+                  
+              </div>
+              <i class="fa-solid fa-download fa-lg"></i>
               </a>
+            </div>
             </div>
 
             <!-- Booking Card -->

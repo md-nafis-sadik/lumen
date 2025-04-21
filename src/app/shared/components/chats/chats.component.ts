@@ -170,7 +170,7 @@ export class ChatsComponent implements AfterViewChecked {
         return {
           id: msg.id,
           sender: msg.sender === 'right' ? 'user' : 'bot',
-          content: msg.images?.[0] || msg.message,
+          content: msg.images && msg.images.length > 0 ? msg.images : [msg.message],
           type: 'image',
           timestamp: this.parseTimeString(msg.time),
           avatar: msg.isDataSender ? 'assets/icons/Avatar.png' : this.currentChatAvatar
