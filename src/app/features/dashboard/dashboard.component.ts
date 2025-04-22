@@ -51,6 +51,7 @@ export class DashboardComponent {
   sidebarOpen = true;
   channels = ['Pickleball Expert'];
   showAddChannelModal = false;
+  showLocationSelectModal = false;
   newChannelName = '';
 
   sliderSlides = [
@@ -202,6 +203,9 @@ export class DashboardComponent {
     this.submenuService.newChannelName$.subscribe(name => {
       this.newChannelName = name;
     });
+    this.submenuService.showLocationSelectModal$.subscribe(show => {
+      this.showLocationSelectModal = show;
+    });
   }
 
   toggleSidebar() {
@@ -212,8 +216,15 @@ export class DashboardComponent {
     this.submenuService.openAddChannelModal();
   }
 
+  selectLocation() {
+
+    this.submenuService.openLocationSelectModal();
+  }
+
+
   closeModal() {
     this.submenuService.closeAddChannelModal();
+    this.submenuService.closeLocationSelectModal();
   }
 
   saveChannel() {

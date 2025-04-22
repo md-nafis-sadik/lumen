@@ -3,25 +3,26 @@
   <p class="text-gray-700 text-[14px] mb-4">Sure, here you go. Book your Pickleball Court from below.</p>
   <div class="border border-gray-200 rounded-lg w-[345]" [ngClass]="{ 'hidden': !isExpanded }">
     <div class="flex items-center justify-between py-2 px-4">
-    <div class="text-lg font-semibold text-gray-800">Pickleball Court Booking</div>
-    <div class="cursor-pointer" (click)="toggleExpand()">
-      <img src="assets/icons/expand-icon.svg" />
+      <div class="text-lg font-semibold text-gray-800">Pickleball Court Booking</div>
+      <div class="cursor-pointer" (click)="toggleExpand()">
+        <img src="assets/icons/expand-icon.svg" />
+      </div>
     </div>
-  </div></div>
-  <div class="border border-gray-200 rounded-md transition-all duration-300 ease-in-out"
-    [ngClass]="{
+  </div>
+  <div class="border border-gray-200 rounded-md transition-all duration-300 ease-in-out" [ngClass]="{
         'fixed top-[58px] right-[675px] h-[calc(100vh-60px)] bg-white z-10 w-full lg:w-[675px] transform translate-x-[1px]': !isExpanded,
         'fixed top-[58px] right-0 h-[calc(100vh-60px)] bg-white z-10 w-full lg:w-[675px] transform translate-x-0': isExpanded
-    }">
+    }">  
     <div class="flex items-center justify-between py-2 px-4 border-b">
       <div class="text-lg font-semibold text-gray-800">Pickleball Court Booking</div>
-
-      
       <div class="cursor-pointer" (click)="toggleExpand()">
         <img src="assets/icons/expand-icon.svg" />
       </div>
     </div>
 
+
+
+    <div *ngIf="step < 1" >
     <div class="mb-16  overflow-y-auto" [ngClass]="{
       'h-[346px]': !isExpanded,
       'h-full': isExpanded
@@ -29,14 +30,14 @@
       <div class="flex flex-col sm:flex-row">
         <!-- Left Panel -->
         <div class="w-full lg:w-[216px] space-y-4 text-[12px] p-4">
-          <div (click)="useMyLocation()"
+          <div (click)="openLocationSelectModal()"
             class="flex items-center gap-1 w-full px-3 py-2 border border-gray-200 rounded-lg hover:bg-[#E6F7FB] transition cursor-pointer">
             <img src="assets/icons/location-select-icon.svg" />
             <div>Use my location</div>
           </div>
 
           <!-- Country -->
-          <div  (click)="selectCountry()" class="px-3 py-2 rounded-lg cursor-pointer border" [ngClass]="{
+          <div (click)="selectCountry()" class="px-3 py-2 rounded-lg cursor-pointer border" [ngClass]="{
             'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-50': currentStep === 'country'
           }">
             <div class="text-sm mb-1">Country</div>
@@ -46,8 +47,7 @@
           <!-- State -->
           <div (click)="selectState()" class="px-3 py-2 border cursor-pointer border-gray-200 rounded-lg" [ngClass]="{
             'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-50': currentStep === 'state'
-          }" [class.cursor-not-allowed]="!countryControl.value"
-            [class.bg-gray-100]="!countryControl.value" >
+          }" [class.cursor-not-allowed]="!countryControl.value" [class.bg-gray-100]="!countryControl.value">
             <div class="text-sm mb-1">State</div>
             <div class="truncate">{{ stateControl.value?.name || 'Select state' }}</div>
           </div>
@@ -55,8 +55,7 @@
           <!-- City -->
           <div (click)="selectCity()" class="px-3 py-2 border cursor-pointer border-gray-200 rounded-lg" [ngClass]="{
             'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-50': currentStep === 'city' 
-          }" [class.cursor-not-allowed]="!stateControl.value"
-            [class.bg-gray-100]="!stateControl.value">
+          }" [class.cursor-not-allowed]="!stateControl.value" [class.bg-gray-100]="!stateControl.value">
             <div class="text-sm mb-1">City</div>
             <div class="truncate">{{ cityControl.value?.name || 'Select city' }}</div>
           </div>
@@ -67,9 +66,11 @@
               'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-50': currentStep === 'date'
             }">
             <div class="text-sm mb-1">Date</div>
-            <div class="text-fade-text">{{ selectedDateText ? selectedDateText + ' (' + selectedShift + ')' : 'Select date' }}</div>
-
- 
+            <div class="text-fade-text">
+              {{ selectedDateText
+              ? selectedDateText + ' (' + selectedShift + ')' + (selectedSlot ? ' - ' + selectedSlot : '')
+              : 'Select date' }}
+            </div>
           </div>
         </div>
 
@@ -81,20 +82,17 @@
             'h-[300px]': !isExpanded,
             'h-[calc(100vh-220px)]': isExpanded
         }">
-        
-        <!-- Search Bar -->
-        <div *ngIf="currentStep !== 'date'" class="relative w-full mb-4 p-1">
-          <img src="assets/icons/search-icon.svg" 
-               class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 pointer-events-none" 
-               alt="Search"/>
-          <input type="text"
-                 placeholder="Search..."
-                 [(ngModel)]="searchTerm"
-                 class="w-full rounded-full border border-gray-200 bg-gray-50 pl-9 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-mint-200"/>
-        </div>
+
+            <!-- Search Bar -->
+            <div *ngIf="currentStep !== 'date'" class="relative w-full mb-4 p-1">
+              <img src="assets/icons/search-icon.svg"
+                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 pointer-events-none" alt="Search" />
+              <input type="text" placeholder="Search..." [(ngModel)]="searchTerm"
+                class="w-full rounded-full border border-gray-200 bg-gray-50 pl-9 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-mint-200" />
+            </div>
             <!-- Countries List -->
-            <div *ngIf="currentStep === 'country'" >
-              
+            <div *ngIf="currentStep === 'country'">
+
               <div *ngFor="let country of filteredCountries" (click)="onCountrySelected(country)"
                 class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-100">
                 <img [src]="'https://flagcdn.com/48x36/' + getCountryCode(country) + '.png'" srcset="https://flagcdn.com/32x24/{{ getCountryCode(country) }}.png 2x,
@@ -120,70 +118,272 @@
               </div>
             </div>
 
-            <div  *ngIf="currentStep === 'date'" class="..." [class.cursor-not-allowed]="currentStep !== 'date'">
-                <div class="card flex justify-content-center ">
-                  <p-calendar 
-                      class="max-w-full" 
-                      [(ngModel)]="date" 
-                      (onSelect)="onDateSelected($event)" 
-                      [inline]="true" 
-                      styleClass="custom-calendar"  />
-                </div>
-                
-                
-                <div class="max-w-md mx-auto rounded-lg border bg-white mt-[300px] lg:mt-[400px]">
+            <div *ngIf="currentStep === 'date'" class="..." [class.cursor-not-allowed]="currentStep !== 'date'">
+              <div class="card flex justify-content-center ">
+                <p-calendar class="max-w-full" [(ngModel)]="date" (onSelect)="onDateSelected($event)" [inline]="true"
+                  styleClass="custom-calendar" />
+              </div>
 
-                  <div class="flex flex-wrap items-center justify-between px-4 py-2 border-b">
-                    <div class="truncate">
-                      {{ selectedDateText ? selectedDateText : 'Select date' }}
-                    </div>
-                    
-                
+
+              <div *ngIf="dateisSelected" class="max-w-md mx-auto rounded-lg border bg-white mt-[300px] lg:mt-[400px]">
+
+                <div class="flex flex-wrap items-center justify-between px-4 py-2 border-b">
+                  <div class="truncate">
+                    {{ selectedDateText ? selectedDateText : 'Select date' }}
+                  </div>
+
+
                   <!-- Shift Toggle -->
                   <div class="flex justify-between rounded-full p-[3px] w-[224px] border">
-                    <button
-                      class="flex-1 text-sm py-2 rounded-full transition-all duration-200"
-                      (click)="selectedShift = 'day'"
-                      [class.bg-mint-50]="selectedShift === 'day'"
-                      [class.border]="selectedShift === 'day'"
-                      [class.border-mint-200]="selectedShift === 'day'"
-                      (click)="selectedShift = 'day'"
-                    >
+                    <button class="flex-1 text-sm py-2 rounded-full transition-all duration-200"
+                      (click)="selectedShift = 'day'" [class.bg-mint-50]="selectedShift === 'day'"
+                      [class.border]="selectedShift === 'day'" [class.border-mint-200]="selectedShift === 'day'"
+                      (click)="selectedShift = 'day'">
                       Day Shift
                     </button>
-                    <button
-                      class="flex-1 text-sm py-2 rounded-full transition-all duration-200"
-                      (click)="selectedShift = 'evening'"
-                      [class.bg-mint-50]="selectedShift === 'evening'"
-                      [class.border]="selectedShift === 'evening'"
-                      [class.border-mint-200]="selectedShift === 'evening'"
-                      (click)="selectedShift = 'evening'"
-                    >
+                    <button class="flex-1 text-sm py-2 rounded-full transition-all duration-200"
+                      (click)="selectedShift = 'evening'" [class.bg-mint-50]="selectedShift === 'evening'"
+                      [class.border]="selectedShift === 'evening'" [class.border-mint-200]="selectedShift === 'evening'"
+                      (click)="selectedShift = 'evening'">
                       Evening Shift
                     </button>
                   </div>
                 </div>
-                  <!-- Time Slots -->
-                  <div class="grid grid-cols-2 gap-3  p-4">
-                    <ng-container *ngFor="let slot of selectedShift === 'day' ? daySlots : eveningSlots">
-                      <div class="text-sm text-gray-700 bg-gray-50 rounded-md px-3 py-2.5 text-center cursor-pointer">
-                        {{ slot }}
-                      </div>
-                    </ng-container>
-                  </div>
+                <!-- Time Slots -->
+                <div class="grid grid-cols-2 gap-3 p-4">
+                  <ng-container *ngFor="let slot of selectedShift === 'day' ? daySlots : eveningSlots">
+                    <div (click)="onSlotSelected(slot)"
+                      class="text-sm text-gray-700 rounded-md px-3 py-2.5 text-center cursor-pointer bg-fade-white"
+                      [class.bg-mint-50]="selectedSlot === slot" [class.border]="selectedSlot === slot"
+                      [class.border-mint-200]="selectedSlot === slot">
+                      {{ slot }}
+                    </div>
+                  </ng-container>
                 </div>
-
-                
-
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
+  </div>
+
+
+
+
+
+
+  <div class="" *ngIf="step > 0">
+    <div class="mb-16  overflow-y-auto" [ngClass]="{
+      'h-[346px]': !isExpanded,
+      'h-full': isExpanded
+  }">
+
+
+
+
+<!-- Date Carousel -->
+<div class="overflow-x-auto py-2">
+  <div class="flex space-x-2 w-max">
+    <div
+      *ngFor="let date of monthDates"
+      class="flex flex-col items-center px-3 py-2 rounded-lg cursor-pointer"
+      [ngClass]="{
+        'bg-blue-100 text-blue-800': isSameDay(date, dateControl.value),
+        'text-gray-600': !isSameDay(date, dateControl.value)
+      }"
+      (click)="onDateSelected(date)"
+    >
+      <span class="text-sm">{{ date | date: 'EEE' }}</span>
+      <span class="font-semibold">{{ date | date: 'd' }}</span>
+    </div>
+  </div>
+</div>
+
+<!-- Time Selection Info -->
+<div class="mt-4 p-4 bg-green-50 text-green-700 rounded-lg flex justify-between items-center">
+  <div>
+    <div class="text-sm text-gray-500">Selected Time</div>
+    <div class="font-semibold">
+      {{ selectedSlot || 'Select a time' }}
+    </div>
+  </div>
+
+  <!-- Change Time Dropdown -->
+  <div class="relative">
+    <button (click)="toggleSlotDropdown()" class="flex items-center text-sm hover:underline">
+      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 6v6l4 2"></path>
+        <circle cx="12" cy="12" r="10"></circle>
+      </svg>
+      Change Time
+    </button>
+    <div
+      *ngIf="showSlotDropdown"
+      class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg rounded-md z-10"
+    >
+      <ng-container *ngFor="let slot of selectedShift === 'day' ? daySlots : eveningSlots">
+        <div
+          (click)="onSlotSelected(slot); showSlotDropdown = false"
+          class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+        >
+          {{ slot }}
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+      
+      <div class="p-4 space-y-4 max-w-4xl mx-auto">
+        <div
+          *ngFor="let arena of arenas"
+          class="bg-white rounded-xl shadow p-4 w-full gap-4"
+
+        >
+          <!-- Image and Badge -->
+          <div class="relative w-full flex">
+            <img
+              [src]="arena.badgeIcon"
+              alt="Arena Image"
+              class="w-5 h-5 object-cover rounded-lg absolute right-0 top-2"
+            />
+            <img
+              [src]="arena.image"
+              alt="Arena Image"
+              class="w-12 h-12 lg:w-20 lg:h-20 object-cover rounded-lg mt-2"
+            />
+            <div class="w-full ml-4">
+              <!-- Title -->
+            <div class="flex flex-col text-sm w-[95%]">
+              <div class="text-base sm:text-lg font-semibold">
+                {{ arena.name }}
+              </div>
+              
+            </div>
+
+            
+      
+            <!-- Location & Distance -->
+            <div class="flex flex-wrap items-center gap-2 text-gray-500 text-sm">
+              <span class="flex items-center gap-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"
+                  />
+                </svg>
+                {{ arena.location }}
+              </span>
+              <div class="flex items-center gap-1 text-orange-500">
+                
+                <span class="text-sm font-semibold">{{ arena.rating }}</span>
+                
+                <span>★</span>
+            
+                <span class="text-gray-500 font-normal text-sm">
+                  ({{ arena.reviews }} reviews)
+                </span>
+              
+              </div>
+              <div class="flex items-center gap-2">
+              <span class="">•</span>
+              <span class="">{{ arena.distance }} away</span>
+            </div>
+              
+            </div>
+      
+            <!-- Info Tags -->
+            <div class="flex flex-wrap gap-2 text-gray-600 text-sm">
+              <span class="flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 20h5v-2a3 3 0 00-3-3h-2v5zm-6-4H7a3 3 0 00-3 3v2h5v-5zm6 0v5h5v-2a3 3 0 00-3-3h-2zM5 9V5a3 3 0 013-3h4a3 3 0 013 3v4H5zm9 0V5a1 1 0 00-1-1h-4a1 1 0 00-1 1v4h6z"
+                  />
+                </svg>
+                {{ arena.type }}
+              </span>
+              <span *ngFor="let feature of arena.features">
+                {{ feature }}
+              </span>
+            </div>
+            </div>
+          </div>
+      
+          <!-- Content -->
+          <div class="flex-1 space-y-2 text-sm">
+            
+      
+            <hr class="my-1 border-gray-200" />
+      
+            <!-- Price & Actions -->
+            <div
+              class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2"
+            >
+              <div class="flex items-center gap-2">
+                <span class="text-lg font-semibold text-gray-900">
+                  ₹{{ arena.price }}
+                </span>
+                <span class="text-sm text-gray-600">/session</span>
+                <span
+                  *ngIf="arena.discount"
+                  class="text-red-500 bg-red-100 px-2 py-0.5 rounded-full text-xs"
+                >
+                  {{ arena.discount }}% Off
+                </span>
+              </div>
+      
+              <div class="flex gap-2">
+                <button
+                  class="flex items-center gap-1 px-4 py-1 border rounded-md text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M21 10c0 1.105-.895 2-2 2H9l-5 5V5l5 5h10c1.105 0 2 .895 2 2z"
+                    />
+                  </svg>
+                  Get Location
+                </button>
+                <button
+                  class="px-4 py-1 bg-gray-100 rounded-md text-sm font-medium hover:bg-gray-200"
+                >
+                  View Details
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+
+    </div>
+
+  </div>
+
+
     <div class="flex justify-between items-center px-4 py-3 border-t absolute z-50 bottom-0 w-full bg-white-00">
-      <button class="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-100">Back</button>
-      <button class="px-4 py-2 bg-gray-200 text-gray-500 rounded-lg text-sm cursor-not-allowed" disabled>Next</button>
+      <button (click)="onPreviousClick()" class="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-100">Back</button>
+      <button (click)="onNextClick()" class="px-4 py-2 rounded-lg text-sm transition-colors duration-300" [class.bg-gray-200]="!isSlotSelected"
+        [class.text-gray-500]="!isSlotSelected" [class.bg-mint-400]="isSlotSelected" [class.text-white]="isSlotSelected"
+        [class.cursor-not-allowed]="!isSlotSelected" [class.cursor-pointer]="isSlotSelected"
+        [disabled]="!isSlotSelected">
+        Next
+      </button>
     </div>
   </div>
 </div>

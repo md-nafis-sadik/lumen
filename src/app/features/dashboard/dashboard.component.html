@@ -95,3 +95,30 @@
       fontSize="text-sm" padding="py-2 px-3" width="w-full"></app-primary-button>
   </div>
 </div>
+
+
+
+<div  *ngIf="showLocationSelectModal" class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center bg-whi"
+  (click)="closeModal()">
+  <!-- Modal Box -->
+  <div class="max-w-xs bg-white-00 mx-auto mt-10 px-7 py-6 border  rounded-lg text-center space-y-4 animate-[fadeInModal_0.3s_ease-out_forwards]">
+    <!-- Icon -->
+    <div class="flex justify-center">
+        <img src="assets/icons/map-pin-lg-icon.svg" >
+    </div>
+  
+    <!-- Message -->
+    <div class="space-y-3">
+      <p class="font-medium text-gray-800">Allow <span class="font-semibold">“PickleBugs”</span> to access this device’s location all the time?</p>
+      <p class="text-xs text-gray-500">You can change this setting in the Websites section of your device Settings.</p>
+    </div>
+  
+    <!-- Buttons -->
+    <div class="space-y-3">
+      <button class="w-full bg-black text-white py-2 rounded-xl">Allow While visiting the Site</button>
+      <button class="w-full border border-gray-300 text-gray-800 py-2 rounded-xl">Allow this time</button>
+      <button class="w-full border border-gray-300 text-gray-500 py-2 rounded-xl">Never allow</button>
+    </div>
+  </div>
+  
+</div>
