@@ -1,7 +1,7 @@
 <!-- pickleball-booking-card.component.html -->
 <div class="bg-white rounded-xl p-6 h-full">
   <p class="text-gray-700 text-[14px] mb-4">Sure, here you go. Book your Pickleball Court from below.</p>
-  <div class="border border-gray-200 rounded-lg" [ngClass]="{ 'hidden': !isExpanded }">
+  <div class="border border-gray-200 rounded-lg w-[345]" [ngClass]="{ 'hidden': !isExpanded }">
     <div class="flex items-center justify-between py-2 px-4">
     <div class="text-lg font-semibold text-gray-800">Pickleball Court Booking</div>
     <div class="cursor-pointer" (click)="toggleExpand()">
@@ -10,8 +10,8 @@
   </div></div>
   <div class="border border-gray-200 rounded-md transition-all duration-300 ease-in-out"
     [ngClass]="{
-        'fixed top-[58px] right-[675px] h-[calc(100vh-60px)] bg-white z-10 w-full xl:w-[675px] transform translate-x-[1px]': !isExpanded,
-        'fixed top-[58px] right-0 h-[calc(100vh-60px)] bg-white z-10 w-full xl:w-[675px] transform translate-x-0': isExpanded
+        'fixed top-[58px] right-[675px] h-[calc(100vh-60px)] bg-white z-10 w-full lg:w-[675px] transform translate-x-[1px]': !isExpanded,
+        'fixed top-[58px] right-0 h-[calc(100vh-60px)] bg-white z-10 w-full lg:w-[675px] transform translate-x-0': isExpanded
     }">
     <div class="flex items-center justify-between py-2 px-4 border-b">
       <div class="text-lg font-semibold text-gray-800">Pickleball Court Booking</div>
@@ -22,13 +22,13 @@
       </div>
     </div>
 
-    <div class="mb-4  overflow-y-auto" [ngClass]="{
+    <div class="mb-16  overflow-y-auto" [ngClass]="{
       'h-[346px]': !isExpanded,
       'h-full': isExpanded
   }">
-      <div class="flex flex-col sm:flex-row gap-6 p-4">
+      <div class="flex flex-col sm:flex-row">
         <!-- Left Panel -->
-        <div class="w-full sm:w-[176px] space-y-4 text-[12px]">
+        <div class="w-full lg:w-[216px] space-y-4 text-[12px] p-4">
           <div (click)="useMyLocation()"
             class="flex items-center gap-1 w-full px-3 py-2 border border-gray-200 rounded-lg hover:bg-[#E6F7FB] transition cursor-pointer">
             <img src="assets/icons/location-select-icon.svg" />
@@ -67,30 +67,30 @@
               'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-50': currentStep === 'date'
             }">
             <div class="text-sm mb-1">Date</div>
-            <div class="text-fade-text">Select date</div>
+            <div class="text-fade-text">{{ selectedDateText ? selectedDateText + ' (' + selectedShift + ')' : 'Select date' }}</div>
 
  
           </div>
         </div>
 
         <!-- Right Panel -->
-        <div class="w-full sm:w-2/3 bg-fade-white p-4">
+        <div class="w-full lg:w-[calc(100%-216px)] bg-fade-white p-4">
 
 
-          <div class=" overflow-y-auto space-y-1 p-1 text-sm" [ngClass]="{
-            'h-[346px]': !isExpanded,
+          <div class=" overflow-y-auto space-y-1 text-sm  relative" [ngClass]="{
+            'h-[300px]': !isExpanded,
             'h-[calc(100vh-220px)]': isExpanded
         }">
         
         <!-- Search Bar -->
-        <div *ngIf="currentStep !== 'date'" class="relative w-full mb-4">
+        <div *ngIf="currentStep !== 'date'" class="relative w-full mb-4 p-1">
           <img src="assets/icons/search-icon.svg" 
                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 pointer-events-none" 
                alt="Search"/>
           <input type="text"
                  placeholder="Search..."
                  [(ngModel)]="searchTerm"
-                 class="w-full rounded-full border border-gray-200 bg-gray-50 pl-9 pr-4 py-[4px] focus:outline-none focus:ring-2 focus:ring-mint-200"/>
+                 class="w-full rounded-full border border-gray-200 bg-gray-50 pl-9 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-mint-200"/>
         </div>
             <!-- Countries List -->
             <div *ngIf="currentStep === 'country'" >
@@ -121,17 +121,60 @@
             </div>
 
             <div  *ngIf="currentStep === 'date'" class="..." [class.cursor-not-allowed]="currentStep !== 'date'">
-              <div *ngIf="currentStep === 'date'" class="..." [class.cursor-not-allowed]="currentStep !== 'date'">
-                <div class="card flex justify-content-center">
+                <div class="card flex justify-content-center ">
                   <p-calendar 
                       class="max-w-full" 
                       [(ngModel)]="date" 
+                      (onSelect)="onDateSelected($event)" 
                       [inline]="true" 
-                      [showWeek]="true" />
-              </div>
+                      styleClass="custom-calendar"  />
+                </div>
                 
-              </div>
-              
+                
+                <div class="max-w-md mx-auto rounded-lg border bg-white mt-[300px] lg:mt-[400px]">
+
+                  <div class="flex flex-wrap items-center justify-between px-4 py-2 border-b">
+                    <div class="truncate">
+                      {{ selectedDateText ? selectedDateText : 'Select date' }}
+                    </div>
+                    
+                
+                  <!-- Shift Toggle -->
+                  <div class="flex justify-between rounded-full p-[3px] w-[224px] border">
+                    <button
+                      class="flex-1 text-sm py-2 rounded-full transition-all duration-200"
+                      (click)="selectedShift = 'day'"
+                      [class.bg-mint-50]="selectedShift === 'day'"
+                      [class.border]="selectedShift === 'day'"
+                      [class.border-mint-200]="selectedShift === 'day'"
+                      (click)="selectedShift = 'day'"
+                    >
+                      Day Shift
+                    </button>
+                    <button
+                      class="flex-1 text-sm py-2 rounded-full transition-all duration-200"
+                      (click)="selectedShift = 'evening'"
+                      [class.bg-mint-50]="selectedShift === 'evening'"
+                      [class.border]="selectedShift === 'evening'"
+                      [class.border-mint-200]="selectedShift === 'evening'"
+                      (click)="selectedShift = 'evening'"
+                    >
+                      Evening Shift
+                    </button>
+                  </div>
+                </div>
+                  <!-- Time Slots -->
+                  <div class="grid grid-cols-2 gap-3  p-4">
+                    <ng-container *ngFor="let slot of selectedShift === 'day' ? daySlots : eveningSlots">
+                      <div class="text-sm text-gray-700 bg-gray-50 rounded-md px-3 py-2.5 text-center cursor-pointer">
+                        {{ slot }}
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                
+
             </div>
           </div>
         </div>

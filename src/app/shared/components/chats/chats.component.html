@@ -62,14 +62,14 @@
 
             <!-- Booking Card -->
             <app-pickleball-booking-card *ngIf="item.data?.type === 'booking'"
-              class="shadow rounded-lg max-w-[648px] xl:w-[648px]">
+              class="shadow rounded-lg max-w-[648px] sm:w-[648px]">
             </app-pickleball-booking-card>
 
             <!-- Timestamp -->
             <div class="text-xs text-gray-500 mt-3" [ngClass]="{
-       'text-end': item.data?.sender === 'user',
-       'text-start': item.data?.sender === 'bot'
-     }">
+                'text-end': item.data?.sender === 'user',
+                'text-start': item.data?.sender === 'bot'
+              }">
               {{ item.data?.timestamp | timeAgo }}
             </div>
           </div>

@@ -33,15 +33,36 @@ export class PickleballBookingCardComponent {
   countries = Country.getAllCountries();
   states: any[] = [];
   cities: any[] = [];
+  date: Date[] | undefined;
+  selectedDateText = '';
   searchTerm = '';
-  date: Date | undefined;
+  dateControl = new FormControl();
   selectedDate = new FormControl();
   countryControl = new FormControl();
   stateControl = new FormControl();
   cityControl = new FormControl();
 
 
-  
+  selectedShift: 'day' | 'evening' = 'day';
+
+
+  daySlots = [
+    '10:00 AM - 11:00 AM',
+    '11:00 AM - 12:00 PM',
+    '12:00 PM - 1:00 PM',
+    '1:00 PM - 2:00 PM',
+    '2:00 PM - 3:00 PM',
+    '3:00 PM - 4:00 PM',
+    '4:00 PM - 5:00 PM',
+  ];
+
+  eveningSlots = [
+    '5:00 PM - 6:00 PM',
+    '6:00 PM - 7:00 PM',
+    '7:00 PM - 8:00 PM',
+    '8:00 PM - 9:00 PM',
+    '9:00 PM - 10:00 PM',
+  ];
 
   useMyLocation() {
     if (navigator.geolocation) {
@@ -49,6 +70,11 @@ export class PickleballBookingCardComponent {
         console.log('Location:', position.coords);
       });
     }
+  }
+
+  onDateSelected(event: Date) {
+    this.dateControl.setValue(event);
+    this.selectedDateText = event.toDateString();
   }
 
   get filteredCountries() {
@@ -134,5 +160,20 @@ export class PickleballBookingCardComponent {
 
   getCountryCode(country: any): string {
     return country.isoCode.toLowerCase();
+  }
+
+  isNextEnabled(): boolean {
+    switch (this.currentStep) {
+      case 'country':
+        return !!this.countryControl.value;
+      case 'state':
+        return !!this.stateControl.value;
+      case 'city':
+        return !!this.cityControl.value;
+      case 'date':
+        return !!this.dateControl.value;
+      default:
+        return false;
+    }
   }
 }

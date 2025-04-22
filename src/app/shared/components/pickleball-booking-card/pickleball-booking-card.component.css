@@ -1,0 +1,32 @@
+ 
+  ::ng-deep .p-datepicker {
+    padding: 0px;
+    
+  }
+
+/* Fix calendar positioning */
+::ng-deep .p-calendar {
+    position: static !important;
+  }
+  
+  ::ng-deep .p-datepicker {
+    position: absolute !important;
+    top: auto !important;
+    left: auto !important;
+  }
+
+  ::ng-deep .p-datepicker .p-highlight{
+    background-color: #06ACCC;
+    color: white;
+  }
+
+  ::ng-deep .p-datepicker .p-datepicker-calendar-container {
+
+    border: 1px solid #EDEDED;
+  }
+
+  ::ng-deep .p-datepicker .p-datepicker-header{
+    border: 1px solid #EDEDED;
+    border-bottom: 0px;
+    background-color: #F6F6F6;
+  }
