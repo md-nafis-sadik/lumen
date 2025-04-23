@@ -22,7 +22,7 @@
 
     <!-- *ngIf="step < 1" -->
 
-    <div  *ngIf="step < 1">
+    <div  class="hidden">
     <div class="mb-16  overflow-y-auto" [ngClass]="{
       'h-[346px]': !isExpanded,
       'h-full': isExpanded
@@ -174,7 +174,7 @@
 
   <!-- *ngIf="step > 0" -->
 
-  <div class="" *ngIf="step > 0">
+  <div class="" >
     <div class="mb-16  overflow-y-auto" [ngClass]="{
       'h-[346px]': !isExpanded,
       'h-full': isExpanded
@@ -276,47 +276,63 @@
             <!-- Location & Distance -->
             <div class="flex flex-wrap items-center gap-2 text-gray-500 text-sm mb-1">
               <span class="flex items-center gap-1">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"
-                  />
-                </svg>
+                <img src="assets/icons/location-on-icon.svg"/>
                 {{ arena.location }}
               </span>
-              <div class="flex items-center gap-1 text-orange-500">
+              <div class="flex items-center gap-1">
+                <div class="flex items-center gap-1">
+                  <img src="assets/icons/dot-gray-icon.svg"/>
+                <span class="text-sm text-black">{{ arena.rating }}</span>
                 
-                <span class="text-sm font-semibold">{{ arena.rating }}</span>
-                
-                <span>★</span>
+                <img src="assets/icons/golden-star-icon.svg" class="mb-[1px]"/>
+              </div>
             
                 <span class="text-gray-500 font-normal text-sm">
                   ({{ arena.reviews }} reviews)
                 </span>
               
               </div>
-              <div class=" hidden lg:flex items-center gap-2">
-              <span class="">•</span>
+              
+              <div class=" hidden lg:flex items-center gap-1">
+                <img src="assets/icons/dot-gray-icon.svg"/>
+                <img src="assets/icons/distance-icon-2.svg"/>
               <span class="">{{ arena.distance }} away</span>
             </div>
               
             </div>
       
             <!-- Info Tags -->
-            <div class="flex-wrap gap-2 text-gray-600 text-sm hidden lg:flex">
-              <span class="flex items-center gap-1">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M17 20h5v-2a3 3 0 00-3-3h-2v5zm-6-4H7a3 3 0 00-3 3v2h5v-5zm6 0v5h5v-2a3 3 0 00-3-3h-2zM5 9V5a3 3 0 013-3h4a3 3 0 013 3v4H5zm9 0V5a1 1 0 00-1-1h-4a1 1 0 00-1 1v4h6z"
-                  />
-                </svg>
-                {{ arena.type }}
-              </span>
-              <span *ngFor="let feature of arena.features">
-                {{ feature }}
-              </span>
+            <div class="flex gap-2">
+              <div class="items-center gap-2 text-gray-600 text-sm hidden lg:flex">
+                
+                
+                <span><img src="assets/icons/dot-gray-icon.svg"/></span>
+                <span><img [src]="arena.maxPlayersImg"/></span>
+                <span >
+                  Max Players: {{ arena.maxPlayers }}
+                </span>
+            
+              </div>
+              <div class="items-center gap-2 text-gray-600 text-sm hidden lg:flex">
+                
+                
+                <span><img src="assets/icons/dot-gray-icon.svg"/></span>
+                <span><img [src]="arena.typeImg"/></span>
+                <span >
+                  {{ arena.type }}
+                </span>
+            
+              </div>
+              <div class="items-center gap-2 text-gray-600 text-sm hidden lg:flex">
+                
+                
+                <span><img src="assets/icons/dot-gray-icon.svg"/></span>
+                <span><img [src]="arena.featureImg"/></span>
+                <span >
+                  {{ arena.feature }}
+                </span>
+            
+              </div>
             </div>
            </div>        
           </div>
@@ -324,8 +340,8 @@
 
           <!-- Info Tags -->
           <div class="flex flex-wrap gap-2 text-gray-600 text-sm lg:hidden">
-            <div class="flex items-center gap-2">
-              <span class="">•</span>
+            <div class="flex items-center">
+              <img src="assets/icons/dot-gray-icon.svg"/>
               <span class="">{{ arena.distance }} away</span>
             </div>
             <span class="flex items-center gap-1">
@@ -339,9 +355,38 @@
               </svg>
               {{ arena.type }}
             </span>
-            <span *ngFor="let feature of arena.features">
-              {{ feature }}
-            </span>
+            <div class="flex gap-2">
+              <div class="items-center gap-2 text-gray-600 text-sm hidden lg:flex">
+                
+                
+                <span><img src="assets/icons/dot-gray-icon.svg"/></span>
+                <span><img [src]="arena.maxPlayersImg"/></span>
+                <span >
+                  Max Players: {{ arena.maxPlayers }}
+                </span>
+            
+              </div>
+              <div class="items-center gap-2 text-gray-600 text-sm hidden lg:flex">
+                
+                
+                <span><img src="assets/icons/dot-gray-icon.svg"/></span>
+                <span><img [src]="arena.typeImg"/></span>
+                <span >
+                  {{ arena.type }}
+                </span>
+            
+              </div>
+              <div class="items-center gap-2 text-gray-600 text-sm hidden lg:flex">
+                
+                
+                <span><img src="assets/icons/dot-gray-icon.svg"/></span>
+                <span><img [src]="arena.featureImg"/></span>
+                <span >
+                  {{ arena.feature }}
+                </span>
+            
+              </div>
+            </div>
           </div>
       
           <!-- Content -->
