@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ElementRef, ViewChild, AfterViewChecked, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, ViewChild, AfterViewChecked, SimpleChanges, Inject, PLATFORM_ID } from '@angular/core';
 import { DateFormatterPipe } from '../../pipes/date-formatter.pipe';
 import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
 import { CommonModule } from '@angular/common';
@@ -9,6 +9,7 @@ import { chat, channel_chat } from './data';
 import { ActivatedRoute } from '@angular/router';
 import { ChatSelectionService } from '../../../services/chat-selection.service';
 import { combineLatest } from 'rxjs';
+import { ChatStoreService } from '../../../services/chat-store.service';
 
 @Component({
   selector: 'app-chats',
@@ -29,12 +30,20 @@ export class ChatsComponent implements AfterViewChecked {
   shouldAutoScroll = true;
   currentChatAvatar = 'assets/icons/default-avatar.svg';
   chatData: ChatMessage[] = [];
-
+  selectedChatId: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
-    private chatService: ChatSelectionService
-  ) { }
+    private chatService: ChatSelectionService,
+     @Inject(PLATFORM_ID) private platformId: Object,
+        private chatStore: ChatStoreService,
+  
+  ) { 
+
+    this.chatService.selectedChatId$.subscribe(chatId => {
+      this.selectedChatId = chatId;
+    });
+  }
 
 
   ngOnInit() {
@@ -103,7 +112,7 @@ export class ChatsComponent implements AfterViewChecked {
   // Update onScroll method
   onScroll() {
     const element = this.chatContainer.nativeElement;
-    const threshold = 150; // Pixels from bottom
+    const threshold = 0; // Pixels from bottom
     const position = element.scrollTop + element.clientHeight;
     this.shouldAutoScroll = position > element.scrollHeight - threshold;
   }
@@ -113,19 +122,78 @@ export class ChatsComponent implements AfterViewChecked {
     const trimmed = this.userInput.trim();
     if (!trimmed) return;
 
-    const newMessage: ChatMessage = {
-      id: Date.now().toString(),
-      sender: 'user',
-      content: [trimmed],
-      timestamp: new Date(),
-      type: 'text',
-      avatar: 'assets/icons/Avatar.png'
-    };
+    // const newMessage: ChatMessage = {
+    //   id: Date.now().toString(),
+    //   sender: 'user',
+    //   content: [trimmed],
+    //   timestamp: new Date(),
+    //   type: 'text',
+    //   avatar: 'assets/icons/Avatar.png'
+    // };
 
-    this.chatData.push(newMessage);
-    this.messageSent.emit(trimmed);
+    // this.chatData.push(newMessage);
+    // this.messageSent.emit(trimmed);
+    // this.userInput = '';
+    // this.showSlider = false;
+
+    const currentChat = this.chatStore.getChat(this.selectedChatId);
+    const newMessages = [
+      ...currentChat,
+      {
+        id: Date.now().toString(),
+        sender: 'user' as const,
+        content: [this.userInput],
+        type: 'text' as const,
+        timestamp: new Date(),
+        avatar: 'assets/icons/Avatar.png'
+      }
+    ];
+
+    this.chatStore.updateChat(this.selectedChatId, newMessages);
     this.userInput = '';
     this.showSlider = false;
+
+    setTimeout(() => {
+      // Bot message with proper typing
+      const newMessage: ChatMessage = {
+          id: Date.now().toString(),
+          sender: 'user' as const,
+          content: [trimmed],
+          type: 'text' as const,
+          timestamp: new Date(),
+          avatar: 'assets/icons/Avatar.png'
+        };
+
+      this.chatData = [...this.chatData, newMessage];
+  
+    }, 50);
+
+    setTimeout(() => {
+      // Bot message with proper typing
+
+      const newMessage: ChatMessage = trimmed.toLowerCase().includes('book') &&
+        trimmed.toLowerCase().includes('pickleball')
+        ? {
+          id: Date.now().toString(),
+          sender: 'bot',
+          content: [''],
+          type: 'booking',
+          timestamp: new Date(),
+          avatar: 'assets/icons/LUMEN.svg'
+        }
+        : {
+          id: Date.now().toString(),
+          sender: 'bot',
+          content: ["I'm here to help!"],
+          type: 'text',
+          timestamp: new Date(),
+          avatar: 'assets/icons/LUMEN.svg'
+        };
+
+      this.chatData = [...this.chatData, newMessage];
+  
+    }, 300);
+    
   }
 
   sendQuickMessage(message: string) {

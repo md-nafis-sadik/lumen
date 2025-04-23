@@ -269,23 +269,49 @@ export class DashboardComponent {
     if (!trimmed) return;
 
     // User message with proper typing
-    this.chatData = [
-      ...this.chatData,
+    // this.chatData = [
+    //   ...this.chatData,
+    //   {
+    //     id: Date.now().toString(),
+    //     sender: 'user',
+    //     content: [trimmed],
+    //     type: 'text',
+    //     timestamp: new Date(),
+    //     avatar: 'assets/icons/Avatar.png'
+    //   }
+    // ];
+
+
+    // this.showSlider = false;
+
+    const currentChat = this.chatStore.getChat(this.selectedChatId);
+    const newMessages = [
+      ...currentChat,
       {
         id: Date.now().toString(),
-        sender: 'user',
+        sender: 'user' as const,
         content: [trimmed],
-        type: 'text',
+        type: 'text' as const,
         timestamp: new Date(),
         avatar: 'assets/icons/Avatar.png'
       }
     ];
 
-
+    this.chatStore.updateChat(this.selectedChatId, newMessages);
+    this.userInput = '';
     this.showSlider = false;
 
     setTimeout(() => {
       // Bot message with proper typing
+      const newMessage1: ChatMessage = {
+          id: Date.now().toString(),
+          sender: 'user' as const,
+          content: [message],
+          type: 'text' as const,
+          timestamp: new Date(),
+          avatar: 'assets/icons/Avatar.png'
+        };
+
       const newMessage: ChatMessage = trimmed.toLowerCase().includes('book') &&
         trimmed.toLowerCase().includes('pickleball')
         ? {
@@ -305,7 +331,7 @@ export class DashboardComponent {
           avatar: 'assets/icons/LUMEN.svg'
         };
 
-      this.chatData = [...this.chatData, newMessage];
+      this.chatData = [...this.chatData, newMessage1, newMessage];
     }, 300);
   }
 

@@ -20,9 +20,9 @@
       </div>
     </div>
 
+    <!-- *ngIf="step < 1" -->
 
-
-    <div *ngIf="step < 1" >
+    <div  *ngIf="step < 1">
     <div class="mb-16  overflow-y-auto" [ngClass]="{
       'h-[346px]': !isExpanded,
       'h-full': isExpanded
@@ -172,7 +172,7 @@
 
 
 
-
+  <!-- *ngIf="step > 0" -->
 
   <div class="" *ngIf="step > 0">
     <div class="mb-16  overflow-y-auto" [ngClass]="{
@@ -251,7 +251,7 @@
 
         >
           <!-- Image and Badge -->
-          <div class="relative w-full flex">
+          <div class="relative w-full flex items-center">
             <img
               [src]="arena.badgeIcon"
               alt="Arena Image"
@@ -264,7 +264,7 @@
             />
             <div class="w-full ml-4">
               <!-- Title -->
-            <div class="flex flex-col text-sm w-[95%]">
+            <div class="flex flex-col text-sm w-[95%] mb-1">
               <div class="text-base sm:text-lg font-semibold">
                 {{ arena.name }}
               </div>
@@ -274,7 +274,7 @@
             
       
             <!-- Location & Distance -->
-            <div class="flex flex-wrap items-center gap-2 text-gray-500 text-sm">
+            <div class="flex flex-wrap items-center gap-2 text-gray-500 text-sm mb-1">
               <span class="flex items-center gap-1">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path
@@ -294,7 +294,7 @@
                 </span>
               
               </div>
-              <div class="flex items-center gap-2">
+              <div class=" hidden lg:flex items-center gap-2">
               <span class="">•</span>
               <span class="">{{ arena.distance }} away</span>
             </div>
@@ -302,7 +302,7 @@
             </div>
       
             <!-- Info Tags -->
-            <div class="flex flex-wrap gap-2 text-gray-600 text-sm">
+            <div class="flex-wrap gap-2 text-gray-600 text-sm hidden lg:flex">
               <span class="flex items-center gap-1">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -318,7 +318,30 @@
                 {{ feature }}
               </span>
             </div>
+           </div>        
+          </div>
+
+
+          <!-- Info Tags -->
+          <div class="flex flex-wrap gap-2 text-gray-600 text-sm lg:hidden">
+            <div class="flex items-center gap-2">
+              <span class="">•</span>
+              <span class="">{{ arena.distance }} away</span>
             </div>
+            <span class="flex items-center gap-1">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 20h5v-2a3 3 0 00-3-3h-2v5zm-6-4H7a3 3 0 00-3 3v2h5v-5zm6 0v5h5v-2a3 3 0 00-3-3h-2zM5 9V5a3 3 0 013-3h4a3 3 0 013 3v4H5zm9 0V5a1 1 0 00-1-1h-4a1 1 0 00-1 1v4h6z"
+                />
+              </svg>
+              {{ arena.type }}
+            </span>
+            <span *ngFor="let feature of arena.features">
+              {{ feature }}
+            </span>
           </div>
       
           <!-- Content -->

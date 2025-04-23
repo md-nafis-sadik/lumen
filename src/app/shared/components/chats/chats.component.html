@@ -31,21 +31,21 @@
                   'bg-[#C3EBF3] rounded-tr-none self-end': item.data?.sender === 'user',
                   'bg-white-00 rounded-tl-none self-start': item.data?.sender === 'bot'
                 }"
-                class="p-3 shadow whitespace-pre-wrap rounded-lg text-sm mb-2 last:mb-0 inline-block"
+                class="p-3 shadow whitespace-pre-wrap rounded-xl text-sm mb-2 last:mb-0 inline-block"
               >
                 {{ messageItem }}
               </div>
             </div>
 
             <div *ngIf="item.data?.type === 'image'" class="flex flex-wrap gap-4">
-              <div *ngFor="let img of item.data?.content" class="shadow rounded-lg overflow-hidden">
+              <div *ngFor="let img of item.data?.content" class="shadow rounded-xl overflow-hidden">
                 <img [src]="img" class="max-w-[200px] h-auto" alt="Uploaded image" />
               </div>
             </div>
             
 
             <!-- File/PDF Message -->
-            <div *ngIf="item.data?.type === 'file'" class="p-3 bg-[#C3EBF3] shadow rounded-lg flex items-center gap-2">
+            <div *ngIf="item.data?.type === 'file'" class="p-3 bg-[#C3EBF3] shadow rounded-xl flex items-center gap-2">
               <div class="p-2 border border-mint-400 rounded-md flex items-center space-x-3 px-4">
               <img src="assets/icons/attachment-icon.svg" class="w-6 h-6" alt="PDF icon" />
               <a [href]="item.data?.content" target="_blank" class="text-sm flex items-center space-x-3">
@@ -62,7 +62,7 @@
 
             <!-- Booking Card -->
             <app-pickleball-booking-card *ngIf="item.data?.type === 'booking'"
-              class="shadow rounded-lg max-w-[648px] sm:w-[648px]">
+              class="shadow rounded-xl max-w-[648px] sm:w-[648px]">
             </app-pickleball-booking-card>
 
             <!-- Timestamp -->
