@@ -10,6 +10,7 @@ module.exports = {
         'mint-900': '#0A3F49',
         'mint-200': '#9BDEEB',
         'mint-50': '#EAF9FC',
+        'mint-25': '#F5FCFD',
         'white-00': '#ffffff',
         'primary-text': '#141414',
         'fade-text': '#BDBDBD',

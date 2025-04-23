@@ -1,9 +1,9 @@
 <div class="flex justify-center mx-auto pb-24 px-4 h-full">
   <div #chatContainer class="w-full h-full overflow-y-auto" (scroll)="onScroll()">
     <div class="flex flex-col mx-auto space-y-4 max-w-[720px]">
-      <app-pickleball-booking-card 
+      <!-- <app-pickleball-booking-card 
               class="shadow rounded-xl max-w-[648px] sm:w-[648px]">
-            </app-pickleball-booking-card>
+            </app-pickleball-booking-card> -->
       <ng-container *ngFor="let item of groupedMessages; trackBy: trackById">
         <!-- Date Separator -->
         <div *ngIf="item.type === 'date'" class="sticky-date w-full flex items-center justify-center bg-fade-white">
@@ -48,7 +48,7 @@
             
 
             <!-- File/PDF Message -->
-            <div *ngIf="item.data?.type === 'file'" class="p-3 bg-[#C3EBF3] shadow rounded-xl flex items-center gap-2">
+            <div *ngIf="item.data?.type === 'file'" class="p-3 bg-[#C3EBF3] shadow rounded-s-xl rounded-br-xl flex items-center gap-2">
               <div class="p-2 border border-mint-400 rounded-md flex items-center space-x-3 px-4">
               <img src="assets/icons/attachment-icon.svg" class="w-6 h-6" alt="PDF icon" />
               <a [href]="item.data?.content" target="_blank" class="text-sm flex items-center space-x-3">
