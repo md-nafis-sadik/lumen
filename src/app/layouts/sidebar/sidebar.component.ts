@@ -12,7 +12,7 @@ import { SubmenuComponent } from '../../shared/components/submenu/submenu.compon
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-  selectedMenu = 'booking';
+  selectedMenu = 'chat';
 
   handleMenuChange(menu: string) {
     this.selectedMenu = menu;

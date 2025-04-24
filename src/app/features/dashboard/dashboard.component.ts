@@ -168,7 +168,6 @@ export class DashboardComponent {
       const chatId = serviceChatId || params['chatId'];
       if (chatId) {
         // Create new array reference to trigger change detection
-        this.showSlider = false;
       }
     });
   }

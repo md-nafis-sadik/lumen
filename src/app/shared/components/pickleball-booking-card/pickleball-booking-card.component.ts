@@ -12,6 +12,7 @@ import { Country, State, City } from 'country-state-city';
 import { CalendarModule } from 'primeng/calendar';
 import { SubmenuService } from '../../../services/submenu.service';
 import { CourtSelectionComponent } from '../court-selection/court-selection.component';
+import { PaymentCardComponent } from '../payment-card/payment-card.component';
 
 @Component({
   selector: 'app-pickleball-booking-card',
@@ -26,7 +27,8 @@ import { CourtSelectionComponent } from '../court-selection/court-selection.comp
     MatButtonModule,
     MatIconModule, 
     CalendarModule,
-    CourtSelectionComponent
+    CourtSelectionComponent,
+    PaymentCardComponent
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './pickleball-booking-card.component.html',

@@ -117,7 +117,6 @@ ngOnInit() {
       queryParamsHandling: 'merge'
     });
 
-    this.showSlider = false;
   }
 
   getSubmenuItems(): SubmenuItem[] {

@@ -72,7 +72,6 @@ export class ChatsComponent implements AfterViewChecked {
       this.chatData = [...this.messages];
       return;
     }
-    this.showSlider = false;
 
     const chatMap: { [key: string]: any } = {
       'contact-id-1': {
@@ -197,7 +196,8 @@ export class ChatsComponent implements AfterViewChecked {
   }
 
   sendQuickMessage(message: string) {
-    this.messageSent.emit(message);
+    this.userInput = message;
+    this.sendMessage();
     this.showSlider = false;
   }
 

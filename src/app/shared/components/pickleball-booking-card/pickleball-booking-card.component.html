@@ -12,7 +12,7 @@
   <div class="border border-gray-200 rounded-md transition-all duration-300 ease-in-out" [ngClass]="{
         'fixed top-[58px] right-[675px] h-[calc(100vh-60px)] bg-white z-10 w-full lg:w-[675px] transform translate-x-[1px]': !isExpanded,
         'fixed top-[58px] right-0 h-[calc(100vh-60px)] bg-white z-10 w-full lg:w-[675px] transform translate-x-0': isExpanded
-    }">  
+    }">
     <div class="flex items-center justify-between py-2 px-4 border-b">
       <div class="text-lg font-semibold text-gray-800">Pickleball Court Booking</div>
       <div class="cursor-pointer" (click)="toggleExpand()">
@@ -22,162 +22,169 @@
 
     <!-- *ngIf="step < 1" -->
 
-    <div *ngIf="step < 1">
-    <div class="mb-16  overflow-y-auto" [ngClass]="{
+    <div *ngIf="step == 0">
+      <div class="mb-16  overflow-y-auto" [ngClass]="{
       'h-[346px]': !isExpanded,
       'h-full': isExpanded
   }">
-      <div class="flex flex-col sm:flex-row">
-        <!-- Left Panel -->
-        <div class="w-full lg:w-[216px] space-y-4 text-[12px] p-4">
-          <div (click)="openLocationSelectModal()"
-            class="flex items-center gap-1 w-full px-3 py-2 border border-gray-200 rounded-lg hover:bg-[#E6F7FB] transition cursor-pointer">
-            <img src="assets/icons/location-select-icon.svg" />
-            <div>Use my location</div>
-          </div>
+        <div class="flex flex-col sm:flex-row">
+          <!-- Left Panel -->
+          <div class="w-full lg:w-[216px] space-y-4 text-[12px] p-4">
+            <div (click)="openLocationSelectModal()"
+              class="flex items-center gap-1 w-full px-3 py-2 border border-gray-200 rounded-lg hover:bg-[#E6F7FB] transition cursor-pointer">
+              <img src="assets/icons/location-select-icon.svg" />
+              <div>Use my location</div>
+            </div>
 
-          <!-- Country -->
-          <div (click)="selectCountry()" class="px-3 py-2 rounded-lg cursor-pointer border" [ngClass]="{
+            <!-- Country -->
+            <div (click)="selectCountry()" class="px-3 py-2 rounded-lg cursor-pointer border" [ngClass]="{
             'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-50': currentStep === 'country'
           }">
-            <div class="text-sm mb-1">Country</div>
-            <div class="truncate">{{ countryControl.value?.name || 'Select country' }}</div>
-          </div>
+              <div class="text-sm mb-1">Country</div>
+              <div class="truncate">{{ countryControl.value?.name || 'Select country' }}</div>
+            </div>
 
-          <!-- State -->
-          <div (click)="selectState()" class="px-3 py-2 border cursor-pointer border-gray-200 rounded-lg" [ngClass]="{
+            <!-- State -->
+            <div (click)="selectState()" class="px-3 py-2 border cursor-pointer border-gray-200 rounded-lg" [ngClass]="{
             'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-50': currentStep === 'state'
           }" [class.cursor-not-allowed]="!countryControl.value" [class.bg-gray-100]="!countryControl.value">
-            <div class="text-sm mb-1">State</div>
-            <div class="truncate">{{ stateControl.value?.name || 'Select state' }}</div>
-          </div>
+              <div class="text-sm mb-1">State</div>
+              <div class="truncate">{{ stateControl.value?.name || 'Select state' }}</div>
+            </div>
 
-          <!-- City -->
-          <div (click)="selectCity()" class="px-3 py-2 border cursor-pointer border-gray-200 rounded-lg" [ngClass]="{
+            <!-- City -->
+            <div (click)="selectCity()" class="px-3 py-2 border cursor-pointer border-gray-200 rounded-lg" [ngClass]="{
             'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-50': currentStep === 'city' 
           }" [class.cursor-not-allowed]="!stateControl.value" [class.bg-gray-100]="!stateControl.value">
-            <div class="text-sm mb-1">City</div>
-            <div class="truncate">{{ cityControl.value?.name || 'Select city' }}</div>
-          </div>
+              <div class="text-sm mb-1">City</div>
+              <div class="truncate">{{ cityControl.value?.name || 'Select city' }}</div>
+            </div>
 
-          <!-- Date -->
-          <div class="px-3 py-2 border border-gray-200 rounded-lg" [class.cursor-not-allowed]="!cityControl.value"
-            [class.bg-gray-100]="!cityControl.value" [ngClass]="{
+            <!-- Date -->
+            <div class="px-3 py-2 border border-gray-200 rounded-lg" [class.cursor-not-allowed]="!cityControl.value"
+              [class.bg-gray-100]="!cityControl.value" [ngClass]="{
               'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-50': currentStep === 'date'
             }">
-            <div class="text-sm mb-1">Date</div>
-            <div class="text-fade-text">
-              {{ selectedDateText
-              ? selectedDateText + ' (' + selectedShift + ')' + (selectedSlot ? ' - ' + selectedSlot : '')
-              : 'Select date' }}
+              <div class="text-sm mb-1">Date</div>
+              <div class="text-fade-text">
+                {{ selectedDateText
+                ? selectedDateText + ' (' + selectedShift + ')' + (selectedSlot ? ' - ' + selectedSlot : '')
+                : 'Select date' }}
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Right Panel -->
-        <div class="w-full lg:w-[calc(100%-216px)] bg-fade-white p-4">
+          <!-- Right Panel -->
+          <div class="w-full lg:w-[calc(100%-216px)] bg-fade-white p-4">
 
 
-          <div class=" overflow-y-auto space-y-1 text-sm  relative" [ngClass]="{
+            <div class=" overflow-y-auto space-y-1 text-sm  relative" [ngClass]="{
             'h-[300px]': !isExpanded,
             'h-[calc(100vh-220px)]': isExpanded
         }">
 
-            <!-- Search Bar -->
-            <div *ngIf="currentStep !== 'date'" class="relative w-full mb-4 p-1">
-              <img src="assets/icons/search-icon.svg"
-                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 pointer-events-none" alt="Search" />
-              <input type="text" placeholder="Search..." [(ngModel)]="searchTerm"
-                class="w-full rounded-full border border-gray-200 bg-gray-50 pl-9 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-mint-200" />
-            </div>
-            <!-- Countries List -->
-            <div *ngIf="currentStep === 'country'">
+              <!-- Search Bar -->
+              <div *ngIf="currentStep !== 'date'" class="relative w-full mb-4 p-1">
+                <img src="assets/icons/search-icon.svg"
+                  class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 pointer-events-none" alt="Search" />
+                <input type="text" placeholder="Search..." [(ngModel)]="searchTerm"
+                  class="w-full rounded-full border border-gray-200 bg-gray-50 pl-9 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-mint-200" />
+              </div>
+              <!-- Countries List -->
+              <div *ngIf="currentStep === 'country'">
 
-              <div *ngFor="let country of filteredCountries" (click)="onCountrySelected(country)"
-                class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-100">
-                <img [src]="'https://flagcdn.com/48x36/' + getCountryCode(country) + '.png'" srcset="https://flagcdn.com/32x24/{{ getCountryCode(country) }}.png 2x,
+                <div *ngFor="let country of filteredCountries" (click)="onCountrySelected(country)"
+                  class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-100">
+                  <img [src]="'https://flagcdn.com/48x36/' + getCountryCode(country) + '.png'" srcset="https://flagcdn.com/32x24/{{ getCountryCode(country) }}.png 2x,
           https://flagcdn.com/48x36/{{ getCountryCode(country) }}.png 3x" class="w-5 h-5 rounded-full"
-                  alt="{{ country.name }} flag">
-                <span>{{ country.name }}</span>
-              </div>
-            </div>
-
-            <!-- States List -->
-            <div *ngIf="currentStep === 'state'">
-              <div *ngFor="let state of filteredStates" (click)="onStateSelected(state)"
-                class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-100">
-                <span>{{ state.name }}</span>
-              </div>
-            </div>
-
-            <!-- Cities List -->
-            <div *ngIf="currentStep === 'city'">
-              <div *ngFor="let city of filteredCities" (click)="onCitySelected(city)"
-                class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-100">
-                <span>{{ city.name }}</span>
-              </div>
-            </div>
-
-            <div *ngIf="currentStep === 'date'" class="..." [class.cursor-not-allowed]="currentStep !== 'date'">
-              <div class="card flex justify-content-center ">
-                <p-calendar class="max-w-full" [(ngModel)]="date" (onSelect)="onDateSelected($event)" [inline]="true"
-                  styleClass="custom-calendar" />
-              </div>
-
-
-              <div *ngIf="dateisSelected" class="max-w-md mx-auto rounded-lg border bg-white mt-[300px] lg:mt-[400px]">
-
-                <div class="flex flex-wrap items-center justify-between px-4 py-2 border-b">
-                  <div class="truncate">
-                    {{ selectedDateText ? selectedDateText : 'Select date' }}
-                  </div>
-
-
-                  <!-- Shift Toggle -->
-                  <div class="flex justify-between rounded-full p-[3px] w-[224px] border">
-                    <button class="flex-1 text-sm py-2 rounded-full transition-all duration-200"
-                      (click)="selectedShift = 'day'" [class.bg-mint-50]="selectedShift === 'day'"
-                      [class.border]="selectedShift === 'day'" [class.border-mint-200]="selectedShift === 'day'"
-                      (click)="selectedShift = 'day'">
-                      Day Shift
-                    </button>
-                    <button class="flex-1 text-sm py-2 rounded-full transition-all duration-200"
-                      (click)="selectedShift = 'evening'" [class.bg-mint-50]="selectedShift === 'evening'"
-                      [class.border]="selectedShift === 'evening'" [class.border-mint-200]="selectedShift === 'evening'"
-                      (click)="selectedShift = 'evening'">
-                      Evening Shift
-                    </button>
-                  </div>
+                    alt="{{ country.name }} flag">
+                  <span>{{ country.name }}</span>
                 </div>
-                <!-- Time Slots -->
-                <div class="grid grid-cols-2 gap-3 p-4">
-                  <ng-container *ngFor="let slot of selectedShift === 'day' ? daySlots : eveningSlots">
-                    <div (click)="onSlotSelected(slot)"
-                      class="text-sm text-gray-700 rounded-md px-3 py-2.5 text-center cursor-pointer bg-fade-white"
-                      [class.bg-mint-50]="selectedSlot === slot" [class.border]="selectedSlot === slot"
-                      [class.border-mint-200]="selectedSlot === slot">
-                      {{ slot }}
+              </div>
+
+              <!-- States List -->
+              <div *ngIf="currentStep === 'state'">
+                <div *ngFor="let state of filteredStates" (click)="onStateSelected(state)"
+                  class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-100">
+                  <span>{{ state.name }}</span>
+                </div>
+              </div>
+
+              <!-- Cities List -->
+              <div *ngIf="currentStep === 'city'">
+                <div *ngFor="let city of filteredCities" (click)="onCitySelected(city)"
+                  class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-100">
+                  <span>{{ city.name }}</span>
+                </div>
+              </div>
+
+              <div *ngIf="currentStep === 'date'" class="..." [class.cursor-not-allowed]="currentStep !== 'date'">
+                <div class="card flex justify-content-center ">
+                  <p-calendar class="max-w-full" [(ngModel)]="date" (onSelect)="onDateSelected($event)" [inline]="true"
+                    styleClass="custom-calendar" />
+                </div>
+
+
+                <div *ngIf="dateisSelected"
+                  class="max-w-md mx-auto rounded-lg border bg-white mt-[300px] lg:mt-[400px]">
+
+                  <div class="flex flex-wrap items-center justify-between px-4 py-2 border-b">
+                    <div class="truncate">
+                      {{ selectedDateText ? selectedDateText : 'Select date' }}
                     </div>
-                  </ng-container>
+
+
+                    <!-- Shift Toggle -->
+                    <div class="flex justify-between rounded-full p-[3px] w-[224px] border">
+                      <button class="flex-1 text-sm py-2 rounded-full transition-all duration-200"
+                        (click)="selectedShift = 'day'" [class.bg-mint-50]="selectedShift === 'day'"
+                        [class.border]="selectedShift === 'day'" [class.border-mint-200]="selectedShift === 'day'"
+                        (click)="selectedShift = 'day'">
+                        Day Shift
+                      </button>
+                      <button class="flex-1 text-sm py-2 rounded-full transition-all duration-200"
+                        (click)="selectedShift = 'evening'" [class.bg-mint-50]="selectedShift === 'evening'"
+                        [class.border]="selectedShift === 'evening'"
+                        [class.border-mint-200]="selectedShift === 'evening'" (click)="selectedShift = 'evening'">
+                        Evening Shift
+                      </button>
+                    </div>
+                  </div>
+                  <!-- Time Slots -->
+                  <div class="grid grid-cols-2 gap-3 p-4">
+                    <ng-container *ngFor="let slot of selectedShift === 'day' ? daySlots : eveningSlots">
+                      <div (click)="onSlotSelected(slot)"
+                        class="text-sm text-gray-700 rounded-md px-3 py-2.5 text-center cursor-pointer bg-fade-white"
+                        [class.bg-mint-50]="selectedSlot === slot" [class.border]="selectedSlot === slot"
+                        [class.border-mint-200]="selectedSlot === slot">
+                        {{ slot }}
+                      </div>
+                    </ng-container>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
 
-  </div>
 
+    <app-court-selection [step]="step" [selectedDateControl]="selectedDate" [date]="date"
+      [onDateSelected]="onDateSelected.bind(this)" [onSlotSelected]="onSlotSelected.bind(this)" [daySlots]="daySlots"
+      [eveningSlots]="eveningSlots" [isExpanded]="isExpanded" [selectedShift]="selectedShift"
+      [selectedSlot]="selectedSlot"></app-court-selection>
 
-<app-court-selection [step]="step" [selectedDateControl]="selectedDate" [date]="date" [onDateSelected]="onDateSelected.bind(this)" [onSlotSelected]="onSlotSelected.bind(this)" [daySlots]="daySlots" [eveningSlots]="eveningSlots" [isExpanded]="isExpanded" [selectedShift]="selectedShift" [selectedSlot]="selectedSlot"></app-court-selection>
-
+      <app-payment-card style="height:100%;" [step]="step"  [isExpanded]="isExpanded" ></app-payment-card>
 
 
     <div class="flex justify-between items-center px-4 py-3 border-t absolute z-50 bottom-0 w-full bg-white-00">
-      <button (click)="onPreviousClick()" class="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-100">Back</button>
-      <button (click)="onNextClick()" class="px-4 py-2 rounded-lg text-sm transition-colors duration-300" [class.bg-gray-200]="!isSlotSelected"
-        [class.text-gray-500]="!isSlotSelected" [class.bg-mint-400]="isSlotSelected" [class.text-white]="isSlotSelected"
+      <button (click)="onPreviousClick()"
+        class="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-100">Back</button>
+      <button (click)="onNextClick()" class="px-4 py-2 rounded-lg text-sm transition-colors duration-300"
+        [class.bg-gray-200]="!isSlotSelected" [class.text-gray-500]="!isSlotSelected"
+        [class.bg-mint-400]="isSlotSelected" [class.text-white]="isSlotSelected"
         [class.cursor-not-allowed]="!isSlotSelected" [class.cursor-pointer]="isSlotSelected"
         [disabled]="!isSlotSelected">
         Next
