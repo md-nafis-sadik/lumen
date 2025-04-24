@@ -1,0 +1,221 @@
+<div class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center overflow-y-auto py-12" (click)="closeModal()">
+  <!-- Modal Box -->
+  <div
+    class="max-w-[680px] w-full bg-white pt-20 mx-auto rounded-lg shadow-lg overflow-y-auto animate-[fadeInModal_0.3s_ease-out_forwards]"
+    (click)="$event.stopPropagation()"
+  >
+  <img [src]="court?.coverImg" class="w-full h-[292px] object-cover relative"/>
+  <button class="text-gray-400 hover:text-gray-600 absolute top-4 right-4" (click)="closeModal()">✕</button>
+    <!-- Header -->
+    <div class="relative w-full flex items-center ">
+      
+      
+      <div class="w-full p-4 mt-4 ">
+        <!-- Title -->
+        <div class="flex items-center text-sm w-[95%] mb-1 gap-2">
+          <div class="text-lg sm:text-[20px] font-semibold">
+            {{ court.name }}
+          </div>
+          <div><img [src]="court.badgeIcon" alt="court Image"
+          class="w-5 h-5 object-cover mt-1" /></div>
+        </div>
+
+
+
+        <!-- Location & Distance -->
+        <div class="flex flex-wrap items-center gap-2 text-gray-500 text-sm mb-1">
+          <span class="flex items-center gap-1">
+            <img src="assets/icons/location-on-icon.svg" />
+            {{ court.location }}
+          </span>
+          <div class="flex items-center gap-1">
+            <div class="flex items-center gap-1">
+              <img src="assets/icons/dot-gray-icon.svg" />
+              <span class="text-sm text-gray-800">{{ court.rating }}</span>
+
+              <img src="assets/icons/golden-star-icon.svg" class="mb-[1px]" />
+            </div>
+
+            <span class="text-gray-500 font-normal text-sm">
+              ({{ court.reviews }} reviews)
+            </span>
+
+          </div>
+
+          <div class="  flex items-center gap-1">
+            <img src="assets/icons/dot-gray-icon.svg" />
+            <img src="assets/icons/distance-icon-2.svg" class="w-4 h-4" />
+            <span class="">{{ court.distance }} away</span>
+          </div>
+
+        </div>
+
+        <!-- Info Tags -->
+        <div class="flex gap-2">
+          <div class="items-center gap-2 text-gray-600 text-sm  flex">
+
+            <span><img [src]="court.maxPlayersImg" class="w-3 h-3" /></span>
+            <span>
+              Max Players: {{ court.maxPlayers }}
+            </span>
+
+          </div>
+          <div class="items-center gap-1 text-gray-600 text-sm  flex">
+
+
+            <span><img src="assets/icons/dot-gray-icon.svg" /></span>
+            <span><img [src]="court.typeImg" class="w-3.5 h-3.5" /></span>
+            <span>
+              {{ court.type }}
+            </span>
+
+          </div>
+          <div class="items-center gap-1 text-gray-600 text-sm  flex">
+
+
+            <span><img src="assets/icons/dot-gray-icon.svg" /></span>
+            <span><img [src]="court.featureImg" class="w-4 h-4" /></span>
+            <span>
+              {{ court.feature }}
+            </span>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Amenities -->
+    <div class="m-4">
+      <h3 class="font-semibold text-lg mb-2">Overview</h3>
+      <div class="text-sm text-gray-700 mb-3">Pickelball Academy is a renowned sports facility situated in Ladha Sarai Village, Delhi with a commitment to providing high-quality services, we offers a range of amenities and equipment to support athletes in their training and development.</div>
+      <div class="g bg-gray-100 p-3 rounded-lg">
+        <div class="grid sm:grid-cols-3 gap-4 text-sm m-4 text-center sm:text-start">
+          <div><strong>-</strong> {{ court?.surface }}</div>
+          <div><strong>-</strong> {{ court?.maxPlayers }}</div>
+          <div><strong>-</strong> {{ court?.audienceCapacity }}</div>
+          <div><strong>-</strong> {{ court?.isEquipmentAvailable ? 'Yes' : 'No' }}</div>
+          <div><strong>-</strong> ₹{{ court?.price }} / session</div>
+          <div><strong>-</strong> {{ court?.discount }}% Off</div>
+        </div>
+      </div>
+
+
+      <div class="grid-cols-3 gap-2 bg-mint-25 border border-blue-200 text-sm text-gray-700 p-3 rounded-lg mt-2">
+        Equipment Rental Available
+      </div>
+          <!-- Contact Info -->
+    <div class="mt-4">
+      <h3 class="font-semibold text-sm mb-2 text-gray-700">Contact Info</h3>
+      <p class="text-sm text-gray-700">Phone: {{ court?.contact?.phone }}</p>
+      <p class="text-sm text-gray-700">Email: {{ court?.contact?.email }}</p>
+      <p class="text-sm text-gray-700">Closed Days: {{ court?.contact?.closedDays?.join(', ') }}</p>
+    </div>
+    </div>
+
+    <!-- Rules -->
+    <div class="m-4">
+      <h3 class="font-semibold text-lg mb-2">Rules</h3>
+      <ul class="list-disc pl-5 text-sm text-gray-700 space-y-1">
+        <li *ngFor="let rule of court?.rules">{{ rule }}</li>
+      </ul>
+    </div>
+
+
+        <!-- Gallery -->
+        <div class="m-4">
+          <h3 class="font-semibold text-lg mb-2">Gallery</h3>
+        <div *ngIf="court?.gallery?.length >= 6" class="grid grid-cols-2 gap-2">
+          <!-- Left Big Image -->
+          <div class="row-span-2">
+            <img [src]="court.gallery[0]" class="w-full h-full object-cover rounded" />
+          </div>
+        
+          <!-- Top Right: 2 Images (50% each) -->
+          <div class="col-span-1 grid grid-cols-2 gap-2">
+            <img [src]="court.gallery[1]" class="w-full h-full aspect-[4/3] object-cover rounded" />
+            <img [src]="court.gallery[2]" class="w-full h-full aspect-[4/3] object-cover rounded" />
+          </div>
+        
+          <!-- Bottom Right: 3 Thumbnails (equal widths) -->
+          <div class="col-span-1 grid grid-cols-3 gap-2">
+            <img [src]="court.gallery[3]" class="w-full h-full aspect-video object-cover rounded" />
+            <img [src]="court.gallery[4]" class="w-full h-full aspect-video object-cover rounded" />
+            
+            <!-- Last image with + overlay -->
+            <div class="relative rounded overflow-hidden">
+              <img [src]="court.gallery[5]" class="w-full h-full aspect-video object-cover" />
+              <div class="absolute inset-0 bg-black/60 flex items-center justify-center text-white text-sm ">
+                {{ court.gallery.length - 5 }}+<br />Photos
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+        
+        
+
+    <!-- Details Table -->
+
+
+    <!-- Reviews -->
+    <div class="m-4">
+      <h3 class="font-semibold text-lg mb-2">Reviews</h3>
+   
+      <div class="flex justify-between">
+        <div class="flex justify-center items-center gap-2 py-2 px-4 bg-mint-25 w-[160px] h-[40px] rounded-lg">
+          <div class="flex items-center">
+
+            <span class="text-sm text-gray-800">{{ court.rating }}</span>
+
+            <img src="assets/icons/golden-star-icon.svg" class="mb-[1px]" />
+          </div>
+
+          <span class="text-gray-700 font-normal text-sm">
+            {{ court.reviews }} Ratings
+          </span>
+
+        </div>
+      
+        <div class="mt-2 w-[265px]">
+          <div class="space-y-1">
+            <div class="flex items-center space-x-2 text-sm" *ngFor="let star of [5,4,3,2,1]">
+              <div class="text-yellow-500 w-[68px]">{{'★'.repeat(star)}}</div>
+              <div class="h-1 bg-gray-200 rounded-full w-1/2">
+                <div class="h-1 bg-[#47C9DA] rounded-full" [ngStyle]="{width: getStarWidth(star)}"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+        <div class="mt-6 border-t pt-4">
+          <div class="flex items-center space-x-4">
+            <img src="https://i.pravatar.cc/40?img=1" class="w-10 h-10 rounded-full" alt="user" />
+            <div>
+              <div class="font-semibold">Kathryn Murphy</div>
+              <div class="text-sm text-gray-400">5.0 ★</div>
+            </div>
+            <div class="ml-auto text-sm text-gray-400">08/03/2025</div>
+          </div>
+          <div class="mt-2">
+            <p class="font-semibold">Awesome. It’s very convenient to play.</p>
+            <p class="text-gray-600 text-sm">if you are looking for a perfect place for friendly matches with your friends or a competitive match, it is the best place.</p>
+          </div>
+          <div class="mt-2 flex space-x-2">
+            <img class="w-20 h-20 rounded-lg object-cover" src="/assets/images/review1.jpg" alt="review image">
+            <img class="w-20 h-20 rounded-lg object-cover" src="/assets/images/review2.jpg" alt="review image">
+            <div class="w-20 h-20 rounded-lg bg-gray-100 flex items-center justify-center text-sm font-medium">+1</div>
+          </div>
+        </div>
+
+    </div>
+
+
+
+
+  </div>
+</div>

@@ -7,41 +7,41 @@
     }">
   
   
-  <div class="flex flex-col lg:flex-row w-full xl:h-screen">
+  <div class="flex flex-col sm:flex-row w-full xl:h-screen">
     <!-- Payment Methods -->
     <div class="w-full md:w-1/3 h-full p-4">
       <h2 class="text-lg font-semibold md:hidden mb-2">Payment Method</h2>
-      <div class="space-y-2 mt-7">
+      <div class="space-y-2 mt-6">
         <button
-          class="w-full py-3 px-4 border rounded-lg flex items-center justify-between"
-          [ngClass]="{ 'border-blue-300 bg-blue-50': selectedMethod === 'card' }"
+          class="w-full py-3 px-4 border rounded-lg flex items-center justify-center"
+          [ngClass]="{ 'bg-mint-50 ring-1 ring-mint-200 border-mint-200 border-b-2': selectedMethod === 'card' }"
           (click)="selectMethod('card')"
         >
           <span class="flex items-center gap-2">
-            <span>💳</span>
-            <span>Card</span>
+            <span><img src="assets/images/payment-method/card-icon.svg"/></span>
+            <span class="text-sm">Card</span>
           </span>
         </button>
         <button
-          class="w-full py-3 px-4 border rounded-lg flex items-center justify-between"
-          [ngClass]="{ 'border-blue-300 bg-blue-50': selectedMethod === 'paypal' }"
+          class="w-full py-3 px-4 border rounded-lg flex items-center justify-center"
+          [ngClass]="{ 'bg-mint-50 ring-1 ring-mint-200 border-mint-200 border-b-2': selectedMethod === 'paypal' }"
           (click)="selectMethod('paypal')"
         >
-          <span class="text-blue-600 font-semibold">PayPal</span>
+        <span><img src="assets/images/payment-method/paypal-logo.png"/></span>
         </button>
         <button
-          class="w-full py-3 px-4 border rounded-lg flex items-center justify-between"
-          [ngClass]="{ 'border-blue-300 bg-blue-50': selectedMethod === 'stripe' }"
+          class="w-full py-3 px-4 border rounded-lg flex items-center justify-center"
+          [ngClass]="{ 'bg-mint-50 ring-1 ring-mint-200 border-mint-200 border-b-2': selectedMethod === 'stripe' }"
           (click)="selectMethod('stripe')"
         >
-          <span class="text-violet-600 font-bold">stripe</span>
+        <span><img src="assets/images/payment-method/stripe-logo.png"/></span>
         </button>
         <button
-          class="w-full py-3 px-4 border rounded-lg text-center"
-          [ngClass]="{ 'border-blue-300 bg-blue-50': selectedMethod === 'upi' }"
+          class="w-full py-3 px-4 border rounded-lg text-center text-sm"
+          [ngClass]="{ 'bg-mint-50 ring-1 ring-mint-200 border-mint-200 border-b-2': selectedMethod === 'upi' }"
           (click)="selectMethod('upi')"
         >
-          UPI <br /><span class="text-xs">(Google Pay, PhonePe, Paytm)</span>
+          UPI <br /><span class="text-xs text-gray-600">(Google Pay, PhonePe, Paytm)</span>
         </button>
       </div>
     </div>
@@ -55,7 +55,7 @@
           <input
             formControlName="holderName"
             placeholder="Name"
-            class="w-full border rounded-lg p-2"
+            class="w-full border rounded-lg p-2 placeholder-custom focus:outline-none focus:ring-2 focus:ring-cyan-500"
             [class.border-red-500]="f.holderName.invalid && f.holderName.touched"
           />
         </div>
@@ -65,7 +65,7 @@
           <input
             formControlName="cardNumber"
             placeholder="1122 3344 5567 8910"
-            class="w-full border rounded-lg p-2"
+            class="w-full border rounded-lg p-2 placeholder-custom focus:outline-none focus:ring-2 focus:ring-cyan-500"
             [class.border-red-500]="f.cardNumber.invalid && f.cardNumber.touched"
           />
         </div>
@@ -75,7 +75,7 @@
           <input
             formControlName="expiry"
             placeholder="MM/YY"
-            class="w-full border rounded-lg p-2"
+            class="w-full border rounded-lg p-2 placeholder-custom focus:outline-none focus:ring-2 focus:ring-cyan-500"
             [class.border-red-500]="f.expiry.invalid && f.expiry.touched"
           />
         </div>
@@ -85,7 +85,7 @@
           <input
             formControlName="cvc"
             placeholder="123"
-            class="w-full border rounded-lg p-2"
+            class="w-full border rounded-lg p-2 placeholder-custom focus:outline-none focus:ring-2 focus:ring-cyan-500"
             [class.border-red-500]="f.cvc.invalid && f.cvc.touched"
           />
         </div>
@@ -96,7 +96,7 @@
         </div>
   
         <div class="col-span-2">
-          <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
+          <button type="submit" class="hidden bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
             Submit
           </button>
         </div>

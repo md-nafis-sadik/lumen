@@ -13,18 +13,9 @@
     <!-- Email Field -->
     <div class="mb-4">
       <label class="block mb-2 font-medium">Email</label>
-      <input
-        type="email"
-        name="email"
-        placeholder="Enter your email"
-        [(ngModel)]="email"
-        (blur)="onEmailBlur()"
-        autocomplete="email"
-        required
-        email
-        #emailRef="ngModel"
-        class="bg-custom placeholder-custom w-full p-2.5 border border-[#EDEDED] rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
-      />
+      <input type="email" name="email" placeholder="Enter your email" [(ngModel)]="email" (blur)="onEmailBlur()"
+        autocomplete="email" required email #emailRef="ngModel"
+        class="bg-custom placeholder-custom w-full p-2.5 border border-[#EDEDED] rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500" />
       <div *ngIf="emailRef.invalid && emailTouched" class="text-red-400 text-sm mt-1">
         <div *ngIf="emailRef.errors?.['required']">Email is required.</div>
         <div *ngIf="emailRef.errors?.['email']">Please enter a valid email address.</div>
@@ -33,38 +24,21 @@
 
     <!-- Password Field -->
     <!-- Custom Password Input -->
-<app-password-toggle-input
-[(value)]="password"
-name="password"
-placeholder="Enter your password"
-type="password"
-autocomplete="current-password"
-label="Password"
-(blur)="onPasswordBlur()">
-</app-password-toggle-input>
+    <app-password-toggle-input [(value)]="password" name="password" placeholder="Enter your password" type="password"
+      autocomplete="current-password" label="Password" (blur)="onPasswordBlur()">
+    </app-password-toggle-input>
 
-<!-- Hidden ngModel Input for Validation -->
-<input
-type="password"
-name="password"
-[(ngModel)]="password"
-#passwordRef="ngModel"
-hidden
-required
-/>
-<div *ngIf="passwordRef.invalid && passwordTouched" class="text-red-500 text-sm">
-Password is required.
-</div>
+    <!-- Hidden ngModel Input for Validation -->
+    <input type="password" name="password" [(ngModel)]="password" #passwordRef="ngModel" hidden required />
+    <div *ngIf="passwordRef.invalid && passwordTouched" class="text-red-500 text-sm">
+      Password is required.
+    </div>
 
 
     <!-- Keep Me Signed In -->
     <div class="flex justify-between items-start text-sm">
       <div class="flex items-center cursor-pointer mb-4" (click)="checked = !checked">
-        <input
-          type="checkbox"
-          name="rememberMe"
-          [(ngModel)]="checked"
-          (click)="$event.stopPropagation()" />
+        <input type="checkbox" name="rememberMe" [(ngModel)]="checked" (click)="$event.stopPropagation()" />
         <span class="ml-2 text-primary-text">Keep me signed in</span>
       </div>
       <div><a href="#" class="text-[#09B3D1] mb-4">Forgot password</a></div>

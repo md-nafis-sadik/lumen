@@ -1,4 +1,4 @@
-import { Component, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, ViewChild, Inject, PLATFORM_ID, Input } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HeaderComponent } from '../../layouts/header/header.component';
 import { SidebarComponent } from '../../layouts/sidebar/sidebar.component';
@@ -15,15 +15,19 @@ import { ChatMessage } from '../../models/chat.model';
 import { ChatStoreService } from '../../services/chat-store.service';
 import { ChatSelectionService } from '../../services/chat-selection.service';
 import { combineLatest } from 'rxjs';
+import { CourtDetailsComponent } from '../../shared/components/court-details/court-details.component';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent, SidebarComponent, ImageSliderComponent, PickleballBookingCardComponent, FormsModule, PrimaryButtonComponent, ReactiveFormsModule, DateFormatterPipe, TimeAgoPipe, PickleballBookingCardComponent, ChatsComponent],
+  imports: [CommonModule, RouterModule, HeaderComponent, SidebarComponent, CourtDetailsComponent, ImageSliderComponent, PickleballBookingCardComponent, FormsModule, PrimaryButtonComponent, ReactiveFormsModule, DateFormatterPipe, TimeAgoPipe, PickleballBookingCardComponent, ChatsComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
+
+  isDetailsOn = false;
 
   constructor(
 
@@ -31,7 +35,8 @@ export class DashboardComponent {
     private submenuService: SubmenuService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private chatStore: ChatStoreService,
-    private chatService: ChatSelectionService
+    private chatService: ChatSelectionService,
+    private sharedService: SharedService
   ) {
     this.initializeSidebarState();
     this.chatService.selectedChatId$.subscribe(chatId => {
@@ -45,6 +50,9 @@ export class DashboardComponent {
   trackById(index: number, item: any): any {
     return item.id || index;
   }
+
+
+
 
   selectedChatId: string | null = null;
   showSlider = true;
@@ -169,6 +177,10 @@ export class DashboardComponent {
       if (chatId) {
         // Create new array reference to trigger change detection
       }
+    });
+
+    this.sharedService.isDetailsOn$.subscribe((state) => {
+      this.isDetailsOn = state;
     });
   }
 

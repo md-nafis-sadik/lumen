@@ -13,6 +13,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { SubmenuService } from '../../../services/submenu.service';
 import { CourtSelectionComponent } from '../court-selection/court-selection.component';
 import { PaymentCardComponent } from '../payment-card/payment-card.component';
+import { PaymentCompletedComponent } from '../payment-completed/payment-completed.component';
 
 @Component({
   selector: 'app-pickleball-booking-card',
@@ -28,7 +29,8 @@ import { PaymentCardComponent } from '../payment-card/payment-card.component';
     MatIconModule, 
     CalendarModule,
     CourtSelectionComponent,
-    PaymentCardComponent
+    PaymentCardComponent,
+    PaymentCompletedComponent
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './pickleball-booking-card.component.html',
@@ -53,7 +55,7 @@ export class PickleballBookingCardComponent {
 
   onNextClick(){
     console.log(this.step);
-    if (this.step < 4) {
+    if (this.step < 3) {
       this.step = this.step+ 1;
     }
   }
