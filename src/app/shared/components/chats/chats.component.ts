@@ -61,7 +61,7 @@ export class ChatsComponent implements AfterViewChecked {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['chatId'] || changes['messages']) {
       this.loadChatData();
-
+      this.showSlider = true;
     }
   }
 
@@ -223,7 +223,7 @@ export class ChatsComponent implements AfterViewChecked {
   setChatUser(id: string) {
     this.chatId = id
     this.loadChatData()
-
+    this.showSlider = true;
   }
 
   trackById(index: number, item: any): any {

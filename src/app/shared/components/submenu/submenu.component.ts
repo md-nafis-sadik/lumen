@@ -98,6 +98,7 @@ ngOnInit() {
       this.setActiveSubmenu();
       this.filteredItems = this.getFilteredSubmenuItems();
     }
+    
   }
 
   setActiveSubmenu() {
@@ -105,6 +106,7 @@ ngOnInit() {
     if (firstItem) {
       this.activeSubmenu = firstItem.key;
     }
+    
   }
 
   selectSubmenu(key: string) {
@@ -116,7 +118,7 @@ ngOnInit() {
       queryParams: { chatId: key },
       queryParamsHandling: 'merge'
     });
-
+    this.showSlider = true;
   }
 
   getSubmenuItems(): SubmenuItem[] {

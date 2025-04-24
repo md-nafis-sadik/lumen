@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 export class ToggleButtonComponent {
   @Input() iconPath: string = 'assets/icons/bars-icon.svg';
   @Input() size: string = 'w-5';
-  @Input() containerClass: string = 'w-10 flex items-center justify-center mr-10 cursor-pointer h-full';
+  @Input() containerClass: string = 'w-10 flex items-center justify-center mr-2 lg:mr-10 cursor-pointer h-full';
   @Input() alt: string = 'Toggle button icon';
   @Output() clicked = new EventEmitter<void>();
 
