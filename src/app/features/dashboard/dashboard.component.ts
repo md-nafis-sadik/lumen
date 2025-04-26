@@ -28,9 +28,27 @@ import { SharedService } from '../../services/shared.service';
 export class DashboardComponent {
 
   isDetailsOn = false;
+  selectedChatId: string | null = null;
+  showSlider = true;
+  sidebarOpen = true;
+  channels = ['Pickleball Expert'];
+  showAddChannelModal = false;
+  showLocationSelectModal = false;
+  newChannelName = '';
+  showSettingsSidebar = false;
+  showNotificationsSidebar = false;
+  showAvatarDropdown = false;
+  userInput = '';
+  messages: {
+    sender: 'user' | 'bot',
+    content: string[],
+    type: 'text' | 'booking',
+    timestamp: Date,
+    avatar: string
+  }[] = [];
+  chatData: ChatMessage[] = [];
 
   constructor(
-
     private route: ActivatedRoute,
     private submenuService: SubmenuService,
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -43,7 +61,6 @@ export class DashboardComponent {
       this.selectedChatId = chatId;
     });
   }
-  chatData: ChatMessage[] = [];
 
   @ViewChild(ChatsComponent) chatMessages!: ChatsComponent;
 
@@ -51,73 +68,29 @@ export class DashboardComponent {
     return item.id || index;
   }
 
+  ngOnInit() {
+    this.setupSubmenuSubscriptions();
+    this.setupResizeListener();
+    combineLatest([
+      this.route.queryParams,
+      this.chatService.selectedChatId$
+    ]).subscribe(([params, serviceChatId]) => {
+      const chatId = serviceChatId || params['chatId'];
+      if (chatId) {
+      }
+    });
 
+    this.sharedService.isDetailsOn$.subscribe((state) => {
+      this.isDetailsOn = state;
+    });
+  }
 
+  ngOnDestroy() {
+    if (isPlatformBrowser(this.platformId)) {
+      window.removeEventListener('resize', this.handleResize);
+    }
+  }
 
-  selectedChatId: string | null = null;
-  showSlider = true;
-  sidebarOpen = true;
-  channels = ['Pickleball Expert'];
-  showAddChannelModal = false;
-  showLocationSelectModal = false;
-  newChannelName = '';
-
-  sliderSlides = [
-    {
-      title: 'Play More,',
-      highlight: 'Search',
-      after_highlight: 'Less!',
-      description: 'Reserve your favourite pickleball court effortlessly.',
-      buttonText: 'Learn more',
-      patternUrl: 'assets/patterns/Vector.svg',
-      imageUrl: 'assets/images/2025/girl-playing.png',
-      gradient: 'circle at top right, #118a9f, #07282e',
-      textColor: 'text-white-00',
-      highlightColor: 'text-[#06ACCE]',
-      buttonColor: '#06ACCE',
-      buttonHoverColor: '#0799B7',
-    },
-    {
-      title: 'Join the Game,',
-      highlight: 'Win',
-      after_highlight: 'the Fun!',
-      description: 'Find and book top-rated pickleball courts near you.',
-      buttonText: 'Get Started',
-      patternUrl: 'assets/patterns/Vector.svg',
-      imageUrl: 'assets/images/2025/girl-playing.png',
-      gradient: 'circle at top right, #1b83c1, #052232',
-      textColor: 'text-white-00',
-      highlightColor: 'text-[#3b94c9]',
-      buttonColor: '#06ACCE',
-      buttonHoverColor: '#0799B7',
-    },
-    {
-      title: 'Play More,',
-      highlight: 'Search',
-      after_highlight: 'Less!',
-      description: 'Reserve your favourite pickleball court effortlessly.',
-      buttonText: 'Learn more',
-      patternUrl: 'assets/patterns/Vector.svg',
-      imageUrl: 'assets/images/2025/girl-playing.png',
-      gradient: 'circle at top right, #118a9f, #07282e',
-      textColor: 'text-white-00',
-      highlightColor: 'text-[#06ACCE]',
-      buttonColor: '#06ACCE',
-      buttonHoverColor: '#0799B7',
-    },
-  ];
-
-
-  userInput = '';
-  messages: {
-    sender: 'user' | 'bot',
-    content: string[],
-    type: 'text' | 'booking',
-    timestamp: Date,
-    avatar: string
-  }[] = [];
-
-  // Updated sendMessage() method
   sendMessage() {
     const trimmed = this.userInput.trim();
     if (!trimmed) return;
@@ -165,30 +138,6 @@ export class DashboardComponent {
     }, 300);
   }
 
-
-  ngOnInit() {
-    this.setupSubmenuSubscriptions();
-    this.setupResizeListener();
-    combineLatest([
-      this.route.queryParams,
-      this.chatService.selectedChatId$
-    ]).subscribe(([params, serviceChatId]) => {
-      const chatId = serviceChatId || params['chatId'];
-      if (chatId) {
-        // Create new array reference to trigger change detection
-      }
-    });
-
-    this.sharedService.isDetailsOn$.subscribe((state) => {
-      this.isDetailsOn = state;
-    });
-  }
-
-  ngOnDestroy() {
-    if (isPlatformBrowser(this.platformId)) {
-      window.removeEventListener('resize', this.handleResize);
-    }
-  }
 
   private initializeSidebarState() {
     if (isPlatformBrowser(this.platformId)) {
@@ -249,9 +198,7 @@ export class DashboardComponent {
     this.showSlider = false;
   }
 
-  showSettingsSidebar = false;
-  showNotificationsSidebar = false;
-  showAvatarDropdown = false;
+
 
   toggleSettings() {
     this.closeAll();
@@ -278,22 +225,6 @@ export class DashboardComponent {
   onMessageSent(message: string) {
     const trimmed = message.trim();
     if (!trimmed) return;
-
-    // User message with proper typing
-    // this.chatData = [
-    //   ...this.chatData,
-    //   {
-    //     id: Date.now().toString(),
-    //     sender: 'user',
-    //     content: [trimmed],
-    //     type: 'text',
-    //     timestamp: new Date(),
-    //     avatar: 'assets/icons/Avatar.png'
-    //   }
-    // ];
-
-
-    // this.showSlider = false;
 
     const currentChat = this.chatStore.getChat(this.selectedChatId);
     const newMessages = [

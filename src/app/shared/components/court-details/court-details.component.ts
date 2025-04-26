@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { SharedService } from '../../../services/shared.service';
+import { IconComponent } from '../common/icon/icon.component';
 
 @Component({
   selector: 'app-court-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IconComponent],
   templateUrl: './court-details.component.html',
   styleUrl: './court-details.component.css'
 })

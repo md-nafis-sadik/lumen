@@ -10,11 +10,13 @@ import { ActivatedRoute } from '@angular/router';
 import { ChatSelectionService } from '../../../services/chat-selection.service';
 import { combineLatest } from 'rxjs';
 import { ChatStoreService } from '../../../services/chat-store.service';
+import { IconComponent } from '../common/icon/icon.component';
+import { ImageSliderComponent } from '../image-slider/image-slider.component';
 
 @Component({
   selector: 'app-chats',
   standalone: true,
-  imports: [CommonModule, DateFormatterPipe, FormsModule, TimeAgoPipe, PickleballBookingCardComponent],
+  imports: [CommonModule, DateFormatterPipe, FormsModule, TimeAgoPipe, PickleballBookingCardComponent, IconComponent, ImageSliderComponent],
   templateUrl: './chats.component.html',
   styleUrls: ['./chats.component.css']
 })
@@ -25,6 +27,8 @@ export class ChatsComponent implements AfterViewChecked {
   @Output() messageSent = new EventEmitter<string>();
   @ViewChild('chatContainer') private chatContainer!: ElementRef;
 
+  showMessageTemplate = false;
+  isAnimating = false;
   userInput = '';
   previousMessagesLength = 0;
   shouldAutoScroll = true;
@@ -32,13 +36,57 @@ export class ChatsComponent implements AfterViewChecked {
   chatData: ChatMessage[] = [];
   selectedChatId: string | null = null;
 
+  sliderSlides = [
+    {
+      title: 'Play More,',
+      highlight: 'Search',
+      after_highlight: 'Less!',
+      description: 'Reserve your favourite pickleball court effortlessly.',
+      buttonText: 'Learn more',
+      patternUrl: 'assets/patterns/Vector.svg',
+      imageUrl: 'assets/images/2025/girl-playing.png',
+      gradient: 'circle at top right, #118a9f, #07282e',
+      textColor: 'text-white-00',
+      highlightColor: 'text-[#06ACCE]',
+      buttonColor: '#06ACCE',
+      buttonHoverColor: '#0799B7',
+    },
+    {
+      title: 'Join the Game,',
+      highlight: 'Win',
+      after_highlight: 'the Fun!',
+      description: 'Find and book top-rated pickleball courts near you.',
+      buttonText: 'Get Started',
+      patternUrl: 'assets/patterns/Vector.svg',
+      imageUrl: 'assets/images/2025/girl-playing.png',
+      gradient: 'circle at top right, #1b83c1, #052232',
+      textColor: 'text-white-00',
+      highlightColor: 'text-[#3b94c9]',
+      buttonColor: '#06ACCE',
+      buttonHoverColor: '#0799B7',
+    },
+    {
+      title: 'Play More,',
+      highlight: 'Search',
+      after_highlight: 'Less!',
+      description: 'Reserve your favourite pickleball court effortlessly.',
+      buttonText: 'Learn more',
+      patternUrl: 'assets/patterns/Vector.svg',
+      imageUrl: 'assets/images/2025/girl-playing.png',
+      gradient: 'circle at top right, #118a9f, #07282e',
+      textColor: 'text-white-00',
+      highlightColor: 'text-[#06ACCE]',
+      buttonColor: '#06ACCE',
+      buttonHoverColor: '#0799B7',
+    },
+  ];
+
   constructor(
     private route: ActivatedRoute,
     private chatService: ChatSelectionService,
-     @Inject(PLATFORM_ID) private platformId: Object,
-        private chatStore: ChatStoreService,
-  
-  ) { 
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private chatStore: ChatStoreService,
+  ) {
 
     this.chatService.selectedChatId$.subscribe(chatId => {
       this.selectedChatId = chatId;
@@ -54,14 +102,15 @@ export class ChatsComponent implements AfterViewChecked {
       const chatId = serviceChatId || params['chatId'];
       this.chatId = chatId;
       this.loadChatData();
-
+      this.showSlider = !chatId;
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['chatId'] || changes['messages']) {
       this.loadChatData();
-      this.showSlider = true;
+      this.showSlider = !this.chatId;
+      this.showMessageTemplate = true;
     }
   }
 
@@ -121,20 +170,6 @@ export class ChatsComponent implements AfterViewChecked {
     const trimmed = this.userInput.trim();
     if (!trimmed) return;
 
-    // const newMessage: ChatMessage = {
-    //   id: Date.now().toString(),
-    //   sender: 'user',
-    //   content: [trimmed],
-    //   timestamp: new Date(),
-    //   type: 'text',
-    //   avatar: 'assets/icons/Avatar.png'
-    // };
-
-    // this.chatData.push(newMessage);
-    // this.messageSent.emit(trimmed);
-    // this.userInput = '';
-    // this.showSlider = false;
-
     const currentChat = this.chatStore.getChat(this.selectedChatId);
     const newMessages = [
       ...currentChat,
@@ -151,20 +186,21 @@ export class ChatsComponent implements AfterViewChecked {
     this.chatStore.updateChat(this.selectedChatId, newMessages);
     this.userInput = '';
     this.showSlider = false;
+    this.showMessageTemplate = false;
 
     setTimeout(() => {
       // Bot message with proper typing
       const newMessage: ChatMessage = {
-          id: Date.now().toString(),
-          sender: 'user' as const,
-          content: [trimmed],
-          type: 'text' as const,
-          timestamp: new Date(),
-          avatar: 'assets/icons/Avatar.png'
-        };
+        id: Date.now().toString(),
+        sender: 'user' as const,
+        content: [trimmed],
+        type: 'text' as const,
+        timestamp: new Date(),
+        avatar: 'assets/icons/Avatar.png'
+      };
 
       this.chatData = [...this.chatData, newMessage];
-  
+
     }, 50);
 
     setTimeout(() => {
@@ -190,15 +226,31 @@ export class ChatsComponent implements AfterViewChecked {
         };
 
       this.chatData = [...this.chatData, newMessage];
-  
+
     }, 300);
-    
+
   }
 
   sendQuickMessage(message: string) {
     this.userInput = message;
     this.sendMessage();
     this.showSlider = false;
+    this.showMessageTemplate = false;
+  }
+
+  toggleMessageTemplate() {
+    if (this.showMessageTemplate) {
+      // Start hide animation
+      this.isAnimating = true;
+      setTimeout(() => {
+        this.showMessageTemplate = false;
+        this.isAnimating = false;
+      }, 300); // Match this with your transition duration
+    } else {
+      // Show immediately
+      this.showMessageTemplate = true;
+      this.isAnimating = false;
+    }
   }
 
   // In ChatsComponent class
@@ -223,7 +275,7 @@ export class ChatsComponent implements AfterViewChecked {
   setChatUser(id: string) {
     this.chatId = id
     this.loadChatData()
-    this.showSlider = true;
+    this.showSlider = false;
   }
 
   trackById(index: number, item: any): any {
@@ -284,20 +336,18 @@ export class ChatsComponent implements AfterViewChecked {
   }
 
   getContentParts(msg: any): string[] {
-  const parts: string[] = [];
-  let i = 1;
+    const parts: string[] = [];
+    let i = 1;
 
-  while (true) {
-    const val = msg[`message${i === 1 ? '' : i}`] || msg[`msg${i === 1 ? '' : i}`];
-    if (val) parts.push(val);
-    else break;
-    i++;
+    while (true) {
+      const val = msg[`message${i === 1 ? '' : i}`] || msg[`msg${i === 1 ? '' : i}`];
+      if (val) parts.push(val);
+      else break;
+      i++;
+    }
+
+    return parts;
   }
-
-  return parts;
-}
-
-
 
   // getMessageType method remains the same
   private getMessageType(msg: any): 'text' | 'image' | 'file' | 'booking' {
@@ -311,13 +361,13 @@ export class ChatsComponent implements AfterViewChecked {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
     if (!file) return;
-  
+
     const reader = new FileReader();
     const fileType = this.getFileType(file);
-  
+
     reader.onload = (e: ProgressEvent<FileReader>) => {
       if (!e.target?.result) return;
-  
+
       const newMessage: ChatMessage = {
         id: Date.now().toString(),
         sender: 'user',
@@ -326,7 +376,7 @@ export class ChatsComponent implements AfterViewChecked {
         type: fileType,
         avatar: 'assets/icons/Avatar.png'
       };
-  
+
       if (fileType === 'file') {
         newMessage.file = {
           name: file.name,
@@ -336,13 +386,13 @@ export class ChatsComponent implements AfterViewChecked {
       } else if (fileType === 'image') {
         newMessage.images = [e.target.result as string];
       }
-  
+
       this.chatData.push(newMessage);
       this.previousMessagesLength = this.chatData.length;
       input.value = ''; // Reset input
       this.showSlider = false;
     };
-  
+
     reader.readAsDataURL(file);
   }
 
@@ -361,34 +411,34 @@ export class ChatsComponent implements AfterViewChecked {
 
   private parseTimeString(timeString: string | undefined): Date {
     const now = new Date();
-    
+
     if (!timeString) return now;
-  
+
     // Handle full ISO strings
     if (timeString.includes('T')) {
       const date = new Date(timeString);
       return isNaN(date.getTime()) ? now : date;
     }
-  
+
     // Handle time strings like "2:30 pm"
     const timeRegex = /(\d{1,2}):(\d{2})\s*(am|pm)?/i;
     const match = timeString.match(timeRegex);
-  
+
     if (match) {
       let hours = parseInt(match[1]);
       const minutes = parseInt(match[2]);
       const period = match[3]?.toLowerCase();
-  
+
       // Convert 12-hour format to 24-hour
       if (period === 'pm' && hours < 12) hours += 12;
       if (period === 'am' && hours === 12) hours = 0;
-  
+
       // Create date with today's date but specified time
       const date = new Date();
       date.setHours(hours, minutes, 0, 0);
       return date;
     }
-  
+
     console.warn('Invalid time string format:', timeString);
     return now;
   }
@@ -408,6 +458,5 @@ export class ChatsComponent implements AfterViewChecked {
     result.setHours(hours, minutes, 0, 0);
     return result;
   }
-
 
 }

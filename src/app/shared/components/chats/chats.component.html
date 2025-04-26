@@ -1,3 +1,5 @@
+<div class="px-4"><app-image-slider *ngIf="showSlider" [slides]="sliderSlides"></app-image-slider></div>
+
 <div class="flex justify-center mx-auto pb-24 px-4 h-full">
   <div #chatContainer class="w-full h-full overflow-y-auto" (scroll)="onScroll()">
     <div class="flex flex-col mx-auto space-y-4 max-w-[720px]">
@@ -28,14 +30,10 @@
           <div class="flex flex-col max-w-[70%]">
             <!-- Text Message -->
             <div *ngIf="item.data?.type === 'text'">
-              <div 
-                *ngFor="let messageItem of item.data?.content"
-                [ngClass]="{
+              <div *ngFor="let messageItem of item.data?.content" [ngClass]="{
                   'bg-[#C3EBF3] rounded-tr-none self-end': item.data?.sender === 'user',
                   'bg-white-00 rounded-tl-none self-start': item.data?.sender === 'bot'
-                }"
-                class="p-3 shadow whitespace-pre-wrap rounded-xl text-sm mb-2 last:mb-0 inline-block"
-              >
+                }" class="p-3 shadow whitespace-pre-wrap rounded-xl text-sm mb-2 last:mb-0 inline-block">
                 {{ messageItem }}
               </div>
             </div>
@@ -45,22 +43,23 @@
                 <img [src]="img" class="max-w-[200px] h-auto" alt="Uploaded image" />
               </div>
             </div>
-            
+
 
             <!-- File/PDF Message -->
-            <div *ngIf="item.data?.type === 'file'" class="p-3 bg-[#C3EBF3] shadow rounded-s-xl rounded-br-xl flex items-center gap-2">
+            <div *ngIf="item.data?.type === 'file'"
+              class="p-3 bg-[#C3EBF3] shadow rounded-s-xl rounded-br-xl flex items-center gap-2">
               <div class="p-2 border border-mint-400 rounded-md flex items-center space-x-3 px-4">
-              <img src="assets/icons/attachment-icon.svg" class="w-6 h-6" alt="PDF icon" />
-              <a [href]="item.data?.content" target="_blank" class="text-sm flex items-center space-x-3">
-                
+                <img src="assets/icons/attachment-icon.svg" class="w-6 h-6" alt="PDF icon" />
+                <a [href]="item.data?.content" target="_blank" class="text-sm flex items-center space-x-3">
+
                   <div class="space-y-2">
                     <div>{{item.data?.fileName}}</div>
                     <div>{{item.data?.fileSize}}</div>
-                  
+
+                  </div>
+                  <i class="fa-solid fa-download fa-lg"></i>
+                </a>
               </div>
-              <i class="fa-solid fa-download fa-lg"></i>
-              </a>
-            </div>
             </div>
 
             <!-- Booking Card -->
@@ -87,8 +86,11 @@
 
 <!-- Input container -->
 <div
-  class="flex flex-col items-center gap-4 fixed bottom-0 w-full lg:w-[calc(100vw-320px)] bg-fade-white message transition-all duration-700 py-4 px-4">
-  <div *ngIf="showSlider" class="w-full max-w-[720px] ">
+  class="flex flex-col items-center gap-4 sticky bottom-0 w-full bg-fade-white message transition-all duration-700 py-4 px-4">
+  <div *ngIf="showMessageTemplate" class="w-full max-w-[720px] transition-all duration-500" [ngClass]="{
+      'h-0': !showMessageTemplate,
+      'h-full': showMessageTemplate
+    }">
     <h2 class="text-xl font-semibold text-center py-4">How can I assist you today?</h2>
     <div class="flex flex-wrap justify-center gap-2">
       <!-- <button (click)="setChatUser('contact-id-1')">Load Bella Cote Chat {{chatId}}</button> -->
@@ -118,22 +120,28 @@
       </button>
     </div>
   </div>
-  <div
-    class="w-full lg:max-w-[720px] mt-4 flex items-center rounded-xl bg-white-00 px-4 py-2 shadow transition-all duration-300"
-    [ngClass]="userInput ? 'border-gray-500 border' : 'border-fade-white border'">
-    <input type="text" [(ngModel)]="userInput" placeholder="Type here..."
-      class="flex-1 outline-none text-sm px-2 placeholder-custom" (keydown.enter)="sendMessage()" />
-    <div class="flex items-center gap-3 text-fade-text cursor-pointer">
-      <img src="assets/icons/plus-chat-icon.svg"  (click)="fileInput.click()"/>
-      <input  type="file" (change)="handleFileUpload($event)"hidden #fileInput />
-      <img src="assets/icons/mike-icon.svg" />
-      <img src="assets/icons/echo-icon.svg" />
-    </div>
-    <button (click)="sendMessage()" class="ml-2 rounded-xl p-2 transition-colors duration-500 cursor-pointer" [ngClass]="{
+  <div class="flex items-center gap-2.5 w-full lg:max-w-[720px] mt-4">
+    <div (click)="toggleMessageTemplate()"
+      class="w-[48px] h-full justify-center flex items-center px-2 py-[13px] cursor-pointer shadow rounded-xl border border-fade-white bg-white">
+      <app-icon icon="chat" color="#141414"></app-icon></div>
+    <div
+      class="w-full lg:max-w-[700px] flex items-center rounded-xl bg-white-00 px-4 py-1.5 shadow transition-all duration-300"
+      [ngClass]="userInput ? 'border-gray-500 border' : 'border-fade-white border'">
+      <input type="text" [(ngModel)]="userInput" placeholder="Type here..."
+        class="flex-1 outline-none text-sm px-2 placeholder-custom" (keydown.enter)="sendMessage()" />
+      <div class="flex items-center gap-3 text-fade-text cursor-pointer">
+        <img src="assets/icons/plus-chat-icon.svg" (click)="fileInput.click()" />
+        <input type="file" (change)="handleFileUpload($event)" hidden #fileInput />
+        <img src="assets/icons/mike-icon.svg" />
+        <img src="assets/icons/echo-icon.svg" />
+      </div>
+      <button (click)="sendMessage()" class="ml-2 rounded-xl p-2 transition-colors duration-500 cursor-pointer"
+        [ngClass]="{
                 'bg-black text-white': userInput,
                 'bg-fade-white text-white-00 hover:bg-black': !userInput
               }">
-      <img src="assets/icons/send-icon.svg" />
-    </button>
+        <img src="assets/icons/send-icon.svg" />
+      </button>
+    </div>
   </div>
 </div>

@@ -25,11 +25,14 @@
     <div *ngIf="step == 0">
       <div class="mb-16  overflow-y-auto" [ngClass]="{
       'h-[346px]': !isExpanded,
-      'h-full': isExpanded
+      'h-[calc(100vh-160px)]': isExpanded
   }">
-        <div class="flex flex-col sm:flex-row">
+        <div class="flex flex-col md:flex-row">
           <!-- Left Panel -->
-          <div class="w-full lg:w-[216px] space-y-4 text-[12px] p-4">
+          <div class=" space-y-4 text-[12px] p-4" [ngClass]="{
+            'w-full md:w-[216px]': !isExpanded,
+            'w-full lg:w-[216px]': isExpanded
+        }">
             <div (click)="openLocationSelectModal()"
               class="flex items-center gap-1 w-full px-3 py-2 border border-gray-200 rounded-lg hover:bg-[#E6F7FB] transition cursor-pointer">
               <img src="assets/icons/location-select-icon.svg" />
@@ -75,16 +78,19 @@
           </div>
 
           <!-- Right Panel -->
-          <div class="w-full lg:w-[calc(100%-216px)] bg-fade-white p-4">
+          <div class=" bg-fade-white px-3" [ngClass]="{
+            'w-full md:w-[400px]': !isExpanded,
+            'w-full md:w-[460px]': isExpanded
+        }">
 
 
-            <div class=" overflow-y-auto space-y-1 text-sm  relative" [ngClass]="{
-            'h-[300px]': !isExpanded,
-            'h-[calc(100vh-220px)]': isExpanded
+            <div class="w-full overflow-y-auto space-y-1 text-sm  relative" [ngClass]="{
+            'h-[346px]': !isExpanded,
+            'h-[calc(100vh-170px)]': isExpanded
         }">
 
               <!-- Search Bar -->
-              <div *ngIf="currentStep !== 'date'" class="relative w-full mb-4 p-1">
+              <div *ngIf="currentStep !== 'date'" class="py-2 w-full mb-4 px-1 sticky top-0 z-10 bg-fade-white">
                 <img src="assets/icons/search-icon.svg"
                   class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 pointer-events-none" alt="Search" />
                 <input type="text" placeholder="Search..." [(ngModel)]="searchTerm"
@@ -119,14 +125,14 @@
               </div>
 
               <div *ngIf="currentStep === 'date'" class="..." [class.cursor-not-allowed]="currentStep !== 'date'">
-                <div class="card flex justify-content-center ">
+                <div class="card flex justify-content-center">
                   <p-calendar class="max-w-full" [(ngModel)]="date" (onSelect)="onDateSelected($event)" [inline]="true"
                     styleClass="custom-calendar" />
                 </div>
 
 
                 <div *ngIf="dateisSelected"
-                  class="max-w-md mx-auto rounded-lg border bg-white mt-[300px] lg:mt-[400px]">
+                  class="max-w-full mx-auto rounded-lg border bg-white mt-[300px] lg:mt-[400px]">
 
                   <div class="flex flex-wrap items-center justify-between px-4 py-2 border-b">
                     <div class="truncate">
@@ -151,7 +157,7 @@
                     </div>
                   </div>
                   <!-- Time Slots -->
-                  <div class="grid grid-cols-2 gap-3 p-4">
+                  <div class="grid md:grid-cols-2 gap-3 p-4">
                     <ng-container *ngFor="let slot of selectedShift === 'day' ? daySlots : eveningSlots">
                       <div (click)="onSlotSelected(slot)"
                         class="text-sm text-gray-700 rounded-md px-3 py-2.5 text-center cursor-pointer bg-fade-white"
@@ -171,25 +177,40 @@
     </div>
 
 
-    <app-court-selection [step]="step" [selectedDateControl]="selectedDate" [date]="date"
-      [onDateSelected]="onDateSelected.bind(this)" [onSlotSelected]="onSlotSelected.bind(this)" [daySlots]="daySlots"
-      [eveningSlots]="eveningSlots" [isExpanded]="isExpanded" [selectedShift]="selectedShift"
-      [selectedSlot]="selectedSlot"></app-court-selection>
+    <app-court-selection (courtSelectedStatus)="onCourtSelectedStatus($event)" [isCourtSelected]="isCourtSelected"
+      [step]="step" [selectedDateControl]="selectedDate" [date]="date" [onDateSelected]="onDateSelected.bind(this)"
+      [onSlotSelected]="onSlotSelected.bind(this)" [daySlots]="daySlots" [eveningSlots]="eveningSlots"
+      [isExpanded]="isExpanded" [selectedShift]="selectedShift" [selectedSlot]="selectedSlot"></app-court-selection>
 
-      <app-payment-card style="height:100%;" [step]="step"  [isExpanded]="isExpanded" ></app-payment-card>
-      <app-payment-completed style="height:100%;" [step]="step"  [isExpanded]="isExpanded" ></app-payment-completed>
+    <app-payment-card style="height:100%;" [step]="step" [isExpanded]="isExpanded"></app-payment-card>
+    <app-payment-completed style="height:100%;" [step]="step" [isExpanded]="isExpanded"></app-payment-completed>
 
 
     <div class="flex justify-between items-center px-4 py-3 border-t absolute z-50 bottom-0 w-full bg-white-00">
-      <button (click)="onPreviousClick()"
+      <button *ngIf="step != 3" (click)="onPreviousClick()"
         class="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-100">Back</button>
-      <button (click)="onNextClick()" class="px-4 py-2 rounded-lg text-sm transition-colors duration-300"
-        [class.bg-gray-200]="!isSlotSelected" [class.text-gray-500]="!isSlotSelected"
-        [class.bg-mint-400]="isSlotSelected" [class.text-white]="isSlotSelected"
+      <button *ngIf="step == 0" (click)="onNextClick()"
+        class="px-4 py-2 rounded-lg text-sm transition-colors duration-300" [class.bg-gray-200]="!isSlotSelected"
+        [class.text-gray-500]="!isSlotSelected" [class.bg-mint-400]="isSlotSelected" [class.text-white]="isSlotSelected"
         [class.cursor-not-allowed]="!isSlotSelected" [class.cursor-pointer]="isSlotSelected"
         [disabled]="!isSlotSelected">
         Next
       </button>
+      <button *ngIf="step == 1" (click)="onNextClick()"
+        class="px-4 py-2 rounded-lg text-sm transition-colors duration-300" [class.bg-gray-200]="!isCourtSelected"
+        [class.text-gray-500]="!isCourtSelected" [class.bg-mint-400]="isCourtSelected"
+        [class.text-white]="isCourtSelected" [class.cursor-not-allowed]="!isCourtSelected"
+        [class.cursor-pointer]="isCourtSelected" [disabled]="!isCourtSelected">
+        Book Now
+      </button>
+      <button *ngIf="step == 2" (click)="onNextClick()"
+        class="px-4 py-2 rounded-lg text-sm transition-colors duration-300" [class.bg-gray-200]="!isCourtSelected"
+        [class.text-gray-500]="!isCourtSelected" [class.bg-mint-400]="isCourtSelected"
+        [class.text-white]="isCourtSelected" [class.cursor-not-allowed]="!isCourtSelected"
+        [class.cursor-pointer]="isCourtSelected" [disabled]="!isCourtSelected">
+        Pay ₹800
+      </button>
+      <div *ngIf="step == 3" class="text-mint-400 flex justify-center w-full"><a href="/dashboard">Go to Home</a></div>
     </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
 // pickleball-booking-card.component.ts
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,12 +21,12 @@ import { PaymentCompletedComponent } from '../payment-completed/payment-complete
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormsModule, // Added FormsModule for ngModel
+    FormsModule,
     MatDatepickerModule,
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatIconModule, 
+    MatIconModule,
     CalendarModule,
     CourtSelectionComponent,
     PaymentCardComponent,
@@ -44,37 +44,16 @@ export class PickleballBookingCardComponent {
   date: Date[] | undefined;
   selectedDateText = '';
   searchTerm = '';
-
   dateisSelected = false;
   isSlotSelected = false;
+  isCourtSelected = false;
   selectedDate = new FormControl();
   countryControl = new FormControl();
   stateControl = new FormControl();
   cityControl = new FormControl();
   step = 0;
-
-  onNextClick(){
-    console.log(this.step);
-    if (this.step < 3) {
-      this.step = this.step+ 1;
-    }
-  }
-
-  onPreviousClick() {
-    if (this.step > 0) {
-      this.step = this.step - 1;
-    }
-  }
-
   selectedShift: 'day' | 'evening' = 'day';
   selectedSlot: string | null = null;
-
-  constructor(
-    private submenuService: SubmenuService,
-  ){
-
-  }
-
   daySlots = [
     '10:00 AM - 11:00 AM',
     '11:00 AM - 12:00 PM',
@@ -92,6 +71,26 @@ export class PickleballBookingCardComponent {
     '8:00 PM - 9:00 PM',
     '9:00 PM - 10:00 PM',
   ];
+
+  onNextClick() {
+    console.log(this.step);
+    if (this.step < 3) {
+      this.step = this.step + 1;
+    }
+  }
+
+  onPreviousClick() {
+    if (this.step > 0) {
+      this.step = this.step - 1;
+    }
+  }
+
+  constructor(
+    private submenuService: SubmenuService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {
+
+  }
 
   useMyLocation() {
     if (navigator.geolocation) {
@@ -115,7 +114,12 @@ export class PickleballBookingCardComponent {
 
   onSlotSelected(slot: string) {
     this.selectedSlot = slot;
-    this.isSlotSelected =true;
+    this.isSlotSelected = true;
+  }
+
+  onCourtSelectedStatus(isSelected: boolean) {
+    this.isCourtSelected = isSelected;
+    this.changeDetectorRef.detectChanges();
   }
 
   openLocationSelectModal() {
@@ -123,19 +127,19 @@ export class PickleballBookingCardComponent {
   }
 
   get filteredCountries() {
-    return this.countries.filter(c => 
+    return this.countries.filter(c =>
       c.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 
   get filteredStates() {
-    return this.states.filter(s => 
+    return this.states.filter(s =>
       s.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 
   get filteredCities() {
-    return this.cities.filter(c => 
+    return this.cities.filter(c =>
       c.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
@@ -146,7 +150,7 @@ export class PickleballBookingCardComponent {
     // Check if country has no states, fetch cities directly
     if (this.states.length === 0) {
       this.cities = City.getCitiesOfCountry(country.isoCode) || [];
-      
+
 
     } else {
       this.cities = [];
@@ -159,7 +163,7 @@ export class PickleballBookingCardComponent {
   onStateSelected(state: any) {
     this.stateControl.setValue(state);
     this.cities = City.getCitiesOfState(
-      this.countryControl.value.isoCode, 
+      this.countryControl.value.isoCode,
       state.isoCode
     );
     this.cityControl.reset();
@@ -221,15 +225,5 @@ export class PickleballBookingCardComponent {
         return false;
     }
   }
-
-
-
-
-
-
-
-
-
-
 
 }

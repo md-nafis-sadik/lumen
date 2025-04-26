@@ -21,13 +21,12 @@ interface SubmenuItem {
   styleUrls: ['./submenu.component.css']
 })
 export class SubmenuComponent implements OnInit {
-  
+
   @Input() showSlider = true;
   @Input() menu: string = 'booking';
   activeSubmenu: string = '';
   searchQuery = '';
   filteredItems: SubmenuItem[] = [];
-
   favourites = contactlist;
   directMessages = Messages;
   channels = channel;
@@ -35,11 +34,29 @@ export class SubmenuComponent implements OnInit {
   filteredFavourites = this.favourites;
   filteredDirectMessages = this.directMessages;
   filteredChannels = this.channels;
-
   selectedCity = [];
-
   filteredActionMenu = this.actionmenu;
 
+
+  constructor(
+    private submenuService: SubmenuService,
+    private changeDetector: ChangeDetectorRef,
+    private chatService: ChatSelectionService,
+    private router: Router
+  ) { }
+
+  ngOnInit() {
+    this.setActiveSubmenu();
+    this.filteredItems = this.getFilteredSubmenuItems();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['menu']) {
+      this.setActiveSubmenu();
+      this.filteredItems = this.getFilteredSubmenuItems();
+    }
+
+  }
 
   // Helper to check if current menu is chat
   get isChatMenu(): boolean {
@@ -72,41 +89,12 @@ export class SubmenuComponent implements OnInit {
     ]
   };
 
-  // channels = ['Pickleball Expert'];
-
-  // submenu.component.ts
-ngOnInit() {
-  this.setActiveSubmenu();
-  this.filteredItems = this.getFilteredSubmenuItems();
-
-  // Update the subscription to use correct channel format
-  // this.submenuService.channels$.subscribe((channels: any) => {
-  //   // Transform string channels to object format if needed
-  //   this.channels = channels.map((ch: string | any) => typeof ch === 'string' ? {
-  //     id: `gen-${Math.random().toString(36).substr(2, 9)}`,
-  //     type: 'channel',
-  //     name: ch,
-  //     badgeCount: null
-  //   } : ch);
-    
-  //   this.changeDetector.detectChanges();
-  // });
-}
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['menu']) {
-      this.setActiveSubmenu();
-      this.filteredItems = this.getFilteredSubmenuItems();
-    }
-    
-  }
-
   setActiveSubmenu() {
     const firstItem = this.getFilteredSubmenuItems()[0];
     if (firstItem) {
       this.activeSubmenu = firstItem.key;
     }
-    
+
   }
 
   selectSubmenu(key: string) {
@@ -114,7 +102,7 @@ ngOnInit() {
     // Clear previous chat selection
     this.chatService.setSelectedChatId(null);
     // Navigate with clean state
-    this.router.navigate(['/dashboard'], { 
+    this.router.navigate(['/dashboard'], {
       queryParams: { chatId: key },
       queryParamsHandling: 'merge'
     });
@@ -132,25 +120,20 @@ ngOnInit() {
       item.label.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
   }
-  constructor(
-    private submenuService: SubmenuService,
-    private changeDetector: ChangeDetectorRef,
-    private chatService: ChatSelectionService,
-    private router: Router
-  ) {}
+
   onSearchChange() {
     if (this.isChatMenu) {
       const query = this.searchQuery.toLowerCase();
-      this.filteredFavourites = this.favourites.filter(c => 
+      this.filteredFavourites = this.favourites.filter(c =>
         c.name.toLowerCase().includes(query)
       );
-      this.filteredDirectMessages = this.directMessages.filter(m => 
+      this.filteredDirectMessages = this.directMessages.filter(m =>
         m.name.toLowerCase().includes(query)
       );
-      this.filteredChannels = this.channels.filter(ch => 
+      this.filteredChannels = this.channels.filter(ch =>
         ch.name.toLowerCase().includes(query)
       );
-      this.filteredActionMenu = this.actionmenu.filter(ch => 
+      this.filteredActionMenu = this.actionmenu.filter(ch =>
         ch.name.toLowerCase().includes(query)
       );
     } else {
@@ -159,22 +142,21 @@ ngOnInit() {
     this.changeDetector.detectChanges();
   }
 
-
-
   openChannelModal() {
     this.submenuService.openAddChannelModal();
   }
+
   getInitials(name: string): string {
     if (!name) return '';
     const names = name.split(' ');
     let initials = names[0].substring(0, 1).toUpperCase();
-    
+
     if (names.length > 1) {
       initials += names[names.length - 1].substring(0, 1).toUpperCase();
     }
     return initials;
   }
-  
+
 
   selectChat(chatId: string) {
     this.chatService.setSelectedChatId(chatId);
@@ -182,8 +164,8 @@ ngOnInit() {
       queryParams: { chatId },
       queryParamsHandling: 'merge'
     });
-    
+
   }
-  
+
 
 }

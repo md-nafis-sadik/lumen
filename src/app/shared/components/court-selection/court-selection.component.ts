@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CourtDetailsComponent } from '../court-details/court-details.component';
 import { SharedService } from '../../../services/shared.service';
@@ -23,16 +23,31 @@ export class CourtSelectionComponent {
   @Input() onSlotSelected!: (slot: string) => void;
   @Input() onDateSelected!: (event: Date) => void;
   @Input() date: Date[] | undefined;
-  
+  @Input() isCourtSelected = false;
+  selectedCourt: string | null = null;
+  @Output() courtSelectedStatus = new EventEmitter<boolean>();
 
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
 
 
-  constructor(private sharedService: SharedService) {}
+  constructor(private sharedService: SharedService,private changeDetectorRef: ChangeDetectorRef) {}
 
   onCourtClick(court: any) {
     this.sharedService.setSelectedCourt(court);
     this.sharedService.toggleCourtDetails();
+  }
+
+  onCourtSelected(court: string) {
+    console.log('Court selected:', court, this.isCourtSelected);
+    this.selectedCourt = court;
+    this.isCourtSelected = true;
+    console.log('After selection:', this.isCourtSelected);
+    
+    // Add this to ensure the event is emitted properly
+    this.courtSelectedStatus.emit(this.isCourtSelected);
+    
+    // Force change detection in the child if needed
+    this.changeDetectorRef.detectChanges();
   }
 
   showSlotDropdown = false;

@@ -3,7 +3,7 @@
 <div *ngIf="step == 1" class="">
   <div class="mb-16  overflow-y-auto" [ngClass]="{
       'h-[346px]': !isExpanded,
-      'h-full': isExpanded
+      'h-[calc(100vh-170px)]': isExpanded
   }">
 
 
@@ -98,8 +98,15 @@
 
 
     <div class="p-4 space-y-4 max-w-4xl mx-auto">
-      <div *ngFor="let arena of arenas"
-        class="bg-white rounded-xl shadow p-4 w-full gap-4 cursor-pointer hover:bg-mint-25 transition-colors">
+      <div  (click)="onCourtSelected(arena.name)"
+      [class.ring-1]="selectedCourt === arena.name"
+      [class.ring-mint-200]="selectedCourt === arena.name"
+      [class.border-b-2]="selectedCourt === arena.name"
+    [class.border-mint-200]="selectedCourt === arena.name"
+    [class.bg-mint-25]="selectedCourt === arena.name"
+    [class.border]="selectedCourt === arena.name"
+     *ngFor="let arena of arenas"
+        class=" rounded-xl shadow p-4 w-full gap-4 cursor-pointer hover:bg-fade-white transition-colors">
 
         <!-- Image and Badge -->
         <div class="relative w-full flex items-center ">
