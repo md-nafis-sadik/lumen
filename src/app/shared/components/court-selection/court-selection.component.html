@@ -67,30 +67,52 @@
     <div class="relative w-full mb-2 px-4 mt-2 p-1">
       <img src="assets/icons/search-icon.svg"
         class="absolute left-7 top-1/2 transform -translate-y-1/2 w-5 h-5 pointer-events-none" alt="Search" />
-      <input type="text" placeholder="Search..."
+        <input type="text" placeholder="Search..." 
+        [formControl]="searchControl"
         class="w-full rounded-full border border-gray-200 bg-gray-50 pl-9 pr-4 py-1 focus:outline-none focus:ring-2 focus:ring-mint-200" />
     </div>
 
     <div class="flex flex-wrap justify-between items-center mx-4 my-2">
-      <div class="text-gray-500">Total Available Slot: 8</div>
+      <div class="text-gray-500">Total Available Slot: {{ filteredArenas.length }}</div>
       <div class="flex items-center rounded-xl px-1 py-1 bg-fade-white border border-gray-100">
-        <div class="cursor-pointer py-[2px] px-2 bg-white-00 border border-mint-200 rounded-lg">
+        <div (click)="applyFilter('all')" 
+             [class.bg-mint-25]="selectedFilter === 'all'"
+             [class.border-mint-200]="selectedFilter === 'all'"
+             [class.bg-white-00]="selectedFilter === 'all'"
+             [class.border]="selectedFilter === 'all'"
+             class="cursor-pointer py-[2px] px-2  border transition-colors rounded-lg text-sm">
           All
         </div>
-        <div class="cursor-pointer py-0.5 px-2 flex items-center gap-1 rounded-lg">
-          <span><img src="assets/images/badges/badge-basic.png" /></span> <span
-            class="text-gray-500 text-sm">Basic</span>
+        <div (click)="applyFilter('basic')" 
+             [class.bg-mint-25]="selectedFilter === 'basic'"
+             [class.border-mint-200]="selectedFilter === 'basic'"
+             [class.border]="selectedFilter === 'basic'"
+             [class.bg-white-00]="selectedFilter === 'basic'"
+             class="cursor-pointer py-0.5 px-2 flex items-center gap-1 rounded-lg transition-colors">
+          <span><img src="assets/images/badges/badge-basic.png" /></span>
+          <span class="text-gray-500 text-sm">Basic</span>
         </div>
-        <div class="cursor-pointer py-0.5 px-2 flex items-center gap-1 rounded-lg">
-          <span><img src="assets/images/badges/badge-team.png" /></span> <span
-            class="text-gray-500 text-sm">Team</span>
+        <div (click)="applyFilter('team')" 
+             [class.bg-mint-25]="selectedFilter === 'team'"
+             [class.border-mint-200]="selectedFilter === 'team'"
+             [class.border]="selectedFilter === 'team'"
+             [class.bg-white-00]="selectedFilter === 'team'"
+             class="cursor-pointer py-0.5 px-2 flex items-center gap-1 rounded-lg border transition-colors">
+          <span><img src="assets/images/badges/badge-team.png" /></span>
+          <span class="text-gray-500 text-sm">Team</span>
         </div>
-        <div class="cursor-pointer py-0.5 px-2 flex items-center gap-1 rounded-lg">
-          <span><img src="assets/images/badges/badge-private.png" /></span> <span
-            class="text-gray-500 text-sm">Private</span>
+        <div (click)="applyFilter('private')" 
+             [class.bg-mint-25]="selectedFilter === 'private'"
+             [class.border-mint-200]="selectedFilter === 'private'"
+             [class.border]="selectedFilter === 'private'"
+             [class.bg-white-00]="selectedFilter === 'private'"
+             class="cursor-pointer py-0.5 px-2 flex items-center gap-1 rounded-lg border transition-colors">
+          <span><img src="assets/images/badges/badge-private.png" /></span>
+          <span class="text-gray-500 text-sm">Private</span>
         </div>
       </div>
     </div>
+    
 
 
 
@@ -105,7 +127,7 @@
     [class.border-mint-200]="selectedCourt === arena.name"
     [class.bg-mint-25]="selectedCourt === arena.name"
     [class.border]="selectedCourt === arena.name"
-     *ngFor="let arena of arenas"
+     *ngFor="let arena of filteredArenas"
         class=" rounded-xl shadow p-4 w-full gap-4 cursor-pointer hover:bg-fade-white transition-colors">
 
         <!-- Image and Badge -->

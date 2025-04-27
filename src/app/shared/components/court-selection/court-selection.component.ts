@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CourtDetailsComponent } from '../court-details/court-details.component';
 import { SharedService } from '../../../services/shared.service';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-court-selection',
   standalone: true,
-  imports: [CommonModule, CourtDetailsComponent],
+  imports: [CommonModule, CourtDetailsComponent, ReactiveFormsModule],
   templateUrl: './court-selection.component.html',
   styleUrl: './court-selection.component.css'
 })
@@ -26,6 +27,9 @@ export class CourtSelectionComponent {
   @Input() isCourtSelected = false;
   selectedCourt: string | null = null;
   @Output() courtSelectedStatus = new EventEmitter<boolean>();
+  searchControl = new FormControl('');
+  selectedFilter: 'all' | 'basic' | 'team' | 'private' = 'all';
+  filteredArenas: any[] = [];
 
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
 
@@ -43,10 +47,8 @@ export class CourtSelectionComponent {
     this.isCourtSelected = true;
     console.log('After selection:', this.isCourtSelected);
     
-    // Add this to ensure the event is emitted properly
     this.courtSelectedStatus.emit(this.isCourtSelected);
     
-    // Force change detection in the child if needed
     this.changeDetectorRef.detectChanges();
   }
 
@@ -95,7 +97,7 @@ export class CourtSelectionComponent {
       image: 'assets/images/courts/court1.png',
       badgeColor: 'bg-orange-100',
       badgeIcon: 'assets/images/badges/badge-private.png',
-  
+      badgeType: 'private',
       // 🔽 Newly added fields
       audienceCapacity: 30,
       isEquipmentAvailable: true,
@@ -153,8 +155,8 @@ export class CourtSelectionComponent {
       discount: 20,
       image: 'assets/images/courts/court2.png',
       badgeColor: 'bg-green-100',
-      badgeIcon: 'assets/images/badges/badge-private.png',
-  
+      badgeIcon: 'assets/images/badges/badge-team.png',
+      badgeType: 'team',
       // 🔽 Newly added fields
       audienceCapacity: 20,
       isEquipmentAvailable: true,
@@ -215,7 +217,19 @@ export class CourtSelectionComponent {
         // Trigger change detection to update styles
         // (no-op here, but forces re-render)
       });
+
+      this.filteredArenas = [...this.arenas];
+  
+  // Add search functionality
+  this.searchControl.valueChanges.pipe(
+    debounceTime(300),
+    distinctUntilChanged()
+  ).subscribe(searchText => {
+    this.filterArenas();
+  });
     }
+
+    
 
     const start = new Date();
     for (let i = -3; i <= 10; i++) {
@@ -234,6 +248,27 @@ export class CourtSelectionComponent {
     this.monthDates = Array.from({ length: daysInMonth }, (_, i) => new Date(year, month, i + 1));
   }
 
+
+  // Add filter method
+filterArenas(): void {
+  const searchText = (this.searchControl.value || '').toLowerCase();
+  
+  this.filteredArenas = this.arenas.filter(arena => {
+    const matchesSearch = arena.name.toLowerCase().includes(searchText) ||
+                         arena.location.toLowerCase().includes(searchText);
+    
+    const matchesFilter = this.selectedFilter === 'all' || 
+                         arena.badgeType === this.selectedFilter;
+    
+    return matchesSearch && matchesFilter;
+  });
+}
+
+// Add method to handle filter changes
+applyFilter(filterType: 'all' | 'basic' | 'team' | 'private'): void {
+  this.selectedFilter = filterType;
+  this.filterArenas();
+}
 
   isToday(date: Date): boolean {
     const today = new Date();

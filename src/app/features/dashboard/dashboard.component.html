@@ -43,6 +43,16 @@
       </div>
     </div>
 
+    <div 
+      class="inset-y-0 right-0 absolute lg:relative bg-white z-5 transition-all duration-600 overflow-hidden h-[calc(100vh-60px)] lg:h-auto mt-[60px] w-full lg:w-[675px]"
+      [ngClass]="{
+          'w-0': !isExpanded,
+          'w-full lg:w-[675px]': isExpanded
+        }">
+      <div class="p-4 flex justify-between items-center w-full">
+      </div>
+    </div>
+
   </div>
 </div>
 

@@ -22,4 +22,19 @@ export class SharedService {
   closeCourtDetails() {
     this.isDetailsOnSubject.next(false);
   }
+
+
+  private isExpansionOnSource = new BehaviorSubject<boolean>(false);
+  isExpansionOn$ = this.isExpansionOnSource.asObservable();
+
+  private isExpandedSource = new BehaviorSubject<boolean>(false);
+  isExpanded$ = this.isExpandedSource.asObservable();
+
+  setIsExpansionOn(state: boolean) {
+    this.isExpansionOnSource.next(state);
+  }
+
+  setIsExpanded(state: boolean) {
+    this.isExpandedSource.next(state);
+  }
 }

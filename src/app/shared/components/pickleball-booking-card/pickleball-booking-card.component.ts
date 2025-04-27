@@ -14,6 +14,7 @@ import { SubmenuService } from '../../../services/submenu.service';
 import { CourtSelectionComponent } from '../court-selection/court-selection.component';
 import { PaymentCardComponent } from '../payment-card/payment-card.component';
 import { PaymentCompletedComponent } from '../payment-completed/payment-completed.component';
+import { SharedService } from '../../../services/shared.service';
 
 @Component({
   selector: 'app-pickleball-booking-card',
@@ -51,7 +52,7 @@ export class PickleballBookingCardComponent {
   countryControl = new FormControl();
   stateControl = new FormControl();
   cityControl = new FormControl();
-  step = 0;
+  step = 1;
   selectedShift: 'day' | 'evening' = 'day';
   selectedSlot: string | null = null;
   daySlots = [
@@ -87,7 +88,8 @@ export class PickleballBookingCardComponent {
 
   constructor(
     private submenuService: SubmenuService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private sharedService: SharedService
   ) {
 
   }
@@ -198,6 +200,7 @@ export class PickleballBookingCardComponent {
 
   toggleExpand() {
     this.isExpanded = !this.isExpanded;
+    this.sharedService.setIsExpanded(this.isExpanded);
   }
 
   get currentStep() {

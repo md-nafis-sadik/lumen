@@ -31,6 +31,7 @@ export class DashboardComponent {
   selectedChatId: string | null = null;
   showSlider = true;
   sidebarOpen = true;
+  isExpanded: boolean = false;
   channels = ['Pickleball Expert'];
   showAddChannelModal = false;
   showLocationSelectModal = false;
@@ -82,6 +83,10 @@ export class DashboardComponent {
 
     this.sharedService.isDetailsOn$.subscribe((state) => {
       this.isDetailsOn = state;
+    });
+
+    this.sharedService.isExpanded$.subscribe(expanded => {
+      this.isExpanded = expanded;
     });
   }
 
