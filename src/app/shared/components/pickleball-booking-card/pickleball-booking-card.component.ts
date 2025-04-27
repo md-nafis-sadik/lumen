@@ -55,7 +55,7 @@ export class PickleballBookingCardComponent {
   countryControl = new FormControl();
   stateControl = new FormControl();
   cityControl = new FormControl();
-  step = 1;
+  step = 0;
   selectedShift: 'day' | 'evening' = 'day';
   selectedSlot: string | null = null;
   daySlots = [
