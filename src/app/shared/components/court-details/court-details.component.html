@@ -12,7 +12,7 @@
         <div class="flex items-center  justify-between">
         <div>
         <!-- Title -->
-        <div class="flex items-center text-sm w-[95%] mb-1 gap-2">
+        <div class="flex items-center text-sm w-full mb-1 gap-2">
           <div class="text-lg sm:text-[20px] font-semibold">
             {{ court.name }}
           </div>
@@ -35,16 +35,16 @@
               <app-icon icon="star" [size]="32" color="#f59b14"></app-icon>
             </div>
 
-            <span class="text-gray-500 font-normal text-sm">
-              ({{ court.reviews }} reviews)
-            </span>
 
           </div>
 
-          <div class="  flex items-center gap-1">
-           
-            <img src="assets/icons/distance-icon-2.svg" class="w-4 h-4" />
-            <span class="">{{ court.distance }} away</span>
+          <div class="items-center gap-1 text-gray-600 text-sm  flex">
+
+            <span><img [src]="court.typeImg" class="w-3.5 h-3.5" /></span>
+            <span>
+              {{ court.type }}
+            </span>
+
           </div>
 
         </div>
@@ -72,7 +72,7 @@
 
             <span><img [src]="court.typeImg" class="w-3.5 h-3.5" /></span>
             <span>
-              {{ court.type }}
+              Audience Capacity 20 seats
             </span>
 
           </div>
@@ -80,7 +80,7 @@
 
             <span><img [src]="court.featureImg" class="w-4 h-4" /></span>
             <span>
-              {{ court.feature }} <span class="text-green-600 text-xs">Yes</span>
+              Equipment Rental Available <span class="text-green-600 text-xs">Yes</span>
             </span>
 
           </div>
@@ -285,8 +285,8 @@
       <div class="p-4 bg-extra-fade-white rounded-xl">
 
       </div>
-      <div class="px-4 py-2.5 rounded-lg bg-mint-300 hover:bg-mint-400 text-white-00 transition-colors cursor-pointer">
-Book now
+      <div (click)="triggerNextStep()" class="px-4 py-2.5 rounded-lg bg-mint-300 hover:bg-mint-400 text-white-00 transition-colors cursor-pointer">
+        Book now
       </div>
     </div>
      </div>

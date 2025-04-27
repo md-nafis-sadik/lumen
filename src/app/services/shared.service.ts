@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +36,12 @@ export class SharedService {
 
   setIsExpanded(state: boolean) {
     this.isExpandedSource.next(state);
+  }
+
+  private nextStepSource = new Subject<void>();
+  nextStep$ = this.nextStepSource.asObservable();
+
+  triggerNextStep() {
+    this.nextStepSource.next();
   }
 }

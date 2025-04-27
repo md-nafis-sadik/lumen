@@ -15,6 +15,7 @@ import { CourtSelectionComponent } from '../court-selection/court-selection.comp
 import { PaymentCardComponent } from '../payment-card/payment-card.component';
 import { PaymentCompletedComponent } from '../payment-completed/payment-completed.component';
 import { SharedService } from '../../../services/shared.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-pickleball-booking-card',
@@ -52,7 +53,7 @@ export class PickleballBookingCardComponent {
   countryControl = new FormControl();
   stateControl = new FormControl();
   cityControl = new FormControl();
-  step = 0;
+  step = 1;
   selectedShift: 'day' | 'evening' = 'day';
   selectedSlot: string | null = null;
   daySlots = [
@@ -72,9 +73,9 @@ export class PickleballBookingCardComponent {
     '8:00 PM - 9:00 PM',
     '9:00 PM - 10:00 PM',
   ];
+  private destroy$ = new Subject<void>();
 
   onNextClick() {
-    console.log(this.step);
     if (this.step < 3) {
       this.step = this.step + 1;
     }
@@ -91,7 +92,11 @@ export class PickleballBookingCardComponent {
     private changeDetectorRef: ChangeDetectorRef,
     private sharedService: SharedService
   ) {
-
+    this.sharedService.nextStep$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(() => {
+      this.onNextClick(); // Call your existing next click handler
+    });
   }
 
   useMyLocation() {
@@ -100,6 +105,12 @@ export class PickleballBookingCardComponent {
         console.log('Location:', position.coords);
       });
     }
+  }
+
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   onDateSelected(event: Date) {

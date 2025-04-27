@@ -12,9 +12,9 @@
   
     <!-- Right section -->
     <div class="flex items-center inset-0">
-      <app-icon-button  iconSrc="assets/icons/sun-shine-icon.svg" iconClass="w-7" (click)="onSunClick()"></app-icon-button>
-      <app-icon-button iconSrc="assets/icons/gear-icon.svg" iconClass="w-5 ml-2 lg:ml-3" (click)="onGearClick()"></app-icon-button>
-      <app-icon-button iconSrc="assets/icons/notifications_unread.svg" iconClass="w-6 ml-2 lg:ml-4" (click)="onBellClick()"></app-icon-button>
+      <img src="assets/icons/sun-shine-icon.svg" class="w-7 cursor-pointer" (click)="onSunClick()"/>
+      <img src="assets/icons/gear-icon.svg" class="w-5 ml-2 lg:ml-3 cursor-pointer" (click)="onGearClick($event)"/>
+      <img src="assets/icons/notifications_unread.svg" class="w-6 ml-2 lg:ml-4 cursor-pointer" (click)="onBellClick($event)"/>
       <app-avatar (click)="toggleAvatarDropdown()" src="assets/icons/Avatar.png" customClass="w-8 h-8 rounded-full ml-3 lg:ml-5"></app-avatar>
     </div>
 

@@ -128,19 +128,19 @@
       class="w-full lg:max-w-[700px] flex items-center rounded-xl bg-white-00 px-4 py-1.5 shadow transition-all duration-300"
       [ngClass]="userInput ? 'border-gray-500 border' : 'border-fade-white border'">
       <input type="text" [(ngModel)]="userInput" placeholder="Type here..."
-        class="flex-1 outline-none text-sm px-2 placeholder-custom" (keydown.enter)="sendMessage()" />
+        class="sm:flex-1 outline-none text-sm px-2 placeholder-custom" (keydown.enter)="sendMessage()" />
       <div class="flex items-center gap-3 text-fade-text cursor-pointer">
         <img src="assets/icons/plus-chat-icon.svg" (click)="fileInput.click()" />
         <input type="file" (change)="handleFileUpload($event)" hidden #fileInput />
-        <img src="assets/icons/mike-icon.svg" />
-        <img src="assets/icons/echo-icon.svg" />
+        <img src="assets/icons/mike-icon.svg" class=" py-2" />
+        <img src="assets/icons/echo-icon.svg" class=" py-2" />
       </div>
-      <button (click)="sendMessage()" class="ml-2 rounded-xl p-2 transition-colors duration-500 cursor-pointer"
+      <button (click)="sendMessage()" class="hidden lg:block ml-2 rounded-xl p-2 transition-colors duration-500 cursor-pointer"
         [ngClass]="{
                 'bg-black text-white': userInput,
                 'bg-fade-white text-white-00 hover:bg-black': !userInput
               }">
-        <img src="assets/icons/send-icon.svg" />
+        <img src="assets/icons/send-icon.svg" class="" />
       </button>
     </div>
   </div>
