@@ -127,8 +127,8 @@
     <div
       class="w-full lg:max-w-[700px] flex items-center rounded-xl bg-white-00 px-4 py-1.5 shadow transition-all duration-300"
       [ngClass]="userInput ? 'border-gray-500 border' : 'border-fade-white border'">
-      <input type="text" [(ngModel)]="userInput" placeholder="Type here..."
-        class="sm:flex-1 outline-none text-sm px-2 placeholder-custom" (keydown.enter)="sendMessage()" />
+      <div><input type="text" [(ngModel)]="userInput" placeholder="Type here..."
+        class="flex-1 outline-none text-sm px-2 placeholder-custom" (keydown.enter)="sendMessage()" /></div>
       <div class="flex items-center gap-3 text-fade-text cursor-pointer">
         <img src="assets/icons/plus-chat-icon.svg" (click)="fileInput.click()" />
         <input type="file" (change)="handleFileUpload($event)" hidden #fileInput />
