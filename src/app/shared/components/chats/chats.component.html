@@ -124,11 +124,9 @@
     <div (click)="toggleMessageTemplate()"
       class="w-[48px] h-full justify-center flex items-center px-2 py-[13px] cursor-pointer shadow rounded-xl border border-fade-white bg-white">
       <app-icon icon="chat" color="#141414"></app-icon></div>
-    <div
-      class="w-full lg:max-w-[700px] flex items-center rounded-xl bg-white-00 px-4 py-1.5 shadow transition-all duration-300"
-      [ngClass]="userInput ? 'border-gray-500 border' : 'border-fade-white border'">
-      <input type="text" [(ngModel)]="userInput" placeholder="Type here..."
-        class="flex-1 outline-none text-sm px-2 placeholder-custom" (keydown.enter)="sendMessage()" />
+      <div class="w-full lg:max-w-[700px] flex items-center rounded-xl bg-white-00 px-4 py-1.5 shadow transition-all duration-300 min-w-0" [ngClass]="userInput ? 'border-gray-500 border' : 'border-fade-white border'">
+        <input type="text" [(ngModel)]="userInput" placeholder="Type here..."
+               class="flex-1 w-full outline-none text-sm px-2 placeholder-custom" (keydown.enter)="sendMessage()" />
       <div class="flex items-center gap-3 text-fade-text cursor-pointer">
         <img src="assets/icons/plus-chat-icon.svg" (click)="fileInput.click()" />
         <input type="file" (change)="handleFileUpload($event)" hidden #fileInput />
