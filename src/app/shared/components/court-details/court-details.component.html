@@ -9,6 +9,8 @@
     <!-- Header -->
     <div class="relative w-full flex items-center">
       <div class="w-full p-4">
+        <div class="flex items-center  justify-between">
+        <div>
         <!-- Title -->
         <div class="flex items-center text-sm w-[95%] mb-1 gap-2">
           <div class="text-lg sm:text-[20px] font-semibold">
@@ -21,14 +23,13 @@
 
 
         <!-- Location & Distance -->
-        <div class="flex flex-wrap items-center gap-2 text-gray-500 text-sm mb-1">
+        <div class="flex flex-wrap items-center gap-5 text-gray-500 text-sm mb-1">
           <span class="flex items-center gap-1">
             <img src="assets/icons/location-on-icon.svg" />
             {{ court.location }}
           </span>
           <div class="flex items-center gap-1">
             <div class="flex items-center gap-1">
-              <img src="assets/icons/dot-gray-icon.svg" />
               <span class="text-sm text-gray-800">{{ court.rating }}</span>
 
               <app-icon icon="star" [size]="32" color="#f59b14"></app-icon>
@@ -41,15 +42,24 @@
           </div>
 
           <div class="  flex items-center gap-1">
-            <img src="assets/icons/dot-gray-icon.svg" />
+           
             <img src="assets/icons/distance-icon-2.svg" class="w-4 h-4" />
             <span class="">{{ court.distance }} away</span>
           </div>
 
         </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="p-4 bg-extra-fade-white rounded-xl">
 
+          </div>
+          <div class="p-4 bg-extra-fade-white rounded-xl">
+            
+          </div>
+        </div>
+      </div>
         <!-- Info Tags -->
-        <div class="flex gap-2">
+        <div class="flex items-center gap-5">
           <div class="items-center gap-2 text-gray-600 text-sm  flex">
 
             <span><img [src]="court.maxPlayersImg" class="w-3 h-3" /></span>
@@ -60,8 +70,6 @@
           </div>
           <div class="items-center gap-1 text-gray-600 text-sm  flex">
 
-
-            <span><img src="assets/icons/dot-gray-icon.svg" /></span>
             <span><img [src]="court.typeImg" class="w-3.5 h-3.5" /></span>
             <span>
               {{ court.type }}
@@ -70,11 +78,9 @@
           </div>
           <div class="items-center gap-1 text-gray-600 text-sm  flex">
 
-
-            <span><img src="assets/icons/dot-gray-icon.svg" /></span>
             <span><img [src]="court.featureImg" class="w-4 h-4" /></span>
             <span>
-              {{ court.feature }}
+              {{ court.feature }} <span class="text-green-600 text-xs">Yes</span>
             </span>
 
           </div>
@@ -82,13 +88,14 @@
       </div>
     </div>
 
+ 
 
-
+<div class="px-4 my-3"><hr></div>
     <!-- Amenities -->
-    <div class="m-4">
+    <div class="m-4 mt-6">
       <h3 class="font-semibold text-lg mb-2">Overview</h3>
       <div class="text-sm text-gray-700 mb-3">Pickelball Academy is a renowned sports facility situated in Ladha Sarai Village, Delhi with a commitment to providing high-quality services, we offers a range of amenities and equipment to support athletes in their training and development.</div>
-      <div class="g bg-gray-100 p-1 rounded-lg">
+      <div class="g bg-extra-fade-white p-1 rounded-lg">
         <div class="grid sm:grid-cols-3 gap-2 text-sm m-4 text-center sm:text-start">
           <div class="flex items-ceter gap-1.5"><app-icon color="#565656"  icon="pickleball" class="flex items-center"></app-icon> <span class="text-gray-600 font-light">{{ court?.surface }}</span></div>
           <div class="flex items-ceter gap-1.5"><app-icon color="#565656"  icon="pickleball" class="flex items-center"></app-icon> <span class="text-gray-600 font-light">{{ court?.maxPlayers }}</span></div>
@@ -100,17 +107,20 @@
       </div>
 
 
-      <div class="grid-cols-3 gap-2 bg-mint-25 border border-blue-200 text-sm text-gray-700 p-3 rounded-lg mt-2">
-        Equipment Rental Available
+      <div class="flex items-center bg-mint-25 border border-blue-200 text-sm text-gray-700 p-3 rounded-lg mt-4 gap-2">
+        
+        <span>Equipment Rental Available</span> <span class="py-1 px-2 bg-white-00 rounded-lg text-green-600">Yes</span>
       </div>
           <!-- Contact Info -->
-    <div class="mt-4">
+    <div class="mt-6">
       <h3 class="font-semibold text-sm mb-2 text-gray-700">Contact Info</h3>
       <p class="text-sm text-gray-700">Phone: {{ court?.contact?.phone }}</p>
       <p class="text-sm text-gray-700">Email: {{ court?.contact?.email }}</p>
       <p class="text-sm text-gray-700">Closed Days: {{ court?.contact?.closedDays?.join(', ') }}</p>
     </div>
     </div>
+
+    <div class="px-4 my-8"><hr></div>
 
     <!-- Rules -->
     <div class="m-4">
@@ -120,7 +130,7 @@
       </ul>
     </div>
 
-
+    <div class="px-4 my-8"><hr></div>
         <!-- Gallery -->
         <div class="m-4">
           <h3 class="font-semibold text-lg mb-2">Gallery</h3>
@@ -159,8 +169,11 @@
 
 
     <!-- Reviews -->
-    <div class="m-4">
+    <div class="m-4 mt-8">
+      <div class="flex items-center justify-between my-2">
       <h3 class="font-semibold text-lg mb-2">Reviews</h3>
+      <div class="px-4 py-1.5 hover:bg-extra-fade-white border rounded-lg cursor-pointer text-sm">Write a review</div>
+    </div>
    
       <div class="flex justify-between">
         <div class="flex justify-center items-center gap-2 py-2 px-4 bg-[#EBF9FB] w-[160px] h-[40px] rounded-lg">
@@ -194,30 +207,89 @@
       </div>
 
       
-        <div class="mt-6 border-t pt-4">
-          <div class="flex items-center space-x-4">
-            <img src="https://i.pravatar.cc/40?img=1" class="w-10 h-10 rounded-full" alt="user" />
+        <div class="mt-6 p-4 bg-extra-fade-white rounded-xl">
+          <div class="flex items-center space-x-4 justify-between">
+            <div class="flex items-center space-x-4">
+            <img src="assets/images/court-details/review-images/review-person-1.png" class="w-10 h-10 rounded-full" alt="user" />
             <div>
               <div class="font-semibold">Kathryn Murphy</div>
-              <div class="text-sm text-gray-400 flex items-center">5.0 <app-icon icon="star" [size]="32" color="#f59b14"></app-icon></div>
+              <div class="text-sm text-gray-400 flex items-center gap-2"><span>5.0</span><span class="flex items-center"><span *ngFor="let star of [5,4,3,2,1]"><app-icon icon="star" [size]="32" color="#f59b14" ></app-icon></span></span></div>
             </div>
+          </div>
             <div class="ml-auto text-sm text-gray-400">08/03/2025</div>
           </div>
           <div class="mt-2">
-            <p class="font-semibold">Awesome. It’s very convenient to play.</p>
+            <p class="">Awesome. It’s very convenient to play.</p>
             <p class="text-gray-600 text-sm">if you are looking for a perfect place for friendly matches with your friends or a competitive match, it is the best place.</p>
           </div>
           <div class="mt-2 flex space-x-2">
-            <img class="w-20 h-20 rounded-lg object-cover" src="/assets/images/review1.jpg" alt="review image">
-            <img class="w-20 h-20 rounded-lg object-cover" src="/assets/images/review2.jpg" alt="review image">
-            <div class="w-20 h-20 rounded-lg bg-gray-100 flex items-center justify-center text-sm font-medium">+1</div>
+            <img class="w-[56px] h-[56px] rounded-lg object-cover" src="assets/images/court-details/review-images/review-image-1.png" alt="review image">
+            <img class="w-[56px] h-[56px] rounded-lg object-cover" src="assets/images/court-details/review-images/review-image-2.png" alt="review image">
+            
+            <div class=" relative">
+              <img class="w-[56px] h-[56px] rounded-lg object-cover relative" src="assets/images/court-details/review-images/review-image-1.png" alt="review image">
+              <div class="w-[56px] h-[56px] flex items-center text-center justify-center rounded-lg absolute bg-black opacity-50 z-50 top-0 text-white-00">+1</div></div>
+            
           </div>
         </div>
 
+        <div class="mt-3 p-4 bg-extra-fade-white rounded-xl">
+          <div class="flex items-center space-x-4 justify-between">
+            <div class="flex items-center space-x-4">
+            <img src="assets/images/court-details/review-images/review-person-2.png" class="w-10 h-10 rounded-full" alt="user" />
+            <div>
+              <div class="font-semibold">Brooklyn Simmons</div>
+              <div class="text-sm text-gray-400 flex items-center gap-2"><span>4.9</span><span class="flex items-center"><span *ngFor="let star of [5,4,3,2,1]"><app-icon icon="star" [size]="32" color="#f59b14" ></app-icon></span></span></div>
+            </div>
+          </div>
+            <div class="ml-auto text-sm text-gray-400">01/03/2025</div>
+          </div>
+          <div class="mt-2">
+            <p class="">Excellent facility with a great atmosphere!</p>
+            <p class="text-gray-600 text-sm">The courts are well-maintained, and the booking process is super smooth. I love how the space is designed for both casual and competitive play.</p>
+          </div>
+
+        </div>
+
+        <div class="mt-3 p-4 bg-extra-fade-white rounded-xl">
+          <div class="flex items-center space-x-4 justify-between">
+            <div class="flex items-center space-x-4">
+            <img src="assets/images/court-details/review-images/review-person-3.png" class="w-10 h-10 rounded-full" alt="user" />
+            <div>
+              <div class="font-semibold">Kathryn Murphy</div>
+              <div class="text-sm text-gray-400 flex items-center gap-2"><span>4.6</span><span class="flex items-center"><span *ngFor="let star of [5,4,3,2,1]"><app-icon icon="star" [size]="32" color="#f59b14" ></app-icon></span></span></div>
+            </div>
+          </div>
+            <div class="ml-auto text-sm text-gray-400">28/02/2025</div>
+          </div>
+          <div class="mt-2">
+            <p class="">Loved the experience!</p>
+            <p class="text-gray-600 text-sm">I had an amazing time playing here. The court surface is excellent, and the lighting at night is just right. The only thing that could be improved is the waiting area—it gets a bit crowded on weekends.</p>
+          </div>
+
+        </div>
+
+        <div class="w-full flex justify-center"><div class="px-4 py-2 hover:bg-extra-fade-white border rounded-lg cursor-pointer text-sm max-w-[150px] text-center justify-center mt-4">View All Reviews</div></div>
+        
     </div>
 
 
+    <div class="flex items-center justify-between w-full py-2 px-4 border-t">
+      <div>
+      <span class="text-xl font-semibold text-mint-300">
+        ₹{{ court.price }}
+      </span>
+      <span class=" text-gray-500">/session</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="p-4 bg-extra-fade-white rounded-xl">
 
+      </div>
+      <div class="px-4 py-2.5 rounded-lg bg-mint-300 hover:bg-mint-400 text-white-00 transition-colors cursor-pointer">
+Book now
+      </div>
+    </div>
+     </div>
 
   </div>
 </div>

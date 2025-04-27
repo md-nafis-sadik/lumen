@@ -42,13 +42,10 @@ export class CourtSelectionComponent {
   }
 
   onCourtSelected(court: string) {
-    console.log('Court selected:', court, this.isCourtSelected);
+ 
     this.selectedCourt = court;
     this.isCourtSelected = true;
-    console.log('After selection:', this.isCourtSelected);
-    
     this.courtSelectedStatus.emit(this.isCourtSelected);
-    
     this.changeDetectorRef.detectChanges();
   }
 

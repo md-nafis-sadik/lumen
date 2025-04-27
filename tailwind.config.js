@@ -8,6 +8,7 @@ module.exports = {
       colors: {
         'mint-400': '#1293AB',
         'mint-900': '#0A3F49',
+        'mint-300': '#06ACCE',
         'mint-200': '#9BDEEB',
         'mint-50': '#EAF9FC',
         'mint-25': '#F5FCFD',
@@ -16,6 +17,7 @@ module.exports = {
         'fade-text': '#BDBDBD',
         'fade-bg': '#EDEDED',
         'fade-white': '#F6F6F6',
+        'extra-fade-white': '#FAFAFA'
       },
       fontSize: {
         'h1': '56px',
