@@ -1,5 +1,5 @@
 <!-- pickleball-booking-card.component.html -->
-<div class="bg-white rounded-xl p-6 h-full w-full">
+<div class="bg-white rounded-xl p-2 sm:p-4 xl:p-6 h-full w-full">
   <p class="text-gray-700 text-[14px] mb-4">Sure, here you go. Book your Pickleball Court from below.</p>
   <div class="border border-gray-200 rounded-lg w-[345]" [ngClass]="{ 'hidden': !isExpanded }">
     <div class="flex items-center justify-between py-2 px-4">
@@ -208,9 +208,9 @@
         [class.text-gray-500]="!isCourtSelected" [class.bg-mint-400]="isCourtSelected"
         [class.text-white]="isCourtSelected" [class.cursor-not-allowed]="!isCourtSelected"
         [class.cursor-pointer]="isCourtSelected" [disabled]="!isCourtSelected">
-        Pay ₹800
+        Pay ₹999
       </button>
-      <div *ngIf="step == 3" class="text-mint-400 flex justify-center w-full"><a href="/dashboard">Go to Home</a></div>
+      <div *ngIf="step == 3" class="text-mint-400 flex justify-center w-full items-center gap-2"><app-icon icon="arrowleft" color="#06acce"></app-icon><a href="/dashboard">Go to Home</a></div>
     </div>
   </div>
 </div>

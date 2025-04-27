@@ -4,11 +4,12 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CourtDetailsComponent } from '../court-details/court-details.component';
 import { SharedService } from '../../../services/shared.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { IconComponent } from '../common/icon/icon.component';
 
 @Component({
   selector: 'app-court-selection',
   standalone: true,
-  imports: [CommonModule, CourtDetailsComponent, ReactiveFormsModule],
+  imports: [CommonModule, CourtDetailsComponent, ReactiveFormsModule, IconComponent],
   templateUrl: './court-selection.component.html',
   styleUrl: './court-selection.component.css'
 })

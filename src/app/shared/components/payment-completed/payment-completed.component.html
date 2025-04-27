@@ -11,9 +11,8 @@
     <div class=" bg-[#f0fdf4] pt-8 h-64">
     <div class="flex justify-center mb-3">
         <img src="assets/images/payment-method/payment-tick.png" alt="Success" class="w-[72px]" />
-
     </div>
-    <div class="flex justify-center"><div class="text-green-600 text-2xl font-bold mb-1 bg-white-00 w-[95px] rounded-lg py-1">₹500</div></div>
+    <div class="flex justify-center"><div class="text-green-600 text-2xl font-bold mb-1 bg-white-00 w-[95px] rounded-lg py-1">₹999</div></div>
     <p class="text-[#141414] text-lg font-semibold mb-2">Payment Completed</p>
     <p class="text-[#7B7B7B] text-sm mb-6">Your payment for booking pickleball court is successfully completed.</p>
   
@@ -34,7 +33,7 @@
             <span class="text-gray-500">Date</span><span class="text-gray-700">#Mar 05, 2025</span>
           </div>
           <div class="flex justify-between text-sm font-semibold">
-            <span class="text-gray-500">Sub total</span><span class="text-gray-800">₹500</span>
+            <span class="text-gray-500">Sub total</span><span class="text-gray-800">₹999</span>
           </div>
         </div>
       </div>
@@ -63,24 +62,24 @@
     
   
     <!-- Receipt QR Section -->
-    <div class="bg-mint-25 border border-gray-100 rounded-lg p-4 shadow-sm text-left flex items-center mx-4 gap-4">
-      <div class="bg-white-00 border border-gray-100 p-4 rounded-lg"><img src="assets/images/payment-method/qr-code.png" alt="QR Code" class="w-24 h-24 mb-3" /></div>
+    <div class="bg-mint-25 border border-gray-100 rounded-lg p-4 shadow-sm text-left lg:flex items-center mx-4 gap-4">
+      <div class="w-full lg:w-auto flex justify-center"><img src="assets/images/payment-method/qr-code.png" alt="QR Code" class="w-24 h-24 mb-3 bg-white-00 border border-gray-100 p-4 rounded-lg" /></div>
       <div>
-      <h3 class="text-gray-900  font-semibold mb-1">Scan the receipt</h3>
-      <p class="text-xs text-gray-600 mb-3">Invite the customer to scan the QR code get their receipt</p>
+      <h3 class="text-gray-900 lg:text-left text-center font-semibold mb-1">Scan the receipt</h3>
+      <p class="text-xs text-gray-600 mb-3 lg:text-left text-center">Invite the customer to scan the QR code get their receipt</p>
       
       <div class="flex items-center w-full bg-white-00 border rounded-lg p-2 mb-3">
         <input type="text" readonly value="lumen.com/lu2345" class="flex-1 bg-transparent text-sm text-gray-700 outline-none" />
         <button class="ml-2 text-gray-400 hover:text-gray-600">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16h8M8 12h8m-6 8h6a2 2 0 002-2V6a2 2 0 00-2-2h-6M4 16h.01M4 12h.01M4 8h.01" />
-          </svg>
+          <app-icon color="#7B7B7B"  icon="copy" class="flex items-center"></app-icon>
         </button>
       </div>
+      <div class="flex lg:justify-start justify-center">
       <div class="flex space-x-2">
-        <button class="px-4 py-2 border border-gray-200 text-sm rounded-lg hover:bg-white-00 transition-colors">Share</button>
-        <button class="px-4 py-2 bg-[#06ACCE] text-white text-sm rounded-lg hover:bg-mint-500">Download</button>
+        <div class="flex items-center gap-2 px-4 py-2 border border-gray-200 text-sm rounded-lg hover:bg-white-00 transition-colors"><span><app-icon color="#141414"  icon="share" class="flex items-center"></app-icon></span> <span>Share</span></div>
+        <div class="flex items-center gap-2 px-4 py-2 border bg-mint-300 text-sm rounded-lg hover:bg-mint-400 transition-colors text-white"><span><app-icon color="white"  icon="download" class="flex items-center"></app-icon></span> <span>Download</span></div>
       </div>
+    </div>
     </div>
   </div>
   

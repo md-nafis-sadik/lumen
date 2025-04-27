@@ -39,19 +39,20 @@
 
 
     <!-- Time Selection Info -->
-    <div class="mt-2 mx-4 px-4 py-2.5 bg-green-50 border border-green-200 rounded-lg flex flex-wrap justify-between items-center">
+    <div class="mt-2 mx-4 px-3 lg:px-4 py-1.5 lg:py-2.5 bg-green-50 border border-green-200 rounded-lg flex flex-wrap justify-between items-center">
       <div class="flex items-center">
-        <div class="text-sm text-gray-500">Selected Time</div>
-        <div class="text-green-600 ml-3 px-2 py-[4px] rounded-lg border border-green-200 bg-white-00">
+        <div class="text-xs lg:text-sm text-gray-500">Select Time</div>
+        <div class="text-xs lg:text-sm text-green-600 ml-3 px-2 py-[4px] rounded-lg border border-green-200 bg-white-00">
           {{ selectedSlot || 'Select a time' }}
         </div>
       </div>
 
       <!-- Change Time Dropdown -->
       <div class="relative">
-        <button (click)="toggleSlotDropdown()" class="flex items-center text-sm hover:underline">
-          <img src="assets/icons/edit-icon.svg" class="w-4 h-4 mr-1" alt="Change Time" />
-          Change Time
+        <button (click)="toggleSlotDropdown()" class="flex items-center text-xs lg:text-sm hover:underline">
+          <img src="assets/icons/edit-icon.svg" class="w-4 h-4 mr-1 hidden sm:block" alt="Change Time" />
+          <span class="block sm:hidden"><app-icon icon="pen" color="#1C1B1F"></app-icon></span>
+          <span class="hidden sm:block">Change Time</span>
         </button>
         <div *ngIf="showSlotDropdown"
           class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg rounded-md z-10">
@@ -72,7 +73,7 @@
         class="w-full rounded-full border border-gray-200 bg-gray-50 pl-9 pr-4 py-1 focus:outline-none focus:ring-2 focus:ring-mint-200" />
     </div>
 
-    <div class="flex flex-wrap justify-between items-center mx-4 my-2">
+    <div class="flex flex-wrap justify-between items-center mx-4 my-2 space-y-2">
       <div class="text-gray-500">Total Available Slot: {{ filteredArenas.length }}</div>
       <div class="flex items-center rounded-xl px-1 py-1 bg-fade-white border border-gray-100">
         <div (click)="applyFilter('all')" 

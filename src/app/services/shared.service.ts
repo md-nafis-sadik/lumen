@@ -38,7 +38,7 @@ export class SharedService {
     this.isExpandedSource.next(state);
   }
 
-  private sidebarOpenSource = new BehaviorSubject<boolean>(true);
+  private sidebarOpenSource = new BehaviorSubject<boolean>(false);
   sidebarOpen$ = this.sidebarOpenSource.asObservable();
 
   isSidebarOpen(state: boolean) {

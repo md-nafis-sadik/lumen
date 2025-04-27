@@ -16,6 +16,7 @@ import { PaymentCardComponent } from '../payment-card/payment-card.component';
 import { PaymentCompletedComponent } from '../payment-completed/payment-completed.component';
 import { SharedService } from '../../../services/shared.service';
 import { Subject, takeUntil } from 'rxjs';
+import { IconComponent } from '../common/icon/icon.component';
 
 @Component({
   selector: 'app-pickleball-booking-card',
@@ -32,7 +33,8 @@ import { Subject, takeUntil } from 'rxjs';
     CalendarModule,
     CourtSelectionComponent,
     PaymentCardComponent,
-    PaymentCompletedComponent
+    PaymentCompletedComponent,
+    IconComponent
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './pickleball-booking-card.component.html',
@@ -53,7 +55,7 @@ export class PickleballBookingCardComponent {
   countryControl = new FormControl();
   stateControl = new FormControl();
   cityControl = new FormControl();
-  step = 1;
+  step = 0;
   selectedShift: 'day' | 'evening' = 'day';
   selectedSlot: string | null = null;
   daySlots = [

@@ -30,7 +30,7 @@ export class DashboardComponent {
   isDetailsOn = false;
   selectedChatId: string | null = null;
   showSlider = true;
-  sidebarOpen = true;
+  sidebarOpen = false;
   isExpanded: boolean = false;
   channels = ['Pickleball Expert'];
   showAddChannelModal = false;
@@ -87,9 +87,10 @@ export class DashboardComponent {
       this.isDetailsOn = state;
     });
 
+    if (isPlatformBrowser(this.platformId) && window.innerWidth < 1024) {
     this.sharedService.sidebarOpen$.subscribe(open => {
       this.sidebarOpen = open;
-    });
+    });}
 
     this.sharedService.isExpanded$.subscribe(expanded => {
       this.isExpanded = expanded;
