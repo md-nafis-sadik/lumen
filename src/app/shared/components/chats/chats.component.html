@@ -27,7 +27,7 @@
           <img *ngIf="item.data?.sender === 'bot'" [src]="item.data?.avatar" class="w-8 h-8 rounded-full mr-2"
             alt="Bot avatar" />
 
-          <div class="flex flex-col max-w-[70%]">
+          <div class="flex flex-col max-w-[80%]">
             <!-- Text Message -->
             <div *ngIf="item.data?.type === 'text'">
               <div *ngFor="let messageItem of item.data?.content" [ngClass]="{
@@ -64,7 +64,7 @@
 
             <!-- Booking Card -->
             <app-pickleball-booking-card *ngIf="item.data?.type === 'booking'"
-              class="shadow rounded-xl max-w-[648px] sm:w-[648px]">
+              class="shadow rounded-xl w-full max-w-[648px] md:w-[648px]">
             </app-pickleball-booking-card>
 
             <!-- Timestamp -->

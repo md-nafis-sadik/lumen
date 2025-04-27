@@ -49,6 +49,8 @@ export class DashboardComponent {
   }[] = [];
   chatData: ChatMessage[] = [];
 
+
+
   constructor(
     private route: ActivatedRoute,
     private submenuService: SubmenuService,
@@ -83,6 +85,10 @@ export class DashboardComponent {
 
     this.sharedService.isDetailsOn$.subscribe((state) => {
       this.isDetailsOn = state;
+    });
+
+    this.sharedService.sidebarOpen$.subscribe(open => {
+      this.sidebarOpen = open;
     });
 
     this.sharedService.isExpanded$.subscribe(expanded => {
@@ -175,6 +181,7 @@ export class DashboardComponent {
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
+    this.closeAll();
   }
 
   addChannel() {
@@ -206,18 +213,20 @@ export class DashboardComponent {
 
 
   toggleSettings() {
+    const wasOpen = this.showSettingsSidebar;
     this.closeAll();
-    this.showSettingsSidebar = true;
+    this.showSettingsSidebar = !wasOpen;
   }
 
   toggleNotifications() {
+    const wasOpen = this.showNotificationsSidebar;
     this.closeAll();
-    this.showNotificationsSidebar = true;
+    this.showNotificationsSidebar = !wasOpen;
   }
 
   toggleAvatar() {
     this.closeAll();
-    this.showAvatarDropdown = true;
+    this.showAvatarDropdown = !this.showAvatarDropdown;
   }
 
   closeAll() {
@@ -281,6 +290,7 @@ export class DashboardComponent {
       this.chatData = [...this.chatData, newMessage1, newMessage];
     }, 300);
   }
+
 
 }
 

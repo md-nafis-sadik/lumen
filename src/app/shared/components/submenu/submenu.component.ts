@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, ChangeDetectorRef, PLATFORM_ID, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PrimaryButtonComponent } from '../common/primary-button/primary-button.component';
@@ -7,6 +7,8 @@ import { SubmenuService } from '../../../services/submenu.service';
 import { contactlist, Messages, channel, actionmenu } from '../chats/data';
 import { ChatSelectionService } from '../../../services/chat-selection.service';
 import { Router } from '@angular/router';
+import { SharedService } from '../../../services/shared.service';
+import { isPlatformBrowser } from '@angular/common';
 interface SubmenuItem {
   key: string;
   icon: string;
@@ -36,13 +38,16 @@ export class SubmenuComponent implements OnInit {
   filteredChannels = this.channels;
   selectedCity = [];
   filteredActionMenu = this.actionmenu;
+  sidebarOpen = true;
 
 
   constructor(
     private submenuService: SubmenuService,
     private changeDetector: ChangeDetectorRef,
     private chatService: ChatSelectionService,
-    private router: Router
+    private router: Router,
+    private sharedService: SharedService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit() {
@@ -107,6 +112,10 @@ export class SubmenuComponent implements OnInit {
       queryParamsHandling: 'merge'
     });
     this.showSlider = true;
+
+    if (isPlatformBrowser(this.platformId) && window.innerWidth < 1024) {
+      this.sharedService.isSidebarOpen(false); // Assuming the method is actually called setSidebarOpen
+    }
   }
 
   getSubmenuItems(): SubmenuItem[] {

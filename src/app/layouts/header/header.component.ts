@@ -18,13 +18,17 @@ export class HeaderComponent {
   @Output() bellClicked = new EventEmitter<void>();
   @Output() avatarClicked = new EventEmitter<void>();
 
-  showAvatarDropdown = false;
-  showSettingsSidebar = false;
-  showNotificationsSidebar = false;
+  // showAvatarDropdown = false;
+  // showSettingsSidebar = false;
+  // showNotificationsSidebar = false;
 
-  onMenuClick() {
-    console.log('Menu button clicked!');
-    this.menuClicked.emit();
+  onMenuClick(event: MouseEvent) {
+    event.stopPropagation();
+  // Close all local UI elements
+  // this.closeAll();
+  // Emit event to parent component
+  this.menuClicked.emit();
+
   }
 
   onSunClick() {
@@ -33,33 +37,32 @@ export class HeaderComponent {
 
   onGearClick(event: MouseEvent) {
     event.stopPropagation();
-    this.showSettingsSidebar = !this.showSettingsSidebar;
+    // this.showSettingsSidebar = !this.showSettingsSidebar;
     this.gearClicked.emit();
-    console.log('Settings sidebar:', this.showSettingsSidebar);
   }
   
   onBellClick(event: MouseEvent) {
     event.stopPropagation();
-    this.showNotificationsSidebar = !this.showNotificationsSidebar; 
+    // this.showNotificationsSidebar = !this.showNotificationsSidebar; 
     this.bellClicked.emit();
   }
   
   toggleAvatarDropdown() {
-    this.showAvatarDropdown = !this.showAvatarDropdown;
+    // this.showAvatarDropdown = !this.showAvatarDropdown;
     this.avatarClicked.emit();
   }
 
-  closeSettings() {
-    this.showSettingsSidebar = false;
-  }
+  // closeSettings() {
+  //   this.showSettingsSidebar = false;
+  // }
 
-  closeNotifications() {
-    this.showNotificationsSidebar = false;
-  }
+  // closeNotifications() {
+  //   this.showNotificationsSidebar = false;
+  // }
 
-  closeAll() {
-    this.showSettingsSidebar = false;
-    this.showNotificationsSidebar = false;
-    this.showAvatarDropdown = false;
-  }
+  // closeAll() {
+  //   this.showSettingsSidebar = false;
+  //   this.showNotificationsSidebar = false;
+  //   this.showAvatarDropdown = false;
+  // }
 }

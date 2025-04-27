@@ -17,7 +17,7 @@
 
     <!-- Settings Sidebar -->
     <div (click)="$event.stopPropagation()"
-      class="inset-y-0 right-0 absolute lg:relative max-w-[320px] bg-white z-30 transition-all duration-700 overflow-hidden h-[calc(100vh-60px)] lg:h-auto mt-[60px]"
+      class="inset-y-0 right-0 absolute lg:relative max-w-[320px] bg-white z-30 transition-all duration-400 overflow-hidden h-[calc(100vh-60px)] lg:h-auto mt-[60px]"
       [ngClass]="{
           'w-0': !showSettingsSidebar,
           'w-full': showSettingsSidebar
@@ -31,7 +31,7 @@
 
     <!-- Notifications Sidebar -->
     <div (click)="$event.stopPropagation()"
-      class="inset-y-0 right-0 absolute lg:relative max-w-[320px] bg-white z-30 transition-all duration-700 overflow-hidden h-[calc(100vh-60px)] lg:h-auto mt-[60px]"
+      class="inset-y-0 right-0 absolute lg:relative max-w-[320px] bg-white z-30 transition-all duration-400 overflow-hidden h-[calc(100vh-60px)] lg:h-auto mt-[60px]"
       [ngClass]="{
           'w-0': !showNotificationsSidebar,
           'w-full': showNotificationsSidebar
@@ -44,7 +44,7 @@
     </div>
 
     <div 
-      class="inset-y-0 right-0 absolute lg:relative bg-white z-5 transition-all duration-600 overflow-hidden h-[calc(100vh-60px)] lg:h-auto mt-[60px] w-full lg:w-[675px]"
+      class="inset-y-0 right-0 absolute lg:relative bg-white z-5 transition-all duration-400 overflow-hidden h-[calc(100vh-60px)] lg:h-auto mt-[60px] w-full lg:w-[675px]"
       [ngClass]="{
           'w-0': !isExpanded,
           'w-full lg:w-[675px]': isExpanded

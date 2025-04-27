@@ -1,11 +1,13 @@
 <header class="flex items-center justify-between px-4 py-3 bg-white-00 border-b border-b-fade-white w-full fixed top-0 z-50">
     <!-- Toggle button (left) -->
-     <div class="flex">
+     <div class="flex items-center">
 
-      <app-toggle-button
-        iconPath="assets/icons/bars-icon.svg"
-        (clicked)="menuClicked.emit()">
-      </app-toggle-button>
+      <div (click)="onMenuClick($event)"
+  class="flex items-center justify-center w-[40px] h-10 rounded-lg transition-all duration-300 cursor-pointer"
+><img
+        src="assets/icons/bars-icon.svg"
+        /></div>
+      
     
     <app-logo customClass="" />
     </div>
