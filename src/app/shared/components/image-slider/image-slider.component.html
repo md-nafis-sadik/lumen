@@ -11,25 +11,25 @@
           ? 'radial-gradient(' + slide.gradient + ')'
           : 'radial-gradient(circle at top right, #118A9F, #07282E)'
       }">
-      <div class="w-full 2xl:w-1/2 px-10 pt-16 2xl:px-20">
+      <div class="w-full 2xl:w-1/2 px-10 pt-8 2xl:px-20">
         <h1 class="text-3xl 2xl:text-5xl text-center 2xl:text-start font-bold">
           {{ slide.title }}
         </h1>
-        <h1 class="text-3xl 2xl:text-5xl text-center 2xl:text-start font-bold mt-4">
+        <h1 class="text-3xl 2xl:text-5xl text-center 2xl:text-start font-bold mt-2 xl:mt-4">
           <span [ngClass]="slide.highlightColor || 'text-cyan-300'">{{ slide.highlight }} <span
               [ngClass]="slide.textColor || 'text-white-00'">{{ slide.after_highlight }}</span></span>
         </h1>
         <p class="mt-4 2xl:text-xl text-center 2xl:text-start">{{ slide.description }}</p>
-        <div class="flex justify-center 2xl:justify-start mt-4">
+        <div class="flex justify-center 2xl:justify-start mt-2 xl:mt-4">
           <app-primary-button [text]="slide.buttonText" [bgColor]="slide.buttonColor || '#06ACCE'"
             [hoverColor]="slide.buttonHoverColor || '#0799B7'" width="w-[108px]"
             fontSize="text-sm"></app-primary-button>
         </div>
       </div>
-      <div class="w-full 2xl:w-1/2 flex justify-center 2xl:justify-end items-end h-[320px] 2xl:h-[468px]">
+      <div class="w-full 2xl:w-1/2 flex justify-center 2xl:justify-end items-end h-[280px] lg:h-[350px] 2xl:h-[468px]">
         <img [src]="slide.patternUrl" alt="Pattern" class="object-contain relative pointer-events-none select-none" />
         <img [src]="slide.imageUrl" alt="Slide"
-          class="h-[320px] 2xl:h-[468px] 2xl:w-auto 2xl:mr-16 absolute object-contain px-10 pointer-events-none select-none" />
+          class="h-[280px] lg:h-[350px] 2xl:h-[468px] 2xl:w-auto 2xl:mr-16 absolute object-contain px-10 pointer-events-none select-none" />
       </div>
     </div>
   </div>
