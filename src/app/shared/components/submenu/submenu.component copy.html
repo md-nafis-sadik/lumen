@@ -1,0 +1,222 @@
+<div class="flex flex-col justify-between h-full p-4 w-full lg:w-64">
+  <div class="">
+    <app-search-input
+      [(model)]="searchQuery"
+      (modelChange)="onSearchChange()"
+      placeholder="Quick search"
+    />
+
+    <!-- Chat-specific layout -->
+    <ng-container *ngIf="isChatMenu">
+      <!-- Favourites Section -->
+      <div class="section mt-3 lg:mt-5">
+        <!-- <div class="section-title mb-3 text-sm text-gray-400">FAVOURITES</div> -->
+        <div class="mb-1 mt-2 font-semibold">Action Menu</div>
+        <div class="max-h-[196px] overflow-y-auto p-1 space-y-1">
+          <div
+            *ngFor="let contact of filteredActionMenu"
+            (click)="selectSubmenu(contact.id)"
+            class="contact-item flex items-center space-x-3 px-3 py-2 rounded-md cursor-pointer transition-all duration-200 ease-in-out"
+            [ngClass]="{
+              'bg-mint-50 ring-1 ring-mint-200 border-mint-200 border-b-2':
+                contact.id === activeSubmenu,
+              'hover:bg-fade-white border-b-transparent':
+                contact.id !== activeSubmenu
+            }"
+          >
+            <div class="relative">
+              <ng-container *ngIf="!contact.imageURL; else avatarImage">
+                <div
+                  class="w-7 h-7 rounded-full bg-mint-200 flex items-center justify-center text-mint-600 text-xs font-medium uppercase"
+                >
+                  {{ getInitials(contact.name) }}
+                </div>
+              </ng-container>
+              <ng-template #avatarImage>
+                <img [src]="contact.imageURL" class="w-5 h-5 object-contain" />
+              </ng-template>
+            </div>
+            <span class="text-sm">{{ contact.name }}</span>
+            <div
+              *ngIf="contact.badgeCount"
+              class="badge bg-mint-200 px-1.5 py-1 rounded-md text-xs"
+            >
+              {{ contact.badgeCount }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- submenu.component.html -->
+      <!-- <button (click)="selectChat('contact-id-1')">Chat with Bella Cote</button> -->
+      <!-- <button (click)="selectChat('channel-id-12')">Pickleball Expert</button> -->
+
+      <!-- Direct Messages Section -->
+      <!-- <div class="section mt-7">
+    <div class="section-title mb-3 text-sm text-gray-400">DIRECT MESSAGES</div>
+    <div class="max-h-[196px] overflow-y-auto p-1 space-y-1">
+      <div *ngFor="let message of filteredDirectMessages" 
+      (click)="selectSubmenu(message.id)"
+      class="contact-item flex items-center space-x-3 px-3 py-2 rounded-md cursor-pointer transition-all duration-200 ease-in-out"
+      [ngClass]="{
+        'bg-mint-50 ring-1 ring-mint-200 border-mint-200 border-b-2': message.id === activeSubmenu,
+        'hover:bg-fade-white border-b-transparent': message.id !== activeSubmenu
+      }">
+      <div class="relative">
+        <ng-container *ngIf="!message.imageURL; else avatarImage">
+          <div class="w-7 h-7 rounded-full bg-mint-200 flex items-center justify-center text-mint-600 text-xs font-medium uppercase">
+            {{ getInitials(message.name) }}
+          </div>
+        </ng-container>
+        <ng-template #avatarImage>
+          <img [src]="message.imageURL" class="w-7 h-7 rounded-full object-cover"/>
+        </ng-template>
+      </div>
+      <span class="text-sm">{{ message.name }}</span>
+      <div *ngIf="message.badgeCount" class="badge bg-mint-200 px-1.5 py-1 rounded-md text-xs">{{ message.badgeCount }}</div>
+    </div>
+  </div>
+  </div> -->
+
+      <!-- Channels Section -->
+      <div class="section mt-5 lg:mt-6">
+        <div class="flex items-center justify-between mb-1">
+          <h2 class="font-medium">Chat Channels</h2>
+          <div class="">
+            <div
+              (click)="openChannelModal()"
+              class="bg-fade-white hover:bg-fade-white border border-fade-white p-1 rounded-full cursor-pointer"
+            >
+              <img
+                src="assets/icons/add-icon.svg"
+                class="w-[11px] object-contain"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="h-[50px] overflow-y-auto p-1 space-y-1">
+          <div
+            *ngFor="let channel of filteredChannels"
+            (click)="selectSubmenu(channel.id)"
+            class="channel-item flex items-center space-x-3 px-3 py-2 rounded-md cursor-pointer transition-all duration-200 ease-in-out"
+            [ngClass]="{
+              'bg-mint-50 ring-1 ring-mint-200 border-mint-200 border-b-2':
+                channel.id === activeSubmenu,
+              'hover:bg-fade-white border-b-transparent':
+                channel.id !== activeSubmenu
+            }"
+          >
+            <img
+              [src]="channel.imageURL || 'assets/images/default-avatar.jpg'"
+              class="avatar w-7 h-7 rounded-full"
+            />
+            <span class="text-sm">{{ channel.name }}</span>
+            <div
+              *ngIf="channel.badgeCount"
+              class="badge bg-mint-200 px-1.5 py-1 rounded-md text-xs"
+            >
+              {{ channel.badgeCount }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!isChatMenu">
+      <div class="mb-3 mt-2 font-semibold">Action Menu</div>
+      <div class="h-[196px] overflow-y-auto p-1 space-y-1">
+        <div
+          *ngFor="let item of filteredItems"
+          (click)="selectSubmenu(item.key)"
+          class="flex items-center gap-2 px-3 py-2 rounded-md w-52 cursor-pointer transition-all duration-200 ease-in-out"
+          [ngClass]="{
+            'bg-mint-50 ring-1 ring-mint-200 border-mint-200 border-b-2':
+              item.key === activeSubmenu,
+            'hover:bg-fade-white border-b-transparent':
+              item.key !== activeSubmenu
+          }"
+        >
+          <img
+            [src]="item.icon"
+            [alt]="item.label"
+            class="w-5 h-5 object-contain"
+          />
+          <span class="text-sm text-black">{{ item.label }}</span>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="font-medium">Chat Channels</h2>
+          <div class="h-[36px] overflow-y-auto">
+            <button
+              (click)="openChannelModal()"
+              class="bg-fade-white hover:bg-fade-white border border-fade-white p-1 rounded-full cursor-pointer"
+            >
+              <img
+                src="assets/icons/add-icon.svg"
+                class="w-[11px] object-contain"
+              />
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-2 h-[196px] overflow-y-auto p-1">
+          <div
+            *ngFor="let message of filteredDirectMessages"
+            (click)="selectSubmenu(message.id)"
+            class="contact-item flex items-center space-x-3 px-3 py-2 rounded-md cursor-pointer transition-all duration-200 ease-in-out"
+            [ngClass]="{
+              'bg-mint-50 ring-1 ring-mint-200 border-mint-200 border-b-2':
+                message.id === activeSubmenu,
+              'hover:bg-fade-white border-b-transparent':
+                message.id !== activeSubmenu
+            }"
+          >
+            <img
+              [src]="message.imageURL || 'assets/images/default-avatar.jpg'"
+              class="avatar w-7 h-7 rounded-full"
+            />
+            <span class="text-sm">{{ message.name }}</span>
+            <div
+              *ngIf="message.badgeCount"
+              class="badge bg-mint-200 px-1.5 py-1 rounded-md text-xs"
+            >
+              {{ message.badgeCount }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div>
+    <div
+      class="max-w-full lg:max-w-[208px] max-h-[182px] mx-auto rounded-2xl border border-[#EDEDED] bg-[#f9f9f9] p-3 text-center mt-1"
+    >
+      <div class="flex justify-center mb-1 sm:mb-2">
+        <div class="rounded-full bg-[#EBF9FB] p-1.5">
+          <img src="assets/icons/king-icon.svg" />
+        </div>
+      </div>
+      <h2 class="font-semibold text-primary-text text-sm sm:text-base">
+        Upgrade to
+        <span
+          class="bg-[#C3EBF3] text-mint-400 text-xs sm:text-sm font-medium px-2 py-0.5 rounded-md ml-1 align-middle"
+          >Pro</span
+        >
+      </h2>
+      <p class="text-fade-text mt-1 sm:mt-2 text-[8px] sm:text-xs">
+        Dorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </p>
+
+      <app-primary-button
+        [text]="'Learn more'"
+        [bgColor]="'#06ACCE'"
+        [hoverColor]="'#0799B7'"
+        fontSize="text-xs sm:text-sm"
+        padding="py-1.5 sm:py-2 px-3"
+        width="w-[95px] sm:w-[108px]"
+      ></app-primary-button>
+    </div>
+  </div>
+</div>
