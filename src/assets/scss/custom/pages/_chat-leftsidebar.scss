@@ -4,7 +4,7 @@
 
 
 .chat-leftsidebar {
-    height: calc(100vh - 60px);;
+    height: calc(100svh - 60px);;
     position: relative;
     background-color: var(--#{$prefix}sidebar-sub-bg);
     box-shadow: $box-shadow;
@@ -12,7 +12,7 @@
     @media (min-width: 992px) {
         min-width: 300px;
         max-width: 300px;
-        height: 100vh;
+        height: 100svh;
     }
 
     .user-status-box {
@@ -46,17 +46,17 @@
 }
 
 .chat-room-list {
-    max-height: calc(100vh - 130px);
+    max-height: calc(100svh - 130px);
 
     @media (max-width: 991.98px) {
-        height: calc(100vh - 190px);
+        height: calc(100svh - 190px);
     }
 }
 
 .chat-group-list {
-    height: calc(100vh - 140px);
+    height: calc(100svh - 140px);
     @media (max-width: 991.98px) {
-        height: calc(100vh - 198px);
+        height: calc(100svh - 198px);
     }
 }
 
@@ -189,10 +189,10 @@
 // Calls
 
 .chat-call-list, .chat-bookmark-list{
-    max-height: calc(100vh - 68px);
+    max-height: calc(100svh - 68px);
 
     @media (max-width: 991.98px) {
-        height: calc(100vh - 125px);
+        height: calc(100svh - 125px);
     }
     li{
         position: relative;

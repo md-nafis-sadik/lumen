@@ -5,7 +5,7 @@
 // User profile details
 
 .user-profile-sidebar {
-    height: 100vh;
+    height: 100svh;
     background-color: var(--#{$prefix}modal-content-bg);
     display: none;
     min-width: 380px;
@@ -73,18 +73,18 @@
 }
 
 .user-profile-desc {
-    height: calc(100vh - 285px);
+    height: calc(100svh - 285px);
 
     @media (max-width: 991.98px) {
-        height: calc(100vh - 194px);
+        height: calc(100svh - 194px);
     }
 }
 
 .profile-desc{
-    height: calc(100vh - 285px);
+    height: calc(100svh - 285px);
 
     @media (max-width: 991.98px) {
-        height: calc(100vh - 330px);
+        height: calc(100svh - 330px);
     }
 }
 
@@ -156,10 +156,10 @@
 // setting
 
 .user-setting{
-    height: calc(100vh - 288px);
+    height: calc(100svh - 288px);
 
     @media (max-width: 991.98px) {
-        height: calc(100vh - 320px);
+        height: calc(100svh - 320px);
     }
 }
 
