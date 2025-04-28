@@ -1,24 +1,45 @@
-import { Component, Input, Output, EventEmitter, ElementRef, ViewChild, AfterViewChecked, SimpleChanges, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Input,
+  Output,
+  PLATFORM_ID,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { combineLatest } from 'rxjs';
+import { AutoScrollInputDirective } from '../../../directives/auto-scroll-input.directive';
+import { ChatMessage } from '../../../models/chat.model';
+import { ChatSelectionService } from '../../../services/chat-selection.service';
+import { ChatStoreService } from '../../../services/chat-store.service';
 import { DateFormatterPipe } from '../../pipes/date-formatter.pipe';
 import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
-import { CommonModule } from '@angular/common';
-import { PickleballBookingCardComponent } from '../pickleball-booking-card/pickleball-booking-card.component';
-import { FormsModule } from '@angular/forms';
-import { ChatMessage } from '../../../models/chat.model';
-import { chat, channel_chat } from './data';
-import { ActivatedRoute } from '@angular/router';
-import { ChatSelectionService } from '../../../services/chat-selection.service';
-import { combineLatest } from 'rxjs';
-import { ChatStoreService } from '../../../services/chat-store.service';
 import { IconComponent } from '../common/icon/icon.component';
 import { ImageSliderComponent } from '../image-slider/image-slider.component';
+import { PickleballBookingCardComponent } from '../pickleball-booking-card/pickleball-booking-card.component';
+import { channel_chat, chat } from './data';
 
 @Component({
   selector: 'app-chats',
   standalone: true,
-  imports: [CommonModule, DateFormatterPipe, FormsModule, TimeAgoPipe, PickleballBookingCardComponent, IconComponent, ImageSliderComponent],
+  imports: [
+    CommonModule,
+    DateFormatterPipe,
+    FormsModule,
+    TimeAgoPipe,
+    PickleballBookingCardComponent,
+    IconComponent,
+    ImageSliderComponent,
+    AutoScrollInputDirective,
+  ],
   templateUrl: './chats.component.html',
-  styleUrls: ['./chats.component.css']
+  styleUrls: ['./chats.component.css'],
 })
 export class ChatsComponent implements AfterViewChecked {
   @Input() messages: any[] = [];
@@ -85,19 +106,17 @@ export class ChatsComponent implements AfterViewChecked {
     private route: ActivatedRoute,
     private chatService: ChatSelectionService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private chatStore: ChatStoreService,
+    private chatStore: ChatStoreService
   ) {
-
-    this.chatService.selectedChatId$.subscribe(chatId => {
+    this.chatService.selectedChatId$.subscribe((chatId) => {
       this.selectedChatId = chatId;
     });
   }
 
-
   ngOnInit() {
     combineLatest([
       this.route.queryParams,
-      this.chatService.selectedChatId$
+      this.chatService.selectedChatId$,
     ]).subscribe(([params, serviceChatId]) => {
       const chatId = serviceChatId || params['chatId'];
       this.chatId = chatId;
@@ -115,7 +134,6 @@ export class ChatsComponent implements AfterViewChecked {
   }
 
   private loadChatData() {
-
     if (!this.chatId) {
       // Create new array reference to trigger change detection
       this.chatData = [...this.messages];
@@ -125,11 +143,11 @@ export class ChatsComponent implements AfterViewChecked {
     const chatMap: { [key: string]: any } = {
       'contact-id-1': {
         messages: chat,
-        avatar: 'assets/images/users/avatar-2.jpg'
+        avatar: 'assets/images/users/avatar-2.jpg',
       },
       'contact-id-12': {
         messages: channel_chat,
-        avatar: 'assets/images/users/avatar-10.jpg'
+        avatar: 'assets/images/users/avatar-10.jpg',
       },
     };
 
@@ -165,7 +183,6 @@ export class ChatsComponent implements AfterViewChecked {
     this.shouldAutoScroll = position > element.scrollHeight - threshold;
   }
 
-
   sendMessage() {
     const trimmed = this.userInput.trim();
     if (!trimmed) return;
@@ -179,8 +196,8 @@ export class ChatsComponent implements AfterViewChecked {
         content: [this.userInput],
         type: 'text' as const,
         timestamp: new Date(),
-        avatar: 'assets/icons/Avatar.png'
-      }
+        avatar: 'assets/icons/Avatar.png',
+      },
     ];
 
     this.chatStore.updateChat(this.selectedChatId, newMessages);
@@ -196,39 +213,37 @@ export class ChatsComponent implements AfterViewChecked {
         content: [trimmed],
         type: 'text' as const,
         timestamp: new Date(),
-        avatar: 'assets/icons/Avatar.png'
+        avatar: 'assets/icons/Avatar.png',
       };
 
       this.chatData = [...this.chatData, newMessage];
-
     }, 50);
 
     setTimeout(() => {
       // Bot message with proper typing
 
-      const newMessage: ChatMessage = trimmed.toLowerCase().includes('book') &&
+      const newMessage: ChatMessage =
+        trimmed.toLowerCase().includes('book') &&
         trimmed.toLowerCase().includes('pickleball')
-        ? {
-          id: Date.now().toString(),
-          sender: 'bot',
-          content: [''],
-          type: 'booking',
-          timestamp: new Date(),
-          avatar: 'assets/icons/LUMEN.svg'
-        }
-        : {
-          id: Date.now().toString(),
-          sender: 'bot',
-          content: ["I'm here to help!"],
-          type: 'text',
-          timestamp: new Date(),
-          avatar: 'assets/icons/LUMEN.svg'
-        };
+          ? {
+              id: Date.now().toString(),
+              sender: 'bot',
+              content: [''],
+              type: 'booking',
+              timestamp: new Date(),
+              avatar: 'assets/icons/LUMEN.svg',
+            }
+          : {
+              id: Date.now().toString(),
+              sender: 'bot',
+              content: ["I'm here to help!"],
+              type: 'text',
+              timestamp: new Date(),
+              avatar: 'assets/icons/LUMEN.svg',
+            };
 
       this.chatData = [...this.chatData, newMessage];
-
     }, 300);
-
   }
 
   sendQuickMessage(message: string) {
@@ -259,7 +274,8 @@ export class ChatsComponent implements AfterViewChecked {
     const grouped: any[] = [];
     let lastDateKey = '';
 
-    for (const msg of this.chatData) { // Changed from messages to chatData
+    for (const msg of this.chatData) {
+      // Changed from messages to chatData
       if (!msg || !msg.timestamp) continue;
       const dateKey = new Date(msg.timestamp).toDateString();
 
@@ -273,8 +289,8 @@ export class ChatsComponent implements AfterViewChecked {
   }
 
   setChatUser(id: string) {
-    this.chatId = id
-    this.loadChatData()
+    this.chatId = id;
+    this.loadChatData();
     this.showSlider = false;
   }
 
@@ -282,18 +298,21 @@ export class ChatsComponent implements AfterViewChecked {
     return item.id || index;
   }
   private mapDataToMessages(chatData: any[]): ChatMessage[] {
-    return chatData.map(msg => {
-      const messageType = this.getMessageType(msg);  // Use the getMessageType method
+    return chatData.map((msg) => {
+      const messageType = this.getMessageType(msg); // Use the getMessageType method
 
       // Handle image messages
       if (messageType === 'image') {
         return {
           id: msg.id,
           sender: msg.sender === 'right' ? 'user' : 'bot',
-          content: msg.images && msg.images.length > 0 ? msg.images : [msg.message],
+          content:
+            msg.images && msg.images.length > 0 ? msg.images : [msg.message],
           type: 'image',
           timestamp: this.parseTimeString(msg.time),
-          avatar: msg.isDataSender ? 'assets/icons/Avatar.png' : this.currentChatAvatar
+          avatar: msg.isDataSender
+            ? 'assets/icons/Avatar.png'
+            : this.currentChatAvatar,
         };
       }
 
@@ -307,7 +326,9 @@ export class ChatsComponent implements AfterViewChecked {
           fileSize: msg.file?.size || 'N/A',
           type: 'file',
           timestamp: this.parseTimeString(msg.time),
-          avatar: msg.isDataSender ? 'assets/icons/Avatar.png' : this.currentChatAvatar
+          avatar: msg.isDataSender
+            ? 'assets/icons/Avatar.png'
+            : this.currentChatAvatar,
         };
       }
 
@@ -319,7 +340,9 @@ export class ChatsComponent implements AfterViewChecked {
           content: msg.bookingDetails,
           type: 'booking',
           timestamp: this.parseTimeString(msg.time),
-          avatar: msg.isDataSender ? 'assets/icons/Avatar.png' : this.currentChatAvatar
+          avatar: msg.isDataSender
+            ? 'assets/icons/Avatar.png'
+            : this.currentChatAvatar,
         };
       }
 
@@ -330,7 +353,9 @@ export class ChatsComponent implements AfterViewChecked {
         content: msg?.message || msg?.msg,
         type: 'text',
         timestamp: this.parseTimeString(msg.time),
-        avatar: msg.isDataSender ? 'assets/icons/Avatar.png' : this.currentChatAvatar
+        avatar: msg.isDataSender
+          ? 'assets/icons/Avatar.png'
+          : this.currentChatAvatar,
       };
     });
   }
@@ -340,7 +365,8 @@ export class ChatsComponent implements AfterViewChecked {
     let i = 1;
 
     while (true) {
-      const val = msg[`message${i === 1 ? '' : i}`] || msg[`msg${i === 1 ? '' : i}`];
+      const val =
+        msg[`message${i === 1 ? '' : i}`] || msg[`msg${i === 1 ? '' : i}`];
       if (val) parts.push(val);
       else break;
       i++;
@@ -374,14 +400,14 @@ export class ChatsComponent implements AfterViewChecked {
         content: [e.target.result as string],
         timestamp: new Date(),
         type: fileType,
-        avatar: 'assets/icons/Avatar.png'
+        avatar: 'assets/icons/Avatar.png',
       };
 
       if (fileType === 'file') {
         newMessage.file = {
           name: file.name,
           size: this.formatFileSize(file.size),
-          url: e.target.result as string
+          url: e.target.result as string,
         };
       } else if (fileType === 'image') {
         newMessage.images = [e.target.result as string];
@@ -397,7 +423,13 @@ export class ChatsComponent implements AfterViewChecked {
   }
 
   private getFileType(file: File): 'image' | 'file' {
-    const imageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
+    const imageTypes = [
+      'image/jpeg',
+      'image/png',
+      'image/gif',
+      'image/webp',
+      'image/svg+xml',
+    ];
     return imageTypes.includes(file.type) ? 'image' : 'file';
   }
 
@@ -458,5 +490,4 @@ export class ChatsComponent implements AfterViewChecked {
     result.setHours(hours, minutes, 0, 0);
     return result;
   }
-
 }
