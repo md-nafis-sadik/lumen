@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PasswordToggleInputComponent } from './password-toggle-input.component';
 
 describe('PasswordToggleInputComponent', () => {
-  let component: PasswordToggleInputComponent;
-  let fixture: ComponentFixture<PasswordToggleInputComponent>;
+  var component: PasswordToggleInputComponent;
+  var fixture: ComponentFixture<PasswordToggleInputComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

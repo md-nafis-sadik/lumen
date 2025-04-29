@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PaymentCardComponent } from './payment-card.component';
 
 describe('PaymentCardComponent', () => {
-  let component: PaymentCardComponent;
-  let fixture: ComponentFixture<PaymentCardComponent>;
+  var component: PaymentCardComponent;
+  var fixture: ComponentFixture<PaymentCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

@@ -230,7 +230,7 @@ export class CourtSelectionComponent {
     
 
     const start = new Date();
-    for (let i = -3; i <= 10; i++) {
+    for (var i = -3; i <= 10; i++) {
       const date = new Date();
       date.setDate(start.getDate() + i);
       this.monthDates.push(date);

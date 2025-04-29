@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SignUpFormComponent } from './signupform.component';
 
 describe('SignUpFormComponent', () => {
-  let component: SignUpFormComponent;
-  let fixture: ComponentFixture<SignUpFormComponent>;
+  var component: SignUpFormComponent;
+  var fixture: ComponentFixture<SignUpFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

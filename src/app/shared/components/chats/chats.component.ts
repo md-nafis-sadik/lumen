@@ -286,7 +286,7 @@ export class ChatsComponent implements AfterViewChecked {
   get groupedMessages() {
     if (!this.chatData || !Array.isArray(this.chatData)) return []; // Changed from messages to chatData
     const grouped: any[] = [];
-    let lastDateKey = '';
+    var lastDateKey = '';
 
     for (const msg of this.chatData) {
       // Changed from messages to chatData
@@ -376,7 +376,7 @@ export class ChatsComponent implements AfterViewChecked {
 
   getContentParts(msg: any): string[] {
     const parts: string[] = [];
-    let i = 1;
+    var i = 1;
 
     while (true) {
       const val =
@@ -471,7 +471,7 @@ export class ChatsComponent implements AfterViewChecked {
     const match = timeString.match(timeRegex);
 
     if (match) {
-      let hours = parseInt(match[1]);
+      var hours = parseInt(match[1]);
       const minutes = parseInt(match[2]);
       const period = match[3]?.toLowerCase();
 
@@ -492,7 +492,7 @@ export class ChatsComponent implements AfterViewChecked {
   stringToTime(timeStr: string): Date {
     const today = new Date();
     const [time, modifier] = timeStr.split(' ');
-    let [hours, minutes] = time.split(':').map(Number);
+    var [hours, minutes] = time.split(':').map(Number);
 
     if (modifier.toLowerCase() === 'pm' && hours < 12) {
       hours += 12;

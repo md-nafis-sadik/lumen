@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ToggleButtonComponent } from './toggle-button.component';
 
 describe('ToggleButtonComponent', () => {
-  let component: ToggleButtonComponent;
-  let fixture: ComponentFixture<ToggleButtonComponent>;
+  var component: ToggleButtonComponent;
+  var fixture: ComponentFixture<ToggleButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

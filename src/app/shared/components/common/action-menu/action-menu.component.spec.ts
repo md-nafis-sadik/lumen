@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActionMenuComponent } from './action-menu.component';
 
 describe('ActionMenuComponent', () => {
-  let component: ActionMenuComponent;
-  let fixture: ComponentFixture<ActionMenuComponent>;
+  var component: ActionMenuComponent;
+  var fixture: ComponentFixture<ActionMenuComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { WelcomeSidebarComponent } from './welcome-sidebar.component';
 
 describe('WelcomeSidebarComponent', () => {
-  let component: WelcomeSidebarComponent;
-  let fixture: ComponentFixture<WelcomeSidebarComponent>;
+  var component: WelcomeSidebarComponent;
+  var fixture: ComponentFixture<WelcomeSidebarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

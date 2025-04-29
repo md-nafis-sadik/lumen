@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChatsComponent } from './chats.component';
 
 describe('ChatsComponent', () => {
-  let component: ChatsComponent;
-  let fixture: ComponentFixture<ChatsComponent>;
+  var component: ChatsComponent;
+  var fixture: ComponentFixture<ChatsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

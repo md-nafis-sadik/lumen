@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PaymentCompletedComponent } from './payment-completed.component';
 
 describe('PaymentCardComponent', () => {
-  let component: PaymentCompletedComponent;
-  let fixture: ComponentFixture<PaymentCompletedComponent>;
+  var component: PaymentCompletedComponent;
+  var fixture: ComponentFixture<PaymentCompletedComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UpgradeBoxComponent } from './upgrade-box.component';
 
 describe('UpgradeBoxComponent', () => {
-  let component: UpgradeBoxComponent;
-  let fixture: ComponentFixture<UpgradeBoxComponent>;
+  var component: UpgradeBoxComponent;
+  var fixture: ComponentFixture<UpgradeBoxComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

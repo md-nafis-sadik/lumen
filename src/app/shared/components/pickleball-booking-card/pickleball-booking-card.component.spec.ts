@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PickleballBookingCardComponent } from './pickleball-booking-card.component';
 
 describe('PickleballBookingCardComponent', () => {
-  let component: PickleballBookingCardComponent;
-  let fixture: ComponentFixture<PickleballBookingCardComponent>;
+  var component: PickleballBookingCardComponent;
+  var fixture: ComponentFixture<PickleballBookingCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PrimaryButtonComponent } from './primary-button.component';
 
 describe('PrimaryButtonComponent', () => {
-  let component: PrimaryButtonComponent;
-  let fixture: ComponentFixture<PrimaryButtonComponent>;
+  var component: PrimaryButtonComponent;
+  var fixture: ComponentFixture<PrimaryButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

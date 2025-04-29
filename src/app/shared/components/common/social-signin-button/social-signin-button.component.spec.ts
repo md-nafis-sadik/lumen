@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SocialSigninButtonComponent } from './social-signin-button.component';
 
 describe('SocialSigninButtonComponent', () => {
-  let component: SocialSigninButtonComponent;
-  let fixture: ComponentFixture<SocialSigninButtonComponent>;
+  var component: SocialSigninButtonComponent;
+  var fixture: ComponentFixture<SocialSigninButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
