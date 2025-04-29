@@ -4,131 +4,136 @@
     [slides]="sliderSlides"
   ></app-image-slider>
 </div>
-<div
-  class="flex flex-col w-full lg:max-w-[752px] px-4 pt-3 mx-auto h-full mt-auto"
->
+<div class="flex flex-col w-full pt-3 mx-auto h-full mt-auto">
   <div class="flex-1 overflow-auto" #chatContainer>
-    <ng-container *ngFor="let item of groupedMessages; trackBy: trackById">
-      <!-- Date Separator -->
-      <div
-        *ngIf="item.type === 'date'"
-        class="sticky-date w-full flex items-center justify-center bg-fade-white"
-      >
-        <div class="flex items-center w-full px-4">
-          <div class="flex-grow border-t border-fade-bg"></div>
-          <div
-            class="mx-4 text-sm text-gray-500 bg-white px-4 py-1 rounded-full border border-fade-bg whitespace-nowrap"
-          >
-            {{ item.date | dateFormatter }}
+    <div class="w-full lg:max-w-[752px] px-4 mx-auto h-full">
+      <ng-container *ngFor="let item of groupedMessages; trackBy: trackById">
+        <!-- Date Separator -->
+        <div
+          *ngIf="item.type === 'date'"
+          class="sticky-date w-full flex items-center justify-center bg-fade-white"
+        >
+          <div class="flex items-center w-full px-4">
+            <div class="flex-grow border-t border-fade-bg"></div>
+            <div
+              class="mx-4 text-sm text-gray-500 bg-white px-4 py-1 rounded-full border border-fade-bg whitespace-nowrap"
+            >
+              {{ item.date | dateFormatter }}
+            </div>
+            <div class="flex-grow border-t border-fade-bg"></div>
           </div>
-          <div class="flex-grow border-t border-fade-bg"></div>
         </div>
-      </div>
 
-      <!-- Message Template -->
-      <!-- Update message template section -->
-      <div
-        *ngIf="item.type === 'message'"
-        class="flex mb-4"
-        [ngClass]="{
-          'justify-end': item.data?.sender === 'user',
-          'justify-start': item.data?.sender === 'bot'
-        }"
-      >
-        <img
-          *ngIf="item.data?.sender === 'bot'"
-          [src]="item.data?.avatar"
-          class="w-8 h-8 rounded-full mr-2"
-          alt="Bot avatar"
-        />
+        <!-- Message Template -->
+        <!-- Update message template section -->
+        <div
+          *ngIf="item.type === 'message'"
+          class="flex mb-4"
+          [ngClass]="{
+            'justify-end': item.data?.sender === 'user',
+            'justify-start': item.data?.sender === 'bot'
+          }"
+        >
+          <img
+            *ngIf="item.data?.sender === 'bot'"
+            [src]="item.data?.avatar"
+            class="w-8 h-8 rounded-full mr-2"
+            alt="Bot avatar"
+          />
 
-        <div class="flex flex-col max-w-[80%]">
-          <!-- Text Message -->
-          <div *ngIf="item.data?.type === 'text'">
-            <div
-              *ngFor="let messageItem of item.data?.content"
-              [ngClass]="{
-                'bg-[#C3EBF3] rounded-tr-none self-end':
-                  item.data?.sender === 'user',
-                'bg-white-00 rounded-tl-none self-start':
-                  item.data?.sender === 'bot'
-              }"
-              class="p-3 shadow whitespace-pre-wrap rounded-xl text-sm mb-2 last:mb-0 inline-block"
-            >
-              {{ messageItem }}
-            </div>
-          </div>
-
-          <div *ngIf="item.data?.type === 'image'" class="flex flex-wrap gap-4">
-            <div
-              *ngFor="let img of item.data?.content"
-              class="shadow rounded-xl overflow-hidden"
-            >
-              <img
-                [src]="img"
-                class="max-w-[200px] h-auto"
-                alt="Uploaded image"
-              />
-            </div>
-          </div>
-
-          <!-- File/PDF Message -->
-          <div
-            *ngIf="item.data?.type === 'file'"
-            class="p-3 bg-[#C3EBF3] shadow rounded-s-xl rounded-br-xl flex items-center gap-2"
-          >
-            <div
-              class="p-2 border border-mint-400 rounded-md flex items-center space-x-3 px-4"
-            >
-              <img
-                src="assets/icons/attachment-icon.svg"
-                class="w-6 h-6"
-                alt="PDF icon"
-              />
-              <a
-                [href]="item.data?.content"
-                target="_blank"
-                class="text-sm flex items-center space-x-3"
+          <div class="flex flex-col max-w-[80%]">
+            <!-- Text Message -->
+            <div *ngIf="item.data?.type === 'text'">
+              <div
+                *ngFor="let messageItem of item.data?.content"
+                [ngClass]="{
+                  'bg-[#C3EBF3] rounded-tr-none self-end':
+                    item.data?.sender === 'user',
+                  'bg-white-00 rounded-tl-none self-start':
+                    item.data?.sender === 'bot'
+                }"
+                class="p-3 shadow whitespace-pre-wrap rounded-xl text-sm mb-2 last:mb-0 inline-block"
               >
-                <div class="space-y-2">
-                  <div>{{ item.data?.fileName }}</div>
-                  <div>{{ item.data?.fileSize }}</div>
-                </div>
-                <i class="fa-solid fa-download fa-lg"></i>
-              </a>
+                {{ messageItem }}
+              </div>
+            </div>
+
+            <div
+              *ngIf="item.data?.type === 'image'"
+              class="flex flex-wrap gap-4"
+            >
+              <div
+                *ngFor="let img of item.data?.content"
+                class="shadow rounded-xl overflow-hidden"
+              >
+                <img
+                  [src]="img"
+                  class="max-w-[200px] h-auto"
+                  alt="Uploaded image"
+                />
+              </div>
+            </div>
+
+            <!-- File/PDF Message -->
+            <div
+              *ngIf="item.data?.type === 'file'"
+              class="p-3 bg-[#C3EBF3] shadow rounded-s-xl rounded-br-xl flex items-center gap-2"
+            >
+              <div
+                class="p-2 border border-mint-400 rounded-md flex items-center space-x-3 px-4"
+              >
+                <img
+                  src="assets/icons/attachment-icon.svg"
+                  class="w-6 h-6"
+                  alt="PDF icon"
+                />
+                <a
+                  [href]="item.data?.content"
+                  target="_blank"
+                  class="text-sm flex items-center space-x-3"
+                >
+                  <div class="space-y-2">
+                    <div>{{ item.data?.fileName }}</div>
+                    <div>{{ item.data?.fileSize }}</div>
+                  </div>
+                  <i class="fa-solid fa-download fa-lg"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Booking Card -->
+            <app-pickleball-booking-card
+              *ngIf="item.data?.type === 'booking'"
+              class="shadow rounded-xl w-full max-w-[648px] md:w-[648px]"
+            >
+            </app-pickleball-booking-card>
+
+            <!-- Timestamp -->
+            <div
+              class="text-xs text-gray-500 mt-3"
+              [ngClass]="{
+                'text-end': item.data?.sender === 'user',
+                'text-start': item.data?.sender === 'bot'
+              }"
+            >
+              {{ item.data?.timestamp | timeAgo }}
             </div>
           </div>
 
-          <!-- Booking Card -->
-          <app-pickleball-booking-card
-            *ngIf="item.data?.type === 'booking'"
-            class="shadow rounded-xl w-full max-w-[648px] md:w-[648px]"
-          >
-          </app-pickleball-booking-card>
-
-          <!-- Timestamp -->
-          <div
-            class="text-xs text-gray-500 mt-3"
-            [ngClass]="{
-              'text-end': item.data?.sender === 'user',
-              'text-start': item.data?.sender === 'bot'
-            }"
-          >
-            {{ item.data?.timestamp | timeAgo }}
-          </div>
+          <img
+            *ngIf="item.data?.sender === 'user'"
+            src="assets/icons/Avatar.png"
+            class="w-8 h-8 rounded-full ml-2"
+            alt="User avatar"
+          />
         </div>
-
-        <img
-          *ngIf="item.data?.sender === 'user'"
-          src="assets/icons/Avatar.png"
-          class="w-8 h-8 rounded-full ml-2"
-          alt="User avatar"
-        />
-      </div>
-    </ng-container>
+      </ng-container>
+    </div>
   </div>
 
-  <div class="py-2 sm:py-3 md:py-4 flex flex-col gap-2 sm:gap-3 md:gap-4">
+  <div
+    class="w-full lg:max-w-[752px] px-4 mx-auto py-2 sm:py-3 md:py-4 flex flex-col gap-2 sm:gap-3 md:gap-4"
+  >
     <div class="">
       <div
         *ngIf="showMessageTemplate"

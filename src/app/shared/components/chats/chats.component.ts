@@ -23,7 +23,7 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
 import { IconComponent } from '../common/icon/icon.component';
 import { ImageSliderComponent } from '../image-slider/image-slider.component';
 import { PickleballBookingCardComponent } from '../pickleball-booking-card/pickleball-booking-card.component';
-import { channel_chat, chat } from './data';
+import { channel_chat, chat, generatedChats } from './data';
 
 @Component({
   selector: 'app-chats',
@@ -56,6 +56,7 @@ export class ChatsComponent implements AfterViewChecked {
   currentChatAvatar = 'assets/icons/default-avatar.svg';
   chatData: ChatMessage[] = [];
   selectedChatId: string | null = null;
+  generatedChats: string[] = [];
 
   sliderSlides = [
     {
@@ -123,6 +124,7 @@ export class ChatsComponent implements AfterViewChecked {
       this.loadChatData();
       this.showSlider = !chatId;
     });
+    this.generatedChats = generatedChats;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -218,6 +220,7 @@ export class ChatsComponent implements AfterViewChecked {
     this.userInput = '';
     this.showSlider = false;
     this.showMessageTemplate = false;
+    const chatMessage = this.randomMessage();
 
     setTimeout(() => {
       // Bot message with proper typing
@@ -250,7 +253,7 @@ export class ChatsComponent implements AfterViewChecked {
           : {
               id: Date.now().toString(),
               sender: 'bot',
-              content: ["I'm here to help!"],
+              content: [chatMessage],
               type: 'text',
               timestamp: new Date(),
               avatar: 'assets/icons/LUMEN.svg',
@@ -503,5 +506,10 @@ export class ChatsComponent implements AfterViewChecked {
     const result = new Date(today);
     result.setHours(hours, minutes, 0, 0);
     return result;
+  }
+
+  randomMessage(): string {
+    const randomIndex = Math.floor(Math.random() * this.generatedChats.length);
+    return this.generatedChats[randomIndex];
   }
 }

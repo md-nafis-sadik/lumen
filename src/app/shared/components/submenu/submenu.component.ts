@@ -1,14 +1,21 @@
-import { Component, Input, OnInit, SimpleChanges, ChangeDetectorRef, PLATFORM_ID, Inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  Input,
+  OnInit,
+  PLATFORM_ID,
+  SimpleChanges,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ChatSelectionService } from '../../../services/chat-selection.service';
+import { SharedService } from '../../../services/shared.service';
+import { SubmenuService } from '../../../services/submenu.service';
+import { actionmenu, channel, contactlist, Messages } from '../chats/data';
 import { PrimaryButtonComponent } from '../common/primary-button/primary-button.component';
 import { SearchInputComponent } from '../common/search-input/search-input.component';
-import { SubmenuService } from '../../../services/submenu.service';
-import { contactlist, Messages, channel, actionmenu } from '../chats/data';
-import { ChatSelectionService } from '../../../services/chat-selection.service';
-import { Router } from '@angular/router';
-import { SharedService } from '../../../services/shared.service';
-import { isPlatformBrowser } from '@angular/common';
 interface SubmenuItem {
   key: string;
   icon: string;
@@ -18,12 +25,16 @@ interface SubmenuItem {
 @Component({
   selector: 'app-submenu',
   standalone: true,
-  imports: [CommonModule, PrimaryButtonComponent, SearchInputComponent, FormsModule],
+  imports: [
+    CommonModule,
+    PrimaryButtonComponent,
+    SearchInputComponent,
+    FormsModule,
+  ],
   templateUrl: './submenu.component.html',
-  styleUrls: ['./submenu.component.css']
+  styleUrls: ['./submenu.component.css'],
 })
 export class SubmenuComponent implements OnInit {
-
   @Input() showSlider = true;
   @Input() menu: string = 'booking';
   activeSubmenu: string = '';
@@ -40,15 +51,15 @@ export class SubmenuComponent implements OnInit {
   filteredActionMenu = this.actionmenu;
   sidebarOpen = true;
 
-
   constructor(
     private submenuService: SubmenuService,
     private changeDetector: ChangeDetectorRef,
     private chatService: ChatSelectionService,
     private router: Router,
+    private route: ActivatedRoute,
     private sharedService: SharedService,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.setActiveSubmenu();
@@ -60,7 +71,6 @@ export class SubmenuComponent implements OnInit {
       this.setActiveSubmenu();
       this.filteredItems = this.getFilteredSubmenuItems();
     }
-
   }
 
   // Helper to check if current menu is chat
@@ -70,28 +80,72 @@ export class SubmenuComponent implements OnInit {
 
   private submenuItemsMap: { [key: string]: SubmenuItem[] } = {
     booking: [
-      { key: 'bookCourt', icon: 'assets/icons/calender-tick-icon.svg', label: 'Pickleball Booking' },
+      {
+        key: 'bookCourt',
+        icon: 'assets/icons/calender-tick-icon.svg',
+        label: 'Pickleball Booking',
+      },
       { key: 'events', icon: 'assets/icons/events-icon.svg', label: 'Events' },
-      { key: 'membership', icon: 'assets/icons/profile-circle-icon.svg', label: 'Membership' },
-      { key: 'shopping', icon: 'assets/icons/shopping-bag-icon.svg', label: 'Shopping' },
-      { key: 'bookingHistory', icon: 'assets/icons/headphone-icon.svg', label: 'Contact Support' }
+      {
+        key: 'membership',
+        icon: 'assets/icons/profile-circle-icon.svg',
+        label: 'Membership',
+      },
+      {
+        key: 'shopping',
+        icon: 'assets/icons/shopping-bag-icon.svg',
+        label: 'Shopping',
+      },
+      {
+        key: 'bookingHistory',
+        icon: 'assets/icons/headphone-icon.svg',
+        label: 'Contact Support',
+      },
     ],
     chat: [
-      { key: 'upcomingEvents', icon: 'assets/icons/calender-icon.svg', label: 'Upcoming Events' },
-      { key: 'pastEvents', icon: 'assets/icons/events-icon.svg', label: 'Past Events' }
+      {
+        key: 'upcomingEvents',
+        icon: 'assets/icons/calender-icon.svg',
+        label: 'Upcoming Events',
+      },
+      {
+        key: 'pastEvents',
+        icon: 'assets/icons/events-icon.svg',
+        label: 'Past Events',
+      },
     ],
     memberships: [
-      { key: 'addMember', icon: 'assets/icons/events-icon.svg', label: 'Add Member' },
-      { key: 'allMembers', icon: 'assets/icons/headphone-icon.svg', label: 'All Members' }
+      {
+        key: 'addMember',
+        icon: 'assets/icons/events-icon.svg',
+        label: 'Add Member',
+      },
+      {
+        key: 'allMembers',
+        icon: 'assets/icons/headphone-icon.svg',
+        label: 'All Members',
+      },
     ],
     shop: [
-      { key: 'myOrders', icon: 'assets/icons/events-icon.svg', label: 'My Orders' },
-      { key: 'browseStore', icon: 'assets/icons/profile-circle-icon.svg', label: 'Browse Store' }
+      {
+        key: 'myOrders',
+        icon: 'assets/icons/events-icon.svg',
+        label: 'My Orders',
+      },
+      {
+        key: 'browseStore',
+        icon: 'assets/icons/profile-circle-icon.svg',
+        label: 'Browse Store',
+      },
     ],
     support: [
       { key: 'faqs', icon: 'assets/icons/events-icon.svg', label: 'FAQs' },
-      { key: 'contactUs', icon: 'assets/icons/events-icon.svg', label: 'Contact Us' }
-    ]
+      {
+        key: 'contactUs',
+        icon: 'assets/icons/events-icon.svg',
+        label: 'Contact Us',
+      },
+    ],
   };
 
   setActiveSubmenu() {
@@ -99,7 +153,8 @@ export class SubmenuComponent implements OnInit {
     if (firstItem) {
       this.activeSubmenu = firstItem.key;
     }
-
+    const queryParams = this.route.snapshot.queryParams;
+    this.activeSubmenu = queryParams['chatId'] || '';
   }
 
   selectSubmenu(key: string) {
@@ -109,7 +164,7 @@ export class SubmenuComponent implements OnInit {
     // Navigate with clean state
     this.router.navigate(['/dashboard'], {
       queryParams: { chatId: key },
-      queryParamsHandling: 'merge'
+      queryParamsHandling: 'merge',
     });
     this.showSlider = true;
 
@@ -125,7 +180,7 @@ export class SubmenuComponent implements OnInit {
   getFilteredSubmenuItems(): SubmenuItem[] {
     const items = this.getSubmenuItems();
     if (!this.searchQuery.trim()) return items;
-    return items.filter(item =>
+    return items.filter((item) =>
       item.label.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
   }
@@ -133,16 +188,16 @@ export class SubmenuComponent implements OnInit {
   onSearchChange() {
     if (this.isChatMenu) {
       const query = this.searchQuery.toLowerCase();
-      this.filteredFavourites = this.favourites.filter(c =>
+      this.filteredFavourites = this.favourites.filter((c) =>
         c.name.toLowerCase().includes(query)
       );
-      this.filteredDirectMessages = this.directMessages.filter(m =>
+      this.filteredDirectMessages = this.directMessages.filter((m) =>
         m.name.toLowerCase().includes(query)
       );
-      this.filteredChannels = this.channels.filter(ch =>
+      this.filteredChannels = this.channels.filter((ch) =>
         ch.name.toLowerCase().includes(query)
       );
-      this.filteredActionMenu = this.actionmenu.filter(ch =>
+      this.filteredActionMenu = this.actionmenu.filter((ch) =>
         ch.name.toLowerCase().includes(query)
       );
     } else {
@@ -166,15 +221,11 @@ export class SubmenuComponent implements OnInit {
     return initials;
   }
 
-
   selectChat(chatId: string) {
     this.chatService.setSelectedChatId(chatId);
     this.router.navigate([], {
       queryParams: { chatId },
-      queryParamsHandling: 'merge'
+      queryParamsHandling: 'merge',
     });
-
   }
-
-
 }
