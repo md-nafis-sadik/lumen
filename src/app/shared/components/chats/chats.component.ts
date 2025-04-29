@@ -166,13 +166,8 @@ export class ChatsComponent implements AfterViewChecked {
 
   // Update ngAfterViewChecked
   ngAfterViewChecked() {
-    if (
-      this.chatContainer &&
-      this.chatData.length > this.previousMessagesLength
-    ) {
-      setTimeout(() => {
-        this.scrollToBottom();
-      }, 300);
+    if (this.chatData.length > this.previousMessagesLength) {
+      setTimeout(() => this.scrollToBottom(), 300);
       this.previousMessagesLength = this.chatData.length;
     }
   }

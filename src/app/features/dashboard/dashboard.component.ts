@@ -1,32 +1,48 @@
-import { Component, ViewChild, Inject, PLATFORM_ID, Input } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { combineLatest } from 'rxjs';
+import { AutoScrollInputDirective } from '../../directives/auto-scroll-input.directive';
 import { HeaderComponent } from '../../layouts/header/header.component';
 import { SidebarComponent } from '../../layouts/sidebar/sidebar.component';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ChatMessage } from '../../models/chat.model';
+import { ChatSelectionService } from '../../services/chat-selection.service';
+import { ChatStoreService } from '../../services/chat-store.service';
+import { SharedService } from '../../services/shared.service';
+import { SubmenuService } from '../../services/submenu.service';
+import { ChatsComponent } from '../../shared/components/chats/chats.component';
+import { PrimaryButtonComponent } from '../../shared/components/common/primary-button/primary-button.component';
+import { CourtDetailsComponent } from '../../shared/components/court-details/court-details.component';
 import { ImageSliderComponent } from '../../shared/components/image-slider/image-slider.component';
 import { PickleballBookingCardComponent } from '../../shared/components/pickleball-booking-card/pickleball-booking-card.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { SubmenuService } from '../../services/submenu.service';
-import { PrimaryButtonComponent } from '../../shared/components/common/primary-button/primary-button.component';
 import { DateFormatterPipe } from '../../shared/pipes/date-formatter.pipe';
 import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
-import { ChatsComponent } from '../../shared/components/chats/chats.component';
-import { ChatMessage } from '../../models/chat.model';
-import { ChatStoreService } from '../../services/chat-store.service';
-import { ChatSelectionService } from '../../services/chat-selection.service';
-import { combineLatest } from 'rxjs';
-import { CourtDetailsComponent } from '../../shared/components/court-details/court-details.component';
-import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent, SidebarComponent, CourtDetailsComponent, ImageSliderComponent, PickleballBookingCardComponent, FormsModule, PrimaryButtonComponent, ReactiveFormsModule, DateFormatterPipe, TimeAgoPipe, PickleballBookingCardComponent, ChatsComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    HeaderComponent,
+    SidebarComponent,
+    CourtDetailsComponent,
+    ImageSliderComponent,
+    PickleballBookingCardComponent,
+    FormsModule,
+    PrimaryButtonComponent,
+    ReactiveFormsModule,
+    DateFormatterPipe,
+    TimeAgoPipe,
+    PickleballBookingCardComponent,
+    ChatsComponent,
+    AutoScrollInputDirective,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
-
   isDetailsOn = false;
   selectedChatId: string | null = null;
   showSlider = true;
@@ -41,15 +57,13 @@ export class DashboardComponent {
   showAvatarDropdown = false;
   userInput = '';
   messages: {
-    sender: 'user' | 'bot',
-    content: string[],
-    type: 'text' | 'booking',
-    timestamp: Date,
-    avatar: string
+    sender: 'user' | 'bot';
+    content: string[];
+    type: 'text' | 'booking';
+    timestamp: Date;
+    avatar: string;
   }[] = [];
   chatData: ChatMessage[] = [];
-
-
 
   constructor(
     private route: ActivatedRoute,
@@ -60,7 +74,7 @@ export class DashboardComponent {
     private sharedService: SharedService
   ) {
     this.initializeSidebarState();
-    this.chatService.selectedChatId$.subscribe(chatId => {
+    this.chatService.selectedChatId$.subscribe((chatId) => {
       this.selectedChatId = chatId;
     });
   }
@@ -76,7 +90,7 @@ export class DashboardComponent {
     this.setupResizeListener();
     combineLatest([
       this.route.queryParams,
-      this.chatService.selectedChatId$
+      this.chatService.selectedChatId$,
     ]).subscribe(([params, serviceChatId]) => {
       const chatId = serviceChatId || params['chatId'];
       if (chatId) {
@@ -88,11 +102,12 @@ export class DashboardComponent {
     });
 
     if (isPlatformBrowser(this.platformId) && window.innerWidth < 1024) {
-    this.sharedService.sidebarOpen$.subscribe(open => {
-      this.sidebarOpen = open;
-    });}
+      this.sharedService.sidebarOpen$.subscribe((open) => {
+        this.sidebarOpen = open;
+      });
+    }
 
-    this.sharedService.isExpanded$.subscribe(expanded => {
+    this.sharedService.isExpanded$.subscribe((expanded) => {
       this.isExpanded = expanded;
     });
   }
@@ -116,8 +131,8 @@ export class DashboardComponent {
         content: [trimmed],
         type: 'text' as const,
         timestamp: new Date(),
-        avatar: 'assets/icons/Avatar.png'
-      }
+        avatar: 'assets/icons/Avatar.png',
+      },
     ];
 
     this.chatStore.updateChat(this.selectedChatId, newMessages);
@@ -127,29 +142,29 @@ export class DashboardComponent {
     setTimeout(() => {
       const updatedChat = this.chatStore.getChat(this.selectedChatId);
       // Bot message with proper typing
-      const newMessage: ChatMessage = trimmed.toLowerCase().includes('book') &&
+      const newMessage: ChatMessage =
+        trimmed.toLowerCase().includes('book') &&
         trimmed.toLowerCase().includes('pickleball')
-        ? {
-          id: Date.now().toString(),
-          sender: 'bot',
-          content: [''],
-          type: 'booking',
-          timestamp: new Date(),
-          avatar: 'assets/icons/LUMEN.svg'
-        }
-        : {
-          id: Date.now().toString(),
-          sender: 'bot',
-          content: ["I'm here to help!"],
-          type: 'text',
-          timestamp: new Date(),
-          avatar: 'assets/icons/LUMEN.svg'
-        };
+          ? {
+              id: Date.now().toString(),
+              sender: 'bot',
+              content: [''],
+              type: 'booking',
+              timestamp: new Date(),
+              avatar: 'assets/icons/LUMEN.svg',
+            }
+          : {
+              id: Date.now().toString(),
+              sender: 'bot',
+              content: ["I'm here to help!"],
+              type: 'text',
+              timestamp: new Date(),
+              avatar: 'assets/icons/LUMEN.svg',
+            };
 
       this.chatData = [...this.chatData, newMessage];
     }, 300);
   }
-
 
   private initializeSidebarState() {
     if (isPlatformBrowser(this.platformId)) {
@@ -160,7 +175,7 @@ export class DashboardComponent {
   private handleResize = () => {
     const isLgScreen = window.innerWidth >= 1024;
     this.sidebarOpen = isLgScreen;
-  }
+  };
 
   private setupResizeListener() {
     if (isPlatformBrowser(this.platformId)) {
@@ -169,13 +184,13 @@ export class DashboardComponent {
   }
 
   private setupSubmenuSubscriptions() {
-    this.submenuService.showAddChannelModal$.subscribe(show => {
+    this.submenuService.showAddChannelModal$.subscribe((show) => {
       this.showAddChannelModal = show;
     });
-    this.submenuService.newChannelName$.subscribe(name => {
+    this.submenuService.newChannelName$.subscribe((name) => {
       this.newChannelName = name;
     });
-    this.submenuService.showLocationSelectModal$.subscribe(show => {
+    this.submenuService.showLocationSelectModal$.subscribe((show) => {
       this.showLocationSelectModal = show;
     });
   }
@@ -190,10 +205,8 @@ export class DashboardComponent {
   }
 
   selectLocation() {
-
     this.submenuService.openLocationSelectModal();
   }
-
 
   closeModal() {
     this.submenuService.closeAddChannelModal();
@@ -210,8 +223,6 @@ export class DashboardComponent {
     this.sendMessage();
     this.showSlider = false;
   }
-
-
 
   toggleSettings() {
     const wasOpen = this.showSettingsSidebar;
@@ -236,7 +247,6 @@ export class DashboardComponent {
     this.showAvatarDropdown = false;
   }
 
-
   onMessageSent(message: string) {
     const trimmed = message.trim();
     if (!trimmed) return;
@@ -250,8 +260,8 @@ export class DashboardComponent {
         content: [trimmed],
         type: 'text' as const,
         timestamp: new Date(),
-        avatar: 'assets/icons/Avatar.png'
-      }
+        avatar: 'assets/icons/Avatar.png',
+      },
     ];
 
     this.chatStore.updateChat(this.selectedChatId, newMessages);
@@ -261,38 +271,35 @@ export class DashboardComponent {
     setTimeout(() => {
       // Bot message with proper typing
       const newMessage1: ChatMessage = {
-          id: Date.now().toString(),
-          sender: 'user' as const,
-          content: [message],
-          type: 'text' as const,
-          timestamp: new Date(),
-          avatar: 'assets/icons/Avatar.png'
-        };
+        id: Date.now().toString(),
+        sender: 'user' as const,
+        content: [message],
+        type: 'text' as const,
+        timestamp: new Date(),
+        avatar: 'assets/icons/Avatar.png',
+      };
 
-      const newMessage: ChatMessage = trimmed.toLowerCase().includes('book') &&
+      const newMessage: ChatMessage =
+        trimmed.toLowerCase().includes('book') &&
         trimmed.toLowerCase().includes('pickleball')
-        ? {
-          id: Date.now().toString(),
-          sender: 'bot',
-          content: [''],
-          type: 'booking',
-          timestamp: new Date(),
-          avatar: 'assets/icons/LUMEN.svg'
-        }
-        : {
-          id: Date.now().toString(),
-          sender: 'bot',
-          content: ["I'm here to help!"],
-          type: 'text',
-          timestamp: new Date(),
-          avatar: 'assets/icons/LUMEN.svg'
-        };
+          ? {
+              id: Date.now().toString(),
+              sender: 'bot',
+              content: [''],
+              type: 'booking',
+              timestamp: new Date(),
+              avatar: 'assets/icons/LUMEN.svg',
+            }
+          : {
+              id: Date.now().toString(),
+              sender: 'bot',
+              content: ["I'm here to help!"],
+              type: 'text',
+              timestamp: new Date(),
+              avatar: 'assets/icons/LUMEN.svg',
+            };
 
       this.chatData = [...this.chatData, newMessage1, newMessage];
     }, 300);
   }
-
-
 }
-
-

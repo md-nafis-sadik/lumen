@@ -18,7 +18,7 @@
     ></app-sidebar>
 
     <app-chats
-      class="flex-1 bg-fade-white h-[calc(100svh-65px)] w-full mt-auto"
+      class="flex-1 bg-fade-white h-[calc(100dvh-65px)] w-full mt-auto flex flex-col"
       [messages]="chatData"
       [showSlider]="showSlider"
       (messageSent)="onMessageSent($event)"
