@@ -1,121 +1,191 @@
 <div class="flex flex-col h-svh overflow-hidden">
   <!-- Header -->
-  <app-header (menuClicked)="toggleSidebar()" (gearClicked)="toggleSettings()" (bellClicked)="toggleNotifications()"
-    (avatarClicked)="toggleAvatar()" ngClass="max-h-[70px]" />
-
+  <app-header
+    (menuClicked)="toggleSidebar()"
+    (gearClicked)="toggleSettings()"
+    (bellClicked)="toggleNotifications()"
+    (avatarClicked)="toggleAvatar()"
+    ngClass="max-h-[70px]"
+  />
 
   <div class="flex flex-1 overflow-hidden">
     <!-- Sidebar -->
-    <app-sidebar [class.max-w-0]="!sidebarOpen" [class.lg:max-w-[320px]]="sidebarOpen" [class.max-w-full]="sidebarOpen"
-      class="w-full max-w-full lg:max-w-[320px] absolute lg:relative z-40 h-[calc(100svh-60px)] lg:h-auto bg-white-00-00 transition-all duration-700 overflow-hidden mt-[60px]"></app-sidebar>
+    <app-sidebar
+      [class.max-w-0]="!sidebarOpen"
+      [class.lg:max-w-[320px]]="sidebarOpen"
+      [class.max-w-full]="sidebarOpen"
+      class="w-full max-w-full lg:max-w-[320px] absolute lg:relative z-40 h-[calc(100svh-60px)] lg:h-auto bg-white-00-00 transition-all duration-700 overflow-hidden mt-[60px]"
+    ></app-sidebar>
 
-
-
-    <app-chats class="flex-1 bg-fade-white mt-[60px] pt-[20px] w-full" [messages]="chatData"
-      [showSlider]="showSlider" (messageSent)="onMessageSent($event)" [chatId]="selectedChatId"></app-chats>
-
+    <app-chats
+      class="flex-1 bg-fade-white h-[calc(100svh-65px)] w-full mt-auto"
+      [messages]="chatData"
+      [showSlider]="showSlider"
+      (messageSent)="onMessageSent($event)"
+      [chatId]="selectedChatId"
+    ></app-chats>
 
     <!-- Settings Sidebar -->
-    <div (click)="$event.stopPropagation()"
+    <div
+      (click)="$event.stopPropagation()"
       class="inset-y-0 right-0 absolute lg:relative max-w-[320px] bg-white z-30 transition-all duration-400 overflow-hidden h-[calc(100svh-60px)] lg:h-auto mt-[60px]"
       [ngClass]="{
-          'w-0': !showSettingsSidebar,
-          'w-full': showSettingsSidebar
-        }">
+        'w-0': !showSettingsSidebar,
+        'w-full': showSettingsSidebar
+      }"
+    >
       <div class="p-4 flex justify-between items-center w-full">
         <h3 class="text-lg font-semibold">Settings</h3>
-        <button class="text-fade-text hover:text-primary-text cursor-pointer text-2xl transition-colors duration-200"
-          (click)="closeAll()">&times;</button>
+        <button
+          class="text-fade-text hover:text-primary-text cursor-pointer text-2xl transition-colors duration-200"
+          (click)="closeAll()"
+        >
+          &times;
+        </button>
       </div>
     </div>
 
     <!-- Notifications Sidebar -->
-    <div (click)="$event.stopPropagation()"
+    <div
+      (click)="$event.stopPropagation()"
       class="inset-y-0 right-0 absolute lg:relative max-w-[320px] bg-white z-30 transition-all duration-400 overflow-hidden h-[calc(100svh-60px)] lg:h-auto mt-[60px]"
       [ngClass]="{
-          'w-0': !showNotificationsSidebar,
-          'w-full': showNotificationsSidebar
-        }">
+        'w-0': !showNotificationsSidebar,
+        'w-full': showNotificationsSidebar
+      }"
+    >
       <div class="p-4 flex justify-between items-center w-full">
         <h3 class="text-lg font-semibold">Notifications</h3>
-        <button class="text-fade-text hover:text-primary-text cursor-pointer text-2xl transition-colors duration-200"
-          (click)="closeAll()">&times;</button>
+        <button
+          class="text-fade-text hover:text-primary-text cursor-pointer text-2xl transition-colors duration-200"
+          (click)="closeAll()"
+        >
+          &times;
+        </button>
       </div>
     </div>
 
-    <div 
+    <div
       class="inset-y-0 right-0 absolute lg:relative bg-white z-5 transition-all duration-400 overflow-hidden h-[calc(100svh-60px)] lg:h-auto mt-[60px] w-full lg:w-[675px]"
       [ngClass]="{
-          'w-0': !isExpanded,
-          'w-full lg:w-[675px]': isExpanded
-        }">
-      <div class="p-4 flex justify-between items-center w-full">
-      </div>
+        'w-0': !isExpanded,
+        'w-full lg:w-[675px]': isExpanded
+      }"
+    >
+      <div class="p-4 flex justify-between items-center w-full"></div>
     </div>
-
   </div>
 </div>
 
-
-<div *ngIf="showAvatarDropdown" class="fixed inset-0 z-50 bg-transparent flex justify-end top-[-12px]"
-  (click)="closeAll()">
+<div
+  *ngIf="showAvatarDropdown"
+  class="fixed inset-0 z-50 bg-transparent flex justify-end top-[-12px]"
+  (click)="closeAll()"
+>
   <div
     class="mt-[70px] mr-2 w-48 bg-white-00 rounded-md shadow-lg border border-fade-white dropdown-panel transition-all duration-300 ease-out opacity-100 h-[110px] animate-[fadeInModal_0.3s_ease-out_forwards]"
-    (click)="$event.stopPropagation()">
-    <a href="#" class="block px-4 py-2 text-sm text-primary-text rounded-md hover:bg-fade-white">Profile</a>
-    <a href="#" class="block px-4 py-2 text-sm text-primary-text rounded-md hover:bg-fade-white">Settings</a>
-    <a href="/login" class="block px-4 py-2 text-sm text-primary-text rounded-md hover:bg-fade-white">Logout</a>
+    (click)="$event.stopPropagation()"
+  >
+    <a
+      href="#"
+      class="block px-4 py-2 text-sm text-primary-text rounded-md hover:bg-fade-white"
+      >Profile</a
+    >
+    <a
+      href="#"
+      class="block px-4 py-2 text-sm text-primary-text rounded-md hover:bg-fade-white"
+      >Settings</a
+    >
+    <a
+      href="/login"
+      class="block px-4 py-2 text-sm text-primary-text rounded-md hover:bg-fade-white"
+      >Logout</a
+    >
   </div>
 </div>
 
-
-<div *ngIf="showAddChannelModal" class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center"
-  (click)="closeModal()">
+<div
+  *ngIf="showAddChannelModal"
+  class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center"
+  (click)="closeModal()"
+>
   <!-- Modal Box -->
-  <div class="bg-white w-full max-h-[90vh] mx-4 md:w-[500px] md:h-auto p-6 rounded-lg shadow-lg overflow-y-auto relative
-           animate-[fadeInModal_0.3s_ease-out_forwards]" (click)="$event.stopPropagation()">
-    <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl cursor-pointer"
-      (click)="closeModal()">
+  <div
+    class="bg-white w-full max-h-[90vh] mx-4 md:w-[500px] md:h-auto p-6 rounded-lg shadow-lg overflow-y-auto relative animate-[fadeInModal_0.3s_ease-out_forwards]"
+    (click)="$event.stopPropagation()"
+  >
+    <button
+      class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl cursor-pointer"
+      (click)="closeModal()"
+    >
       &times;
     </button>
 
     <h2 class="text-lg font-semibold mb-4">Add Chat Channel</h2>
 
-    <input type="text" [(ngModel)]="newChannelName" placeholder="Channel name"
-      class="w-full p-2 border border-gray-300 rounded-md mb-4 placeholder-custom" (keyup.enter)="saveChannel()" />
+    <input
+      type="text"
+      [(ngModel)]="newChannelName"
+      placeholder="Channel name"
+      class="w-full p-2 border border-gray-300 rounded-md mb-4 placeholder-custom"
+      (keyup.enter)="saveChannel()"
+    />
 
-    <app-primary-button [text]="'Add Channel'" (click)="saveChannel()" [bgColor]="'#06ACCE'" [hoverColor]="'#0799B7'"
-      fontSize="text-sm" padding="py-2 px-3" width="w-full"></app-primary-button>
+    <app-primary-button
+      [text]="'Add Channel'"
+      (click)="saveChannel()"
+      [bgColor]="'#06ACCE'"
+      [hoverColor]="'#0799B7'"
+      fontSize="text-sm"
+      padding="py-2 px-3"
+      width="w-full"
+    ></app-primary-button>
   </div>
 </div>
 
-
-
-<div *ngIf="showLocationSelectModal" class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center bg-whi"
-  (click)="closeModal()">
+<div
+  *ngIf="showLocationSelectModal"
+  class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center bg-whi"
+  (click)="closeModal()"
+>
   <!-- Modal Box -->
   <div
-    class="max-w-xs bg-white-00 mx-auto mt-10 px-7 py-6 border  rounded-lg text-center space-y-4 animate-[fadeInModal_0.3s_ease-out_forwards]">
+    class="max-w-xs bg-white-00 mx-auto mt-10 px-7 py-6 border rounded-lg text-center space-y-4 animate-[fadeInModal_0.3s_ease-out_forwards]"
+  >
     <!-- Icon -->
     <div class="flex justify-center">
-      <img src="assets/icons/map-pin-lg-icon.svg">
+      <img src="assets/icons/map-pin-lg-icon.svg" />
     </div>
 
     <!-- Message -->
     <div class="space-y-3">
-      <p class="font-medium text-gray-800">Allow <span class="font-semibold">“PickleBugs”</span> to access this device’s
-        location all the time?</p>
-      <p class="text-xs text-gray-500">You can change this setting in the Websites section of your device Settings.</p>
+      <p class="font-medium text-gray-800">
+        Allow <span class="font-semibold">“PickleBugs”</span> to access this
+        device’s location all the time?
+      </p>
+      <p class="text-xs text-gray-500">
+        You can change this setting in the Websites section of your device
+        Settings.
+      </p>
     </div>
 
     <!-- Buttons -->
     <div class="space-y-3">
-      <button class="w-full bg-black text-white py-2 rounded-xl">Allow While visiting the Site</button>
-      <button class="w-full border border-gray-300 text-gray-800 py-2 rounded-xl">Allow this time</button>
-      <button class="w-full border border-gray-300 text-gray-500 py-2 rounded-xl">Never allow</button>
+      <button class="w-full bg-black text-white py-2 rounded-xl">
+        Allow While visiting the Site
+      </button>
+      <button
+        class="w-full border border-gray-300 text-gray-800 py-2 rounded-xl"
+      >
+        Allow this time
+      </button>
+      <button
+        class="w-full border border-gray-300 text-gray-500 py-2 rounded-xl"
+      >
+        Never allow
+      </button>
     </div>
   </div>
-
 </div>
 
 <app-court-details *ngIf="isDetailsOn"></app-court-details>

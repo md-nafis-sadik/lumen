@@ -46,7 +46,7 @@ export class ChatsComponent implements AfterViewChecked {
   @Input() showSlider = true;
   @Input() chatId: string | null = null;
   @Output() messageSent = new EventEmitter<string>();
-  @ViewChild('chatContainer') private chatContainer!: ElementRef;
+  @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLDivElement>;
 
   showMessageTemplate = false;
   isAnimating = false;
@@ -133,6 +133,12 @@ export class ChatsComponent implements AfterViewChecked {
     }
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, 300);
+  }
+
   private loadChatData() {
     if (!this.chatId) {
       // Create new array reference to trigger change detection
@@ -160,8 +166,13 @@ export class ChatsComponent implements AfterViewChecked {
 
   // Update ngAfterViewChecked
   ngAfterViewChecked() {
-    if (this.chatData.length > this.previousMessagesLength) {
-      setTimeout(() => this.scrollToBottom(), 50);
+    if (
+      this.chatContainer &&
+      this.chatData.length > this.previousMessagesLength
+    ) {
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 300);
       this.previousMessagesLength = this.chatData.length;
     }
   }
@@ -169,12 +180,20 @@ export class ChatsComponent implements AfterViewChecked {
   // Modify the scrollToBottom method
   private scrollToBottom() {
     try {
-      const element = this.chatContainer.nativeElement;
-      element.scrollTop = element.scrollHeight;
+      setTimeout(() => {
+        if (this.chatContainer) {
+          const element = this.chatContainer.nativeElement;
+          element.scrollTo({
+            top: element.scrollHeight,
+            behavior: 'smooth',
+          });
+        }
+      });
     } catch (err) {
       console.error('Scroll error:', err);
     }
   }
+
   // Update onScroll method
   onScroll() {
     const element = this.chatContainer.nativeElement;
@@ -243,7 +262,7 @@ export class ChatsComponent implements AfterViewChecked {
             };
 
       this.chatData = [...this.chatData, newMessage];
-    }, 300);
+    }, 200);
   }
 
   sendQuickMessage(message: string) {
