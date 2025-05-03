@@ -34,14 +34,14 @@
             'w-full lg:w-[216px]': isExpanded
         }">
             <div (click)="openLocationSelectModal()"
-              class="flex items-center gap-1 w-full px-3 py-2 border border-gray-200 rounded-lg hover:bg-[#E6F7FB] transition cursor-pointer">
+              class="flex items-center gap-1 w-full px-3 py-2 border border-gray-200 rounded-lg hover:bg-mint-25 transition cursor-pointer">
               <img src="assets/icons/location-select-icon.svg" />
               <div>Use my location</div>
             </div>
 
             <!-- Country -->
             <div (click)="selectCountry()" class="px-3 py-2 rounded-lg cursor-pointer border" [ngClass]="{
-            'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-50': currentStep === 'country'
+            'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-25': currentStep === 'country'
           }">
               <div class="text-sm mb-1">Country</div>
               <div class="truncate">{{ countryControl.value?.name || 'Select country' }}</div>
@@ -49,7 +49,7 @@
 
             <!-- State -->
             <div (click)="selectState()" class="px-3 py-2 border cursor-pointer border-gray-200 rounded-lg" [ngClass]="{
-            'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-50': currentStep === 'state'
+            'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-25': currentStep === 'state'
           }" [class.cursor-not-allowed]="!countryControl.value" [class.bg-gray-100]="!countryControl.value">
               <div class="text-sm mb-1">State</div>
               <div class="truncate">{{ stateControl.value?.name || 'Select state' }}</div>
@@ -57,7 +57,7 @@
 
             <!-- City -->
             <div (click)="selectCity()" class="px-3 py-2 border cursor-pointer border-gray-200 rounded-lg" [ngClass]="{
-            'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-50': currentStep === 'city' 
+            'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-25': currentStep === 'city' 
           }" [class.cursor-not-allowed]="!stateControl.value" [class.bg-gray-100]="!stateControl.value">
               <div class="text-sm mb-1">City</div>
               <div class="truncate">{{ cityControl.value?.name || 'Select city' }}</div>
@@ -66,7 +66,7 @@
             <!-- Date -->
             <div class="px-3 py-2 border border-gray-200 rounded-lg" [class.cursor-not-allowed]="!cityControl.value"
               [class.bg-gray-100]="!cityControl.value" [ngClass]="{
-              'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-50': currentStep === 'date'
+              'border-b-2 border-mint-200 ring-1 ring-mint-200 bg-mint-25': currentStep === 'date'
             }">
               <div class="text-sm mb-1">Date</div>
               <div class="text-fade-text">
@@ -143,13 +143,13 @@
                     <!-- Shift Toggle -->
                     <div class="flex justify-between rounded-full p-[3px] w-[224px] border">
                       <button class="flex-1 text-sm py-2 rounded-full transition-all duration-200"
-                        (click)="selectedShift = 'day'" [class.bg-mint-50]="selectedShift === 'day'"
+                        (click)="selectedShift = 'day'" [class.bg-mint-25]="selectedShift === 'day'"
                         [class.border]="selectedShift === 'day'" [class.border-mint-200]="selectedShift === 'day'"
                         (click)="selectedShift = 'day'">
                         Day Shift
                       </button>
                       <button class="flex-1 text-sm py-2 rounded-full transition-all duration-200"
-                        (click)="selectedShift = 'evening'" [class.bg-mint-50]="selectedShift === 'evening'"
+                        (click)="selectedShift = 'evening'" [class.bg-mint-25]="selectedShift === 'evening'"
                         [class.border]="selectedShift === 'evening'"
                         [class.border-mint-200]="selectedShift === 'evening'" (click)="selectedShift = 'evening'">
                         Evening Shift
@@ -161,7 +161,7 @@
                     <ng-container *ngFor="let slot of selectedShift === 'day' ? daySlots : eveningSlots">
                       <div (click)="onSlotSelected(slot)"
                         class="text-sm text-gray-700 rounded-md px-3 py-2.5 text-center cursor-pointer bg-fade-white"
-                        [class.bg-mint-50]="selectedSlot === slot" [class.border]="selectedSlot === slot"
+                        [class.bg-mint-25]="selectedSlot === slot" [class.border]="selectedSlot === slot"
                         [class.border-mint-200]="selectedSlot === slot">
                         {{ slot }}
                       </div>
@@ -191,26 +191,26 @@
         class="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-100">Back</button>
       <button *ngIf="step == 0" (click)="onNextClick()"
         class="px-4 py-2 rounded-lg text-sm transition-colors duration-300" [class.bg-gray-200]="!isSlotSelected"
-        [class.text-gray-500]="!isSlotSelected" [class.bg-mint-400]="isSlotSelected" [class.text-white]="isSlotSelected"
+        [class.text-gray-500]="!isSlotSelected" [class.bg-mint-350]="isSlotSelected" [class.text-white]="isSlotSelected"
         [class.cursor-not-allowed]="!isSlotSelected" [class.cursor-pointer]="isSlotSelected"
         [disabled]="!isSlotSelected">
         Next
       </button>
       <button *ngIf="step == 1" (click)="onNextClick()"
         class="px-4 py-2 rounded-lg text-sm transition-colors duration-300" [class.bg-gray-200]="!isCourtSelected"
-        [class.text-gray-500]="!isCourtSelected" [class.bg-mint-400]="isCourtSelected"
+        [class.text-gray-500]="!isCourtSelected" [class.bg-mint-350]="isCourtSelected"
         [class.text-white]="isCourtSelected" [class.cursor-not-allowed]="!isCourtSelected"
         [class.cursor-pointer]="isCourtSelected" [disabled]="!isCourtSelected">
         Book Now
       </button>
       <button *ngIf="step == 2" (click)="onNextClick()"
         class="px-4 py-2 rounded-lg text-sm transition-colors duration-300" [class.bg-gray-200]="!isCourtSelected"
-        [class.text-gray-500]="!isCourtSelected" [class.bg-mint-400]="isCourtSelected"
+        [class.text-gray-500]="!isCourtSelected" [class.bg-mint-350]="isCourtSelected"
         [class.text-white]="isCourtSelected" [class.cursor-not-allowed]="!isCourtSelected"
         [class.cursor-pointer]="isCourtSelected" [disabled]="!isCourtSelected">
         Pay ₹999
       </button>
-      <div *ngIf="step == 3" class="text-mint-400 flex justify-center w-full items-center gap-2"><app-icon icon="arrowleft" color="#06acce"></app-icon><a href="/dashboard">Go to Home</a></div>
+      <div *ngIf="step == 3" class="text-mint-350 flex justify-center w-full items-center gap-2"><app-icon icon="arrowleft" color="#06acce"></app-icon><a href="/dashboard">Go to Home</a></div>
     </div>
   </div>
 </div>

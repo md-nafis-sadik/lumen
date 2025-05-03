@@ -12,7 +12,7 @@ import { BrowserModule } from '@angular/platform-browser';
 })
 export class PaymentCardComponent {
 @Input() step: number = 0;
-  @Input() isExpanded = false;
+  @Input() isExpanded = true;
 
 
   paymentForm;

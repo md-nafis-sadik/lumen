@@ -24,6 +24,7 @@ import { IconComponent } from '../common/icon/icon.component';
 import { ImageSliderComponent } from '../image-slider/image-slider.component';
 import { PickleballBookingCardComponent } from '../pickleball-booking-card/pickleball-booking-card.component';
 import { channel_chat, chat, generatedChats } from './data';
+import { SharedService } from '../../../services/shared.service';
 
 @Component({
   selector: 'app-chats',
@@ -57,6 +58,7 @@ export class ChatsComponent implements AfterViewChecked {
   chatData: ChatMessage[] = [];
   selectedChatId: string | null = null;
   generatedChats: string[] = [];
+  isExpanded = false;
 
   sliderSlides = [
     {
@@ -107,7 +109,8 @@ export class ChatsComponent implements AfterViewChecked {
     private route: ActivatedRoute,
     private chatService: ChatSelectionService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private chatStore: ChatStoreService
+    private chatStore: ChatStoreService,
+        private sharedService: SharedService
   ) {
     this.chatService.selectedChatId$.subscribe((chatId) => {
       this.selectedChatId = chatId;
@@ -238,6 +241,8 @@ export class ChatsComponent implements AfterViewChecked {
 
     setTimeout(() => {
       // Bot message with proper typing
+      this.isExpanded = !this.isExpanded;
+    this.sharedService.setIsExpanded(this.isExpanded);
 
       const newMessage: ChatMessage =
         trimmed.toLowerCase().includes('book') &&
@@ -258,7 +263,7 @@ export class ChatsComponent implements AfterViewChecked {
               timestamp: new Date(),
               avatar: 'assets/icons/LUMEN.svg',
             };
-
+            
       this.chatData = [...this.chatData, newMessage];
     }, 200);
   }
@@ -351,6 +356,7 @@ export class ChatsComponent implements AfterViewChecked {
 
       // Handle booking messages
       if (messageType === 'booking') {
+        this.sharedService.setIsExpanded(this.isExpanded);
         return {
           id: msg.id,
           sender: msg.sender === 'right' ? 'user' : 'bot',

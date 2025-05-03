@@ -21,8 +21,7 @@
         </h1>
         <p class="mt-1 lg:mt-2 xl:mt-4 text-sm lg:text-lg 2xl:text-xl text-center 2xl:text-start">{{ slide.description }}</p>
         <div class="flex justify-center 2xl:justify-start mt-2 xl:mt-4">
-          <app-primary-button [text]="slide.buttonText" [bgColor]="slide.buttonColor || '#06ACCE'"
-            [hoverColor]="slide.buttonHoverColor || '#0799B7'" width="w-[108px]"
+          <app-primary-button [text]="slide.buttonText" 
             fontSize="text-sm mt-1 lg:mt-2 xl:mt-4"></app-primary-button>
         </div>
       </div>
@@ -38,8 +37,8 @@
   <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
     <span *ngFor="let slide of slides; let i = index"
       class="h-2.5 rounded-full cursor-pointer transition-all duration-300" [ngClass]="{
-        'w-2.5 bg-[#003f47] opacity-40': i !== activeSlide,
-        'w-8 bg-cyan-400': i === activeSlide
+        'w-2.5 bg-mint-500 opacity-40': i !== activeSlide,
+        'w-8 bg-mint-300': i === activeSlide
       }" (click)="goToSlide(i)"></span>
   </div>
 </div>

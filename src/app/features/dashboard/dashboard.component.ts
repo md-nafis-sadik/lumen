@@ -47,7 +47,7 @@ export class DashboardComponent {
   selectedChatId: string | null = null;
   showSlider = true;
   sidebarOpen = false;
-  isExpanded: boolean = false;
+  isExpanded: boolean = true;
   channels = ['Pickleball Expert'];
   showAddChannelModal = false;
   showLocationSelectModal = false;

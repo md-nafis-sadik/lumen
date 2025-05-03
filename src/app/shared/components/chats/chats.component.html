@@ -47,7 +47,7 @@
               <div
                 *ngFor="let messageItem of item.data?.content"
                 [ngClass]="{
-                  'bg-[#C3EBF3] rounded-tr-none self-end':
+                  'bg-mint-50 rounded-tr-none self-end':
                     item.data?.sender === 'user',
                   'bg-white-00 rounded-tl-none self-start':
                     item.data?.sender === 'bot'
@@ -77,7 +77,7 @@
             <!-- File/PDF Message -->
             <div
               *ngIf="item.data?.type === 'file'"
-              class="p-3 bg-[#C3EBF3] shadow rounded-s-xl rounded-br-xl flex items-center gap-2"
+              class="p-3 bg-mint-50 shadow rounded-s-xl rounded-br-xl flex items-center gap-2"
             >
               <div
                 class="p-2 border border-mint-400 rounded-md flex items-center space-x-3 px-4"

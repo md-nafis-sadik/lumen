@@ -15,7 +15,7 @@ import { IconComponent } from '../common/icon/icon.component';
 })
 export class CourtSelectionComponent {
   @Input() step: number = 0;
-  @Input() isExpanded = false;
+  @Input() isExpanded = true;
   monthDates: Date[] = [];
   @Input() selectedDateControl!: FormControl<Date | null>;
   @Input() selectedSlot: string | null = null;

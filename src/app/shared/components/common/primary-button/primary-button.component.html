@@ -1,8 +1,3 @@
-<button
-  [ngClass]="combinedClasses"
-  [style.backgroundColor]="hovering ? hoverColor : bgColor"
-  (mouseenter)="hovering = true"
-  (mouseleave)="hovering = false"
->
+<button [ngClass]="combinedClasses">
   {{ text }}
 </button>

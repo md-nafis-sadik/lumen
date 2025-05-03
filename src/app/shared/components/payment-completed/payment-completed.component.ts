@@ -13,7 +13,7 @@ import { IconComponent } from '../common/icon/icon.component';
 })
 export class PaymentCompletedComponent {
 @Input() step: number = 0;
-  @Input() isExpanded = false;
+  @Input() isExpanded = true;
 
 
 }

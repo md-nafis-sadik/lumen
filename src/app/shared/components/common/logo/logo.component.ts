@@ -10,5 +10,5 @@ import { Component, Input } from '@angular/core';
 })
 export class LogoComponent {
   @Input() customClass = ''; // Extra classes from parent
-  baseClass = 'w-28 mx-auto lg:mx-0'; // Always applied
+  baseClass = 'w-auto mx-auto lg:mx-0'; // Always applied
 }

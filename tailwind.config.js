@@ -6,12 +6,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'mint-400': '#1293AB',
-        'mint-900': '#0A3F49',
-        'mint-300': '#06ACCE',
-        'mint-200': '#9BDEEB',
-        'mint-50': '#EAF9FC',
-        'mint-25': '#F5FCFD',
+        'mint-25': '#E8F6FC',  // Lightest (adjusted hue, very light blue)
+'mint-50': '#D3E9F5',  // Lighter
+'mint-100': '#9AC7E6', // New (light)
+'mint-200': '#6BAEDB', // Adjusted (from cyan to blue)
+'mint-300': '#2F8FC3', // Adjusted (darker blue)
+'mint-350': '#1A7CB3',
+'mint-400': '#0B68A3', // Base (unchanged)
+'mint-500': '#093A6B',  // New (darker)
+'mint-600': '#072B52',  // New
+'mint-700': '#051C38',  // New
+'mint-800': '#030E1F',  // New
+'mint-900': '#01060F',   // Darkest (adjusted from teal to deep blue)
         'white-00': '#ffffff',
         'primary-text': '#141414',
         'fade-text': '#BDBDBD',

@@ -41,7 +41,7 @@ import { IconComponent } from '../common/icon/icon.component';
   styleUrls: ['./pickleball-booking-card.component.css']
 })
 export class PickleballBookingCardComponent {
-  isExpanded = false;
+  isExpanded = true;
   countries = Country.getAllCountries();
   states: any[] = [];
   cities: any[] = [];

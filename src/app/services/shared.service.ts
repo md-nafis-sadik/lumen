@@ -24,7 +24,7 @@ export class SharedService {
   }
 
 
-  private isExpansionOnSource = new BehaviorSubject<boolean>(false);
+  private isExpansionOnSource = new BehaviorSubject<boolean>(true);
   isExpansionOn$ = this.isExpansionOnSource.asObservable();
 
   private isExpandedSource = new BehaviorSubject<boolean>(false);
