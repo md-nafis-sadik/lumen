@@ -1,5 +1,5 @@
 <div class="w-full max-w-md space-y-6">
-  <app-logo customClass="mb-6" />
+  <app-logo customClass="mb-6 h-16" />
 
   <div>
     <h2 class="text-4xl lg:text-5xl font-bold mb-4 text-center lg:text-start">Sign in</h2>
@@ -15,7 +15,7 @@
       <label class="block mb-2 font-medium">Email</label>
       <input type="email" name="email" placeholder="Enter your email" [(ngModel)]="email" (blur)="onEmailBlur()"
         autocomplete="email" required email #emailRef="ngModel"
-        class="bg-custom placeholder-custom w-full p-2.5 border border-[#EDEDED] rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500" />
+        class="bg-custom placeholder-custom w-full p-2.5 border border-[#EDEDED] rounded-md focus:outline-none focus:ring-2 focus:ring-mint-400" />
       <div *ngIf="emailRef.invalid && emailTouched" class="text-red-400 text-sm mt-1">
         <div *ngIf="emailRef.errors?.['required']">Email is required.</div>
         <div *ngIf="emailRef.errors?.['email']">Please enter a valid email address.</div>
@@ -41,7 +41,7 @@
         <input type="checkbox" name="rememberMe" [(ngModel)]="checked" (click)="$event.stopPropagation()" />
         <span class="ml-2 text-primary-text">Keep me signed in</span>
       </div>
-      <div><a href="#" class="text-[#09B3D1] mb-4">Forgot password</a></div>
+      <div><a href="#" class="text-mint-350 mb-4">Forgot password</a></div>
     </div>
 
     <!-- Submit Button -->
@@ -58,12 +58,12 @@
   <!-- Social Login -->
   <div class="space-x-2 lg:flex justify-between">
     <app-social-button imageSrc="assets/icons/google-icon.svg" imageAlt="Google logo" label="Sign in with Google" />
-    <app-social-button iconClass="fa-brands fa-apple" label="Sign in with Apple" />
+    <app-social-button iconClass="fa-brands fa-apple" label="Sign in with Phone" />
   </div>
 
   <!-- Sign Up Prompt -->
   <p class="text-center text-sm">
     New to Lumen?
-    <a href="/signup" class="text-[#09B3D1] hover:underline">Sign Up</a>
+    <a href="/signup" class="text-mint-350 hover:underline">Sign Up</a>
   </p>
 </div>
