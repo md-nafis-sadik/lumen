@@ -214,6 +214,7 @@ export class PickleballBookingCardComponent {
   toggleExpand() {
     this.isExpanded = !this.isExpanded;
     this.sharedService.setIsExpanded(this.isExpanded);
+
   }
 
   get currentStep() {

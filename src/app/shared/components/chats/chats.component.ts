@@ -240,30 +240,38 @@ export class ChatsComponent implements AfterViewChecked {
     }, 50);
 
     setTimeout(() => {
-      // Bot message with proper typing
-      this.isExpanded = !this.isExpanded;
-    this.sharedService.setIsExpanded(this.isExpanded);
-
-      const newMessage: ChatMessage =
+      let newMessage: ChatMessage;
+  
+      const isBooking =
         trimmed.toLowerCase().includes('book') &&
-        trimmed.toLowerCase().includes('pickleball')
-          ? {
-              id: Date.now().toString(),
-              sender: 'bot',
-              content: [''],
-              type: 'booking',
-              timestamp: new Date(),
-              avatar: 'assets/icons/LUMEN.svg',
-            }
-          : {
-              id: Date.now().toString(),
-              sender: 'bot',
-              content: [chatMessage],
-              type: 'text',
-              timestamp: new Date(),
-              avatar: 'assets/icons/LUMEN.svg',
-            };
-            
+        trimmed.toLowerCase().includes('pickleball');
+  
+      if (isBooking) {
+        // ✅ Only toggle when it's a booking message
+        if (!this.isExpanded) {
+          this.isExpanded = true;
+          this.sharedService.setIsExpanded(true);
+        }
+  
+        newMessage = {
+          id: Date.now().toString(),
+          sender: 'bot',
+          content: [''],
+          type: 'booking',
+          timestamp: new Date(),
+          avatar: 'assets/icons/LUMEN.svg',
+        };
+      } else {
+        newMessage = {
+          id: Date.now().toString(),
+          sender: 'bot',
+          content: [chatMessage],
+          type: 'text',
+          timestamp: new Date(),
+          avatar: 'assets/icons/LUMEN.svg',
+        };
+      }
+  
       this.chatData = [...this.chatData, newMessage];
     }, 200);
   }
