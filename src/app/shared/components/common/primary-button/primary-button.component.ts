@@ -27,7 +27,7 @@ export class PrimaryButtonComponent {
       duration-200 
       cursor-pointer 
       bg-mint-350 
-      hover:bg-mint-500 
+      hover:bg-mint-400 
       ${this.fontSize} 
       ${this.padding} 
       ${this.customClass}

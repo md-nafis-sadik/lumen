@@ -69,7 +69,7 @@ export class ChatsComponent implements AfterViewChecked {
       buttonText: 'Learn more',
       patternUrl: 'assets/patterns/Vector.svg',
       imageUrl: 'assets/images/2025/girl-playing.png',
-      gradient: 'circle at top right, #118a9f, #07282e',
+      gradient: 'circle at top right, #1d86c5, #002a44',
       textColor: 'text-white-00',
       highlightColor: 'text-[#06ACCE]',
       buttonColor: '#06ACCE',

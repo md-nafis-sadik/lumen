@@ -1,4 +1,4 @@
-<div class="relative w-full overflow-hidden rounded-2xl" (mousedown)="onMouseDown($event)"
+<div class="relative w-full overflow-hidden rounded-2xl mt-6" (mousedown)="onMouseDown($event)"
   (mousemove)="onMouseMove($event)" (mouseup)="onMouseUp()" (mouseleave)="onMouseLeave()"
   [ngClass]="{ 'cursor-grab': !isDragging, 'cursor-grabbing': isDragging }">
   <div #slider class="flex ease-in-out transition-transform duration-700  rounded-2xl" [ngStyle]="{
@@ -16,13 +16,13 @@
           {{ slide.title }}
         </h1>
         <h1 class="text-2xl lg:text-3xl 2xl:text-5xl text-center 2xl:text-start font-bold mt-1 lg:mt-2 xl:mt-4">
-          <span [ngClass]="slide.highlightColor || 'text-cyan-300'">{{ slide.highlight }} <span
+          <span [ngClass]="slide.highlightColor || 'text-mint-300'">{{ slide.highlight }} <span
               [ngClass]="slide.textColor || 'text-white-00'">{{ slide.after_highlight }}</span></span>
         </h1>
         <p class="mt-1 lg:mt-2 xl:mt-4 text-sm lg:text-lg 2xl:text-xl text-center 2xl:text-start">{{ slide.description }}</p>
         <div class="flex justify-center 2xl:justify-start mt-2 xl:mt-4">
           <app-primary-button [text]="slide.buttonText" 
-            fontSize="text-sm mt-1 lg:mt-2 xl:mt-4"></app-primary-button>
+            fontSize="text-sm mt-1 lg:mt-2 xl:mt-4 py-3 px-3"></app-primary-button>
         </div>
       </div>
       <div class="w-full 2xl:w-1/2 flex justify-center 2xl:justify-end items-end h-[200px] lg:h-[350px] 2xl:h-[468px]">

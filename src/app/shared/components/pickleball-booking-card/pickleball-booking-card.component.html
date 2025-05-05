@@ -13,7 +13,7 @@
         'fixed top-[58px] right-[675px] h-[calc(100svh-60px)] bg-white z-10 w-full lg:w-[675px] transform translate-x-[1px]': !isExpanded,
         'fixed top-[58px] right-0 h-[calc(100svh-60px)] bg-white z-10 w-full lg:w-[675px] transform translate-x-0': isExpanded
     }">
-    <div class="flex items-center justify-between py-2 px-4 border-b">
+    <div class="flex items-center justify-between pb-2 pt-5 px-4 border-b">
       <div class="text-lg font-semibold text-gray-800">Pickleball Court Booking</div>
       <div class="cursor-pointer" (click)="toggleExpand()">
         <img src="assets/icons/expand-icon.svg" />
@@ -191,21 +191,21 @@
         class="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-100">Back</button>
       <button *ngIf="step == 0" (click)="onNextClick()"
         class="px-4 py-2 rounded-lg text-sm transition-colors duration-300" [class.bg-gray-200]="!isSlotSelected"
-        [class.text-gray-500]="!isSlotSelected" [class.bg-mint-350]="isSlotSelected" [class.text-white]="isSlotSelected"
+        [class.text-gray-500]="!isSlotSelected" [class.bg-mint-350]="isSlotSelected" [class.text-white]="isSlotSelected" [class.hover:bg-mint-400]="isSlotSelected"
         [class.cursor-not-allowed]="!isSlotSelected" [class.cursor-pointer]="isSlotSelected"
         [disabled]="!isSlotSelected">
         Next
       </button>
       <button *ngIf="step == 1" (click)="onNextClick()"
         class="px-4 py-2 rounded-lg text-sm transition-colors duration-300" [class.bg-gray-200]="!isCourtSelected"
-        [class.text-gray-500]="!isCourtSelected" [class.bg-mint-350]="isCourtSelected"
+        [class.text-gray-500]="!isCourtSelected" [class.bg-mint-350]="isCourtSelected" [class.hover:bg-mint-400]="isCourtSelected"
         [class.text-white]="isCourtSelected" [class.cursor-not-allowed]="!isCourtSelected"
         [class.cursor-pointer]="isCourtSelected" [disabled]="!isCourtSelected">
         Book Now
       </button>
       <button *ngIf="step == 2" (click)="onNextClick()"
         class="px-4 py-2 rounded-lg text-sm transition-colors duration-300" [class.bg-gray-200]="!isCourtSelected"
-        [class.text-gray-500]="!isCourtSelected" [class.bg-mint-350]="isCourtSelected"
+        [class.text-gray-500]="!isCourtSelected" [class.bg-mint-350]="isCourtSelected" [class.hover:bg-mint-400]="isCourtSelected"
         [class.text-white]="isCourtSelected" [class.cursor-not-allowed]="!isCourtSelected"
         [class.cursor-pointer]="isCourtSelected" [disabled]="!isCourtSelected">
         Pay ₹999

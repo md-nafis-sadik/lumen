@@ -167,6 +167,7 @@ export class SubmenuComponent implements OnInit {
       queryParamsHandling: 'merge',
     });
     this.showSlider = true;
+    this.sharedService.setIsExpanded(false);
 
     if (isPlatformBrowser(this.platformId) && window.innerWidth < 1024) {
       this.sharedService.isSidebarOpen(false); // Assuming the method is actually called setSidebarOpen
