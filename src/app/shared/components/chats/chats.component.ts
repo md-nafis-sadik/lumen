@@ -251,7 +251,7 @@ export class ChatsComponent implements AfterViewChecked {
         if (!this.isExpanded) {
           this.isExpanded = true;
           this.sharedService.setIsExpanded(true);
-        }
+        
   
         newMessage = {
           id: Date.now().toString(),
@@ -261,6 +261,16 @@ export class ChatsComponent implements AfterViewChecked {
           timestamp: new Date(),
           avatar: 'assets/icons/LUMEN.svg',
         };
+      }else{
+        newMessage = {
+          id: Date.now().toString(),
+          sender: 'bot',
+          content: ["Booking already in progress"],
+          type: 'text',
+          timestamp: new Date(),
+          avatar: 'assets/icons/LUMEN.svg',
+        };
+      }
       } else {
         newMessage = {
           id: Date.now().toString(),

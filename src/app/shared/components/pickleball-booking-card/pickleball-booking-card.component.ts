@@ -78,7 +78,7 @@ export class PickleballBookingCardComponent {
   private destroy$ = new Subject<void>();
 
   onNextClick() {
-    if (this.step < 3) {
+    if (this.step < 4) {
       this.step = this.step + 1;
     }
   }

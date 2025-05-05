@@ -13,7 +13,10 @@
         'fixed top-[58px] right-[675px] h-[calc(100svh-60px)] bg-white z-10 w-full lg:w-[675px] transform translate-x-[1px]': !isExpanded,
         'fixed top-[58px] right-0 h-[calc(100svh-60px)] bg-white z-10 w-full lg:w-[675px] transform translate-x-0': isExpanded
     }">
-    <div class="flex items-center justify-between pb-2 pt-5 px-4 border-b">
+    <div class="flex items-center justify-between pb-2  px-4 border-b" [ngClass]="{
+      'pt-2': !isExpanded,
+      'pt-5': isExpanded
+  }">
       <div class="text-lg font-semibold text-gray-800">Pickleball Court Booking</div>
       <div class="cursor-pointer" (click)="toggleExpand()">
         <img src="assets/icons/expand-icon.svg" />
@@ -210,7 +213,7 @@
         [class.cursor-pointer]="isCourtSelected" [disabled]="!isCourtSelected">
         Pay ₹999
       </button>
-      <div *ngIf="step == 3" class="text-mint-350 flex justify-center w-full items-center gap-2"><app-icon icon="arrowleft" color="#06acce"></app-icon><a href="/dashboard">Go to Home</a></div>
+      <div (click)="onNextClick()" *ngIf="step == 3" class="text-mint-350 flex justify-center w-full items-center gap-2"><app-icon icon="arrowleft" color="#06acce"></app-icon><a href="/dashboard">Go to Home</a></div>
     </div>
   </div>
 </div>
