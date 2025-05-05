@@ -248,7 +248,7 @@ export class ChatsComponent implements AfterViewChecked {
   
       if (isBooking) {
         // ✅ Only toggle when it's a booking message
-        if (!this.isExpanded) {
+        if (!this.sharedService.getIsExpanded()) {
           this.isExpanded = true;
           this.sharedService.setIsExpanded(true);
         

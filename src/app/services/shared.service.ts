@@ -38,6 +38,10 @@ export class SharedService {
     this.isExpandedSource.next(state);
   }
 
+  getIsExpanded(): boolean {
+    return this.isExpandedSource.getValue();
+  }
+
   private sidebarOpenSource = new BehaviorSubject<boolean>(false);
   sidebarOpen$ = this.sidebarOpenSource.asObservable();
 
