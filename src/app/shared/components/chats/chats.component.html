@@ -103,7 +103,7 @@
 
             <!-- Booking Card -->
             <app-pickleball-booking-card
-              *ngIf="item.data?.type === 'booking'"
+              *ngIf="item.data?.type === 'booking' && isExpanded"
               class="shadow rounded-xl w-full max-w-[648px] md:w-[648px]"
             >
             </app-pickleball-booking-card>

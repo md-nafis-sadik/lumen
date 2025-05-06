@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   AfterViewChecked,
   Component,
@@ -232,15 +232,17 @@ export class ChatsComponent implements AfterViewChecked {
         timestamp: new Date(),
         avatar: 'assets/icons/LUMEN.svg',
       };
-    
+          if (isPlatformBrowser(this.platformId) && window.innerWidth >= 1024) {
       this.chatData = [...this.chatData, initialMessage];
       this.chatStore.updateChat(this.selectedChatId, this.chatData);
     
       this.sharedService.setInitialBookingSent(true);
       this.showSlider = false;
       this.showMessageTemplate = false;
+
+        console.log("hello")
       this.isExpanded = true;
-      this.sharedService.setIsExpanded(true);
+      this.sharedService.setIsExpanded(true);}
     }
     
 
@@ -289,6 +291,7 @@ export class ChatsComponent implements AfterViewChecked {
         if (!this.sharedService.getIsExpanded()) {
           this.isExpanded = true;
           this.sharedService.setIsExpanded(true);
+          console.log("hello 3")
   
         newMessage = {
           id: Date.now().toString(),
@@ -412,6 +415,7 @@ export class ChatsComponent implements AfterViewChecked {
       // Handle booking messages
       if (messageType === 'booking') {
         this.sharedService.setIsExpanded(this.isExpanded);
+        console.log("hello 2")
         return {
           id: msg.id,
           sender: msg.sender === 'right' ? 'user' : 'bot',
