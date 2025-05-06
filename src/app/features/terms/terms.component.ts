@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-terms',
   standalone: true,
@@ -8,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './terms.component.css'
 })
 export class TermsComponent {
+  constructor(private location: Location) {}
 
+goBack(): void {
+  this.location.back();
+}
 }

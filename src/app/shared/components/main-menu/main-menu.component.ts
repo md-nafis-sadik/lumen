@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { SharedService } from '../../../services/shared.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -13,7 +14,8 @@ export class MainMenuComponent {
   @Input() active: string = '';  // This will hold the active menu key.
   @Output() menuSelect = new EventEmitter<string>();
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private sharedService: SharedService,){}
+
 
   menus = [
     { key: 'booking', image: 'assets/icons/profile-circle-icon.svg' },
@@ -29,7 +31,7 @@ export class MainMenuComponent {
     this.menuSelect.emit(key);  // Emit the active key to the parent component
 
     this.router.navigate(['/dashboard'], );
-
+    this.sharedService.setIsExpanded(false);
   }
 
   // Check if the current menu button is active

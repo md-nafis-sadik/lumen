@@ -59,6 +59,7 @@ export class ChatsComponent implements AfterViewChecked {
   selectedChatId: string | null = null;
   generatedChats: string[] = [];
   isExpanded = false;
+  initialBookingSent = false;
 
   sliderSlides = [
     {
@@ -154,7 +155,23 @@ export class ChatsComponent implements AfterViewChecked {
     const chatMap: { [key: string]: any } = {
       'contact-id-1': {
         messages: chat,
+        avatar: 'assets/images/users/avatar-1.jpg',
+      },
+      'contact-id-6': {
+        messages: chat,
         avatar: 'assets/images/users/avatar-2.jpg',
+      },
+      'contact-id-7': {
+        messages: chat,
+        avatar: 'assets/images/users/avatar-3.jpg',
+      },
+      'contact-id-8': {
+        messages: chat,
+        avatar: 'assets/images/users/avatar-4.jpg',
+      },
+      'contact-id-9': {
+        messages: chat,
+        avatar: 'assets/images/users/avatar-5.jpg',
       },
       'contact-id-12': {
         messages: channel_chat,
@@ -206,6 +223,27 @@ export class ChatsComponent implements AfterViewChecked {
     const trimmed = this.userInput.trim();
     if (!trimmed) return;
 
+    if (!this.sharedService.getInitialBookingSent()) {
+      const initialMessage: ChatMessage = {
+        id: Date.now().toString(),
+        sender: 'bot',
+        content: [''],
+        type: 'booking',
+        timestamp: new Date(),
+        avatar: 'assets/icons/LUMEN.svg',
+      };
+    
+      this.chatData = [...this.chatData, initialMessage];
+      this.chatStore.updateChat(this.selectedChatId, this.chatData);
+    
+      this.sharedService.setInitialBookingSent(true);
+      this.showSlider = false;
+      this.showMessageTemplate = false;
+      this.isExpanded = true;
+      this.sharedService.setIsExpanded(true);
+    }
+    
+
     const currentChat = this.chatStore.getChat(this.selectedChatId);
     const newMessages = [
       ...currentChat,
@@ -251,7 +289,6 @@ export class ChatsComponent implements AfterViewChecked {
         if (!this.sharedService.getIsExpanded()) {
           this.isExpanded = true;
           this.sharedService.setIsExpanded(true);
-        
   
         newMessage = {
           id: Date.now().toString(),

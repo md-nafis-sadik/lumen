@@ -30,6 +30,16 @@ export class SharedService {
   private isExpandedSource = new BehaviorSubject<boolean>(false);
   isExpanded$ = this.isExpandedSource.asObservable();
 
+  private _initialBookingSent = false;
+
+  setInitialBookingSent(value: boolean) {
+    this._initialBookingSent = value;
+  }
+
+  getInitialBookingSent(): boolean {
+    return this._initialBookingSent;
+  }
+
   setIsExpansionOn(state: boolean) {
     this.isExpansionOnSource.next(state);
   }
